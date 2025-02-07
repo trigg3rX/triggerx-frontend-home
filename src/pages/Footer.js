@@ -23,18 +23,18 @@ const Footer = () => {
           />
           <div className="flex justify-center  gap-4 flex-col  items-start sm:items-end font-actayRegular">
             {" "}
-            <div className="flex justify-end space-x-6 gap-4 text-sm">
+            <div className="flex justify-end space-x-6 gap-4 text-sm lg:text-lg">
               <a href="#" className="hover:text-gray-400">
                 Build
               </a>
-              <a href="#" className="hover:text-gray-400">
+              <a href="#" className="hover:text-gray-400 ">
                 Docs
               </a>
               <a href="#" className="hover:text-gray-400">
                 Dev Hub
               </a>
             </div>
-            <div className="flex justify-between text-sm gap-4">
+            <div className="flex justify-between text-sm gap-4 lg:text-lg">
               <a href="#" className="hover:text-gray-400">
                 Keeper Network
               </a>
@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-col gap-3 ">
             <div>
-              <div className=" space-x-4 items-center lg:flex md:hidden sm:hidden hidden  ">
+              <div className=" space-x-4 items-center lg:flex md:hidden sm:hidden hidden text-lg ">
                 <a
                   href="https://github.com/trigg3rX"
                   className="hover:text-gray-300"

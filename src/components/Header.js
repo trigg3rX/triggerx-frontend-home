@@ -73,7 +73,7 @@ const Header = () => {
         landing: {
           width: 500,
           x: viewportWidth * -0,
-          y: -480,
+          y: -500,
         },
         mobile: {
           x: viewportWidth * -0,
@@ -191,15 +191,15 @@ const Header = () => {
       return {
         logo: {
           width: 130, // Setting a width to make x and y values easier to calculate
-          x: -58, // Centering and adding offset from center
-          y: -165, // 70% of the way down
+          x: -93, // Centering and adding offset from center
+          y: -163, // 70% of the way down
         },
         nav: {
           x: viewportWidth * -0, // Center
           y: viewportHeight * -0, // 30% from top
         },
         landing: {
-          width: 300,
+          width: 250,
           x: viewportWidth * -0,
           y: -355,
           scale: 0.8,
@@ -518,11 +518,25 @@ const Header = () => {
         });
       }
     };
+    const handleKeyPress = (event) => {
+      // You can specify certain keys or remove this condition to trigger on any key
+      if (event.key === "Enter") {
+        playAnimation();
+      }
+    };
+    const handleGlobalClick = (event) => {
+      playAnimation();
+    };
 
     window.addEventListener("scroll", handleScroll);
+    document.addEventListener("keydown", handleKeyPress);
+    document.addEventListener("click", handleGlobalClick);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("click", handleGlobalClick);
+
+      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [animationPlayed]);
 
@@ -855,21 +869,19 @@ const Header = () => {
 
           {/* Hero Section with Animated Elements */}
           <div className="w-[100%] px-20 flex sm:my-[100px]  md:my-[100px] lg:my-[100px] my-[100px]  items-center flex-col relative">
-            <div className="w-full relative">
-              <Image
-                ref={mainLogoMRef}
-                src={logo}
-                alt="TriggerX Logo"
-                className="w-full"
-              />
-            </div>
+            <Image
+              ref={mainLogoMRef}
+              src={logo}
+              alt="TriggerX Logo"
+              className="w-[250px] max-w-[900px] sm:w-[250px] md:w-[500px] lg:w-[400px] xl:w-[500px]"
+            />
 
-            <div className="absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-0">
+            <div className="absolute sm:top-10 top-5 md:top-6 lg:top-10 xl:top-0 ">
               <Image
                 ref={landingImageMRef}
                 src={landing}
                 alt="Landing illustration"
-                className="md:w-[450px] sm:w-[250px] w-[250px]"
+                className="md:w-[450px] sm:w-[200px] w-[200px] lg:w-[450px] xl:w-[450px] "
                 style={{
                   opacity: imageOpacity,
                   transition: "opacity 0.3s ease",

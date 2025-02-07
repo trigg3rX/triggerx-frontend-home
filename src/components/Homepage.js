@@ -120,7 +120,7 @@ function Homepage() {
         <div ref={nextGenRef} className="relative -z-10">
           <section className="lg:my-40 md:my-40 my-20 sm:my-20 ">
             <div
-              className=" w-[90%] mx-auto  my-20  font-Grotest15 "
+              className=" w-[90%] mx-auto  mt-[11rem]  font-Grotest15 "
               id="target-section"
             >
               <h1 className=" text-center text-4xl sm:text-5xl md:text-5xl lg:text-7xl leading-[3rem] lg:leading-0 md:leading-12 sm:leading-15">
@@ -134,7 +134,7 @@ function Homepage() {
               </h1>
             </div>
 
-            <div className=" w-[50rem] mx-auto my-10">
+            <div className=" w-[50rem] mx-auto mt-10 mb-3">
               <div className="relative ">
                 <h4 className="text-[#A2A2A2]  font-actayRegular text-center lg:text-lg md:text-lg text-md sm:text-md lg:leading-[2rem] md:leading-[2rem] sm:lg:leading-[1.5rem] leading-[1.5rem] py-5 px-9 tracking-wide font-normal">
                   Powered by Eigenlayer. Built with ♥️ for the Superchain.
@@ -175,10 +175,10 @@ function Homepage() {
           </section>
           <section
             ref={section2Ref}
-            className="flex justify-around items-center gap-10 w-full overflow-hidden mx-auto lg:mt-40 md:mt-40 mt-20 sm:mt-20 flex-row "
+            className="flex justify-between items-center gap-10 w-full overflow-hidden mx-auto lg:mt-40 md:mt-40 mt-20 sm:mt-20 flex-row "
           >
-            <div className="flex flex-col items-center ">
-              <h2 className=" font-Grotest15 text-white lg:text-6xl font-normal md:text-5xl  sm:text-4xl text-4xl w-[100%] text-start">
+            <div className="flex flex-col items-center ml-20 gap-10">
+              <h2 className=" font-Grotest15 text-white lg:text-8xl font-normal md:text-5xl  sm:text-4xl text-4xl w-[100%] text-start">
                 <div>Why </div>
                 <div>TriggerX?</div>
               </h2>
@@ -188,7 +188,7 @@ function Homepage() {
               </div>
             </div>
             <div
-              className=" w-[25rem]" // Important:  This container needs to hide overflow
+              className=" w-[50rem]" // Important:  This container needs to hide overflow
             >
               <div className="flex w-max transition-transform duration-300 ease-linear">
                 {Boxdata.map((box, index) => (
@@ -197,7 +197,7 @@ function Homepage() {
                     style={{
                       boxShadow: "inset 0px 0px 7.91px 0px #656565",
                     }}
-                    className="relative max-w-xs rounded-[20px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-2 mr-4 last:mr-0"
+                    className="relative max-w-sm  rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-2 mr-4 last:mr-0"
                   >
                     <div className="relative z-0 h-48">
                       {" "}
@@ -205,14 +205,14 @@ function Homepage() {
                       <Image
                         src={box.imageSrc}
                         alt={box.title}
-                        className="object-cover rounded-xl"
+                        className="object-cover rounded-[30px]"
                         fill
                         style={{ objectFit: "fill" }}
                       />
                     </div>
-                    <div className="relative z-10 space-y-4 p-3">
-                      <h2 className=" font-actayWide text-2xl font-bold text-white">
-                        {box.title}
+                    <div className="relative z-10 space-y-6 p-3">
+                      <h2 className=" font-actayWide text-5xl  text-white font-bold ">
+                        <b>{box.title}</b>
                       </h2>
                       <p className="text-gray-300 text-sm font-actayRegular">
                         {box.description}
@@ -226,10 +226,10 @@ function Homepage() {
 
           <section className=" lg:mx-[50px] md:mx-[50px] sm:mx-[30px] mx-[30px] lg:my-40 md:my-40 my-20 sm:my-20 ">
             <div className="bg-white rounded-3xl  shadow-lg text-black">
-              <div className=" flex items-start relative ">
-                <div className="flex items-center justify-between flex-col p-8 w-[90%]">
-                  <div className="relative lg:p-10 md:p-8 sm:p-0 p-0 z-10 text-start">
-                    <h1 className=" font-Grotest15 lg:text-6xl md:text-5xl sm:text-2xl text-2xl text-start relative lg:pt-6 md:pt-6 sm:pt-3 pt-3 ">
+              <div className=" flex items-start relative flex-col p-16">
+                <div className="flex items-start justify-between flex-col  w-[90%]">
+                  <div className="relative lg:p-0 md:p-0 sm:p-0 p-0 z-10 text-start">
+                    <h1 className=" font-Grotest15 lg:text-6xl md:text-5xl sm:text-2xl text-2xl text-start relative  pb-14 ">
                       What
                       <span className="relative text-[#5047FF] py-2 px-4 ml-3 lg:text-6xl md:text-5xl sm:text-2xl text-2xl ">
                         TriggerX {/* Decorative Elements */}
@@ -243,8 +243,14 @@ function Homepage() {
                       Offers
                     </h1>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 lg:py-8 md:py-8 sm:py-8 py-8 lg:px-8 md:px-8 sm:px-0 px-0 ">
+                  <Image
+                    src={choose}
+                    alt={""}
+                    className="sm:w-[100px] w-[100px] lg:w-[20%] md:w-[10%] absolute right-0"
+                  />
+                </div>
+                <div className="flex flex-col w-3/4 gap-20">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8   px-0 ">
                     {/* First Item */}
                     <div className="space-y-4">
                       <h2 className="font-actayWide text-4xl px-2 extra-bold">
@@ -311,7 +317,7 @@ function Homepage() {
                     </div>
                   </div>
                   <div className="flex gap-4 justify-center">
-                    <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-3 rounded-full group transition-transform">
+                    <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-8 py-3 rounded-full group transition-transform">
                       <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2">
                         {/* This is the red background box */}
                       </span>
@@ -320,8 +326,8 @@ function Homepage() {
                         Dev Hub
                       </span>
                     </button>
-                    <button className="relative bg-[#222222] text-black border border-white px-6 py-3 rounded-full group transition-transform">
-                      <span className="absolute inset-0 bg-[#222222] border border-white rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2">
+                    <button className="relative bg-[#222222] text-black border border-black px-8 py-3 rounded-full group transition-transform">
+                      <span className="absolute inset-0 bg-[#222222] border border-black rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2">
                         {/* This is the red background box */}
                       </span>
                       <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0">
@@ -333,56 +339,49 @@ function Homepage() {
                     </button>
                   </div>
                 </div>
-
-                <Image
-                  src={choose}
-                  alt={""}
-                  className="sm:w-[100px] w-[100px] lg:w-[20%] md:w-[10%] absolute right-0"
-                />
               </div>
             </div>
           </section>
 
-          <section className=" w-[90%] mx-auto lg:my-40 md:my-40 my-20 sm:my-20  flex justify-evenly">
-            <div className="flex flex-col items-start  ">
+          <section className=" w-full mx-auto lg:my-40 md:my-40 my-20 sm:my-20  flex justify-evenly">
+            <div className="flex flex-col items-start w-1/4 ">
               <Image src={usecase} alt="" />
-              <h1 className="font-Grotest15 text-4xl md:text-6xl text-white  text-center ">
-                Who is TriggerX For?
+              <h1 className="font-Grotest15 text-6xl  text-white  text-start ">
+                Who is
+              </h1>
+              <h1 className="font-Grotest15 text-6xl  text-white  text-start ">
+                TriggerX For?
               </h1>
               <div className="font-actayRegular">
-                <h4 className="text-lg md:text-md text-[#A2A2A2] text-center mt-10">
+                <h4 className="text-lg md:text-md text-[#A2A2A2] text-start mt-12">
                   Whether you're a dApp developer, DeFi protocol creator, or
-                  enterprise innovator,
-                </h4>
-                <h4 className="text-lg md:text-md text-[#A2A2A2]   text-center">
-                  {" "}
-                  TriggerX empowers you to automate tasks with ease and
-                  confidence.
+                  enterprise innovator, TriggerX empowers you to automate tasks
+                  with ease and confidence.
                 </h4>
               </div>
             </div>
 
             <div>
               <div className="lg:mt-20 md:mt-20 mt-20 sm:mt-20 font-actayWide">
-                <h4 className="text-[#FBF197] text-2xl text-left py-3 ">
+                <h4 className="text-[#FBF197] text-4xl text-left mb-7">
                   <b>Use cases include</b>
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-1 gap-4 max-w-6xl mx-auto ">
-                  <div className="relative flex items-center gap-3 px-4 pb-4 pt-4 rounded-xl">
+                <div className="grid grid-cols-1 md:grid-cols-1 max-w-6xl mx-auto ">
+                  <div className="relative flex items-center gap-3 p-6 rounded-xl">
                     <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
                     <div className="flex items-center gap-8 ">
                       <Image src={honesty} alt={""} width={30} />
                       <h3 className="text-xl">Automated API calls</h3>
                     </div>
                   </div>
-                  <div className="relative flex items-center gap-3 px-4 pb-4 pt-4 rounded-xl">
+                  <div className="relative flex items-center gap-3 p-6 rounded-xl">
                     <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
                     <div className="flex items-center gap-8 ">
                       <Image src={validation} alt={""} width={30} />
                       <h3 className="text-xl">Governance actions</h3>
                     </div>
                   </div>
-                  <div className="relative flex items-center gap-3 px-4 pb-4 pt-4 rounded-xl">
+                  <div className="relative flex items-center gap-3 p-6 rounded-xl">
                     <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
                     <div className="flex items-center gap-8 ">
                       <Image src={security} alt={""} width={30} />
@@ -390,19 +389,17 @@ function Homepage() {
                     </div>
                   </div>
 
-                  <div className="relative flex items-center gap-3 px-4 pb-4 pt-4 rounded-xl">
+                  <div className="relative flex items-center gap-3 p-6 rounded-xl">
                     <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
                     <div className="flex items-center gap-8 ">
                       <Image src={honesty} alt={""} width={30} />
                       <h3 className="text-xl">Token burns or mints</h3>
                     </div>
                   </div>
-                </div>
-                <div className=" max-w-[30rem] mx-auto mt-5">
-                  <div className="relative flex items-center gap-3 px-4 pb-4 pt-4  rounded-xl">
+                  <div className="relative flex items-center gap-3 p-6 rounded-xl">
                     <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
                     <div className="flex items-center gap-8 ">
-                      <Image src={security} alt={""} width={30} />
+                      <Image src={honesty} alt={""} width={30} />
                       <h3 className="text-xl">User notifications and more !</h3>
                     </div>
                   </div>
@@ -422,8 +419,8 @@ function Homepage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6  ">
                   <div className="bg-[#141414] rounded-2xl border border-white/10  sm:flex flex items-center lg:block md:block">
                     <div className="p-6 max-w-[15rem]">
-                      <h3 className="text-2xl mb-3 text-start font-actayWide">
-                        Speak to Us
+                      <h3 className="text-4xl mb-3 text-start font-actayWide">
+                        <b>Speak to Us</b>
                       </h3>
                       <h4 className=" text-md text-start tracking-wider text-[#82FBD0] py-5 font-actayRegular">
                         <a href="hello@triggerx.network" target="_blank">
@@ -435,8 +432,8 @@ function Homepage() {
 
                   <div className="bg-[#141414] rounded-2xl border border-white/10  sm:flex flex items-center lg:block md:block">
                     <div className="p-6 max-w-[15rem]">
-                      <h3 className="text-2xl mb-3 text-start font-actayWide">
-                        Dev Hub
+                      <h3 className="text-4xl mb-3 text-start font-actayWide">
+                        <b>Dev Hub</b>
                       </h3>
                       <h4 className=" text-md text-start tracking-wider text-[#82FBD0] py-5 font-actayRegular">
                         <a href="hello@triggerx.network" target="_blank">
@@ -448,8 +445,8 @@ function Homepage() {
 
                   <div className="bg-[#141414] rounded-2xl border border-white/10  sm:flex flex items-center lg:block md:block">
                     <div className="p-6 max-w-[15rem]">
-                      <h3 className="text-2xl mb-3 text-start font-actayWide">
-                        Follow us on X
+                      <h3 className="text-4xl mb-3 text-start font-actayWide">
+                        <b>Follow us on X</b>
                       </h3>
                       <h4 className=" text-md text-start tracking-wider text-[#82FBD0] py-5 font-actayRegular">
                         <a href="hello@triggerx.network" target="_blank">
