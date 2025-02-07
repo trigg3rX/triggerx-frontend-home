@@ -13,16 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [highlightStyle, setHighlightStyle] = useState({});
-  const [prevRect, setPrevRect] = useState<DOMRect | null>(null);
-  const navRef = useRef<HTMLDivElement>(null);
+  const [prevRect, setPrevRect] = useState();
+  const navRef = useRef();
   const router = useRouter();
-
   const navMobileRef = useRef(null);
   const navMobileMRef = useRef(null);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [MobileAnimationCompleted, setMobileAnimationCompleted] =
     useState(false);
-
   const landingImageRef = useRef(null);
   const landingImageMRef = useRef(null);
   const logoRef = useRef(null);
@@ -319,8 +317,15 @@ const Header = () => {
       playAnimation();
     };
 
-    const handleClick = () => {
-      playAnimation();
+    const handleGlobalClick = (event) => {
+      const isNavClick =
+        event.target.closest("nav") ||
+        event.target.closest(".scroll-arrow") ||
+        event.target.closest("button");
+
+      if (!isNavClick) {
+        playAnimation();
+      }
     };
 
     const handleKeyPress = (event) => {
@@ -332,19 +337,20 @@ const Header = () => {
 
     // Add event listeners
     window.addEventListener("scroll", handleScroll);
-    document.addEventListener("click", handleClick);
+    document.addEventListener("click", handleGlobalClick);
     document.addEventListener("keydown", handleKeyPress);
 
     // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("click", handleClick);
+      document.removeEventListener("click", handleGlobalClick);
       document.removeEventListener("keydown", handleKeyPress);
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   const handleArrowClick = () => {
+    e.stopPropagation();
     playAnimation();
   };
 
@@ -526,7 +532,7 @@ const Header = () => {
   const handleMouseEnter = (event) => {
     const hoveredElement = event.currentTarget;
     if (!hoveredElement) return;
-    const rect = (hoveredElement ).getBoundingClientRect();
+    const rect = hoveredElement.getBoundingClientRect();
     const navRect = navRef.current
       ? navRef.current.getBoundingClientRect()
       : { x: 0, y: 0, width: 0, height: 0 };
@@ -563,6 +569,7 @@ const Header = () => {
       setDropdownOpen(false);
     }
   };
+
   return (
     <div>
       <div
@@ -598,7 +605,7 @@ const Header = () => {
                         <button
                           onClick={() => toggleDropdown(item)}
                           onMouseEnter={handleMouseEnter}
-                          className={`
+                          className={` font-actayRegular
                     text-center  px-6 py-3 rounded-xl
                     text-white relative z-10 cursor-pointer flex items-center gap-1
                     ${
@@ -633,16 +640,16 @@ const Header = () => {
                             ref={dropdownRef}
                             className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]"
                           >
-                            <div className="py-2 px-4 flex flex-col">
+                            <div className="py-2 px-4 flex flex-col font-actayRegular">
                               <a
                                 href="#"
-                                className="block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
                                 Build
                               </a>
                               <a
                                 href="#"
-                                className="block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
                                 Keeper Community
                               </a>
@@ -660,7 +667,7 @@ const Header = () => {
                   {/* This is the red background box */}
                 </span>
                 <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                <span className="relative z-10 lg:px-2 md:px-6 sm:px-3 px-3 py-3 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                <span className="font-actayRegular relative z-10 lg:px-2 md:px-6 sm:px-3 px-3 py-3 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
                   Dev Hub
                 </span>
               </button>
@@ -720,9 +727,10 @@ const Header = () => {
 
       <div
         ref={containerMRef}
-        className="relative  h-screen w-full  sm:block md:block lg:hidden xl:hidden block"
+        className="relative  h-screen w-full  sm:block md:block lg:hidden xl:hidden block "
       >
         {/* Fixed Header */}
+
         <div
           ref={headerMRef}
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
@@ -770,7 +778,7 @@ const Header = () => {
                                     item.dropdown ?? false
                                   );
                                 }}
-                                className={`
+                                className={` font-actayRegular
                       px-7 py-3 rounded-xl
                           relative z-10 cursor-pointer flex items-center gap-1
                           ${
@@ -805,16 +813,16 @@ const Header = () => {
                                   ref={dropdownRef}
                                   className="  bg-[#202020]  rounded-md shadow-lg border border-[#4b4a4a]"
                                 >
-                                  <div className="py-2 px-4 flex flex-col">
+                                  <div className="py-2 px-4 flex flex-col ">
                                     <a
                                       href="#"
-                                      className="block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                      className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Build
                                     </a>
                                     <a
                                       href="#"
-                                      className="block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                      className=" font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Keeper Community
                                     </a>

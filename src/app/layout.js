@@ -1,17 +1,13 @@
 import "./globals.css";
-
-
+import "../app/styles/fonts.css";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
-
 
 // w-1/2  = width: 50%
 // w-1/3  = width: 33.333333%
