@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import logo from "../app/assets/logo.svg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -24,6 +24,7 @@ const Header = () => {
   const landingImageRef = useRef(null);
   const landingImageMRef = useRef(null);
   const logoRef = useRef(null);
+  const pathname = usePathname(); // Get the current path
   const mainLogoRef = useRef(null);
   const containerRef = useRef(null);
   const headerMRef = useRef(null);
@@ -46,7 +47,7 @@ const Header = () => {
     { id: "Contact Us", path: "/", label: "Contact Us" },
   ];
 
-  const isActiveRoute = (path) => location.pathname === path;
+  const isActiveRoute = (path) => pathname === path;
 
   const playAnimation = () => {
     if (animationPlayed.current) return;
