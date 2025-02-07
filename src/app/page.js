@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Footer from "@/pages/Footer";
+import Footer from "@/components/Footer";
 import Homepage from "@/components/Homepage";
 import Header from "@/components/Header";
 

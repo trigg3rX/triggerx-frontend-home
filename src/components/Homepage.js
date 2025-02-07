@@ -24,9 +24,9 @@ import MEigen from "../app/assets/M-Eigen.svg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 // import Main from "../components/Main";
-import Boxdata from "../components/Boxdata";
+import Boxdata from "./Boxdata";
 import Header from "./Header";
-import Footer from "@/pages/Footer";
+import Footer from "./Footer";
 
 gsap.registerPlugin(ScrollTrigger);
 
