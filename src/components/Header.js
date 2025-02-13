@@ -75,10 +75,10 @@ const Header = () => {
           x: viewportWidth * -0,
           y: -500,
         },
-        mobile: {
-          x: viewportWidth * -0,
-          y: viewportHeight * -0,
-        },
+        // mobile: {
+        //   x: viewportWidth * -0,
+        //   y: viewportHeight * -0,
+        // },
       };
     };
 
@@ -190,9 +190,9 @@ const Header = () => {
 
       return {
         logo: {
-          width: 130, // Setting a width to make x and y values easier to calculate
-          x: -93, // Centering and adding offset from center
-          y: -163, // 70% of the way down
+          width: 170,
+          x: viewportWidth * -0,
+          y: -170,
         },
         nav: {
           x: viewportWidth * -0, // Center
@@ -220,7 +220,7 @@ const Header = () => {
       {
         x: 0,
         y: 0,
-        scale: 1,
+        // scale: 1,
       }
     );
 
@@ -238,11 +238,11 @@ const Header = () => {
       width: positions.logo.width, // Animate the width
       x: positions.logo.x,
       y: positions.logo.y,
-
+      right: "40%",
       ease: "power2.out",
       duration: 1,
       zIndex: 10,
-      position: "relative",
+      // position: "relative",
     });
 
     tl.to(
@@ -587,26 +587,26 @@ const Header = () => {
 
   return (
     <div>
+      {/* large screen navbar */}
       <div
         ref={containerRef}
-        className="relative  h-screen w-full hidden sm:hidden md:hidden lg:block xl:block "
+        className="relative h-screen w-full hidden lg:block overflow-hidden"
       >
         {/* Fixed Header */}
-
         <div
           ref={headerRef}
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="headerbg lg:w-[100%] md:w-[100%] lg:px-20 md:px-10 sm:px-10 px-10 justify-between py-10 header sm:hidden hidden lg:flex md:hidden items-center">
+            <div className="headerbg w-[100%] px-10 xl:px-20 flex items-center justify-between py-10 header">
               {/* Logo Container */}
               <div className="w-[120px] opacity-0"></div>
 
               {/* Navigation Container - Now positioned absolutely for animation */}
-              <div ref={navigationRef} className="absolute left-1/6   z-100 ">
+              <div ref={navigationRef} className="absolute left-1/6 z-100 ">
                 <nav
                   ref={navRef}
-                  className="relative bg-[#181818F0]  rounded-xl z-10"
+                  className="relative bg-[#181818F0] rounded-xl z-10"
                   onMouseLeave={handleMouseLeave}
                 >
                   <div
@@ -614,21 +614,17 @@ const Header = () => {
                     style={highlightStyle}
                   />
 
-                  <div className="relative flex gap-5">
+                  <div className="relative flex gap-3 xl:gap-5">
                     {navItems.map((item) => (
                       <div key={item.id} className="relative">
                         <button
                           onClick={() => toggleDropdown(item)}
                           onMouseEnter={handleMouseEnter}
-                          className={` font-actayRegular
-                    text-center  px-6 py-3 rounded-xl
-                    text-white relative z-10 cursor-pointer flex items-center gap-1
-                    ${
-                      item.path && isActiveRoute(item.path)
-                        ? "text-white"
-                        : "text-gray-400"
-                    }
-                  `}
+                          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                            item.path && isActiveRoute(item.path)
+                              ? "text-white"
+                              : "text-gray-400"
+                          }`}
                         >
                           {item.label}
                           {item.dropdown && (
@@ -677,12 +673,10 @@ const Header = () => {
                 </nav>
               </div>
 
-              <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-3 rounded-full group transition-transform">
-                <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2">
-                  {/* This is the red background box */}
-                </span>
+              <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                 <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                <span className="font-actayRegular relative z-10 lg:px-2 md:px-6 sm:px-3 px-3 py-3 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                   Dev Hub
                 </span>
               </button>
@@ -690,7 +684,7 @@ const Header = () => {
           </div>
 
           {/* Hero Section with Animated Elements */}
-          <div className="w-[100%] px-20 flex sm:my-[150px]  md:my-[100px] lg:my-[100px] my-[150px]  items-center flex-col relative">
+          <div className="w-[100%] px-20 flex flex-col items-center my-[150px] md:my-[100px] relative">
             <div className="w-full">
               <Image
                 ref={mainLogoRef}
@@ -711,6 +705,7 @@ const Header = () => {
               }}
             />
           </div>
+
           {!animationCompleted && (
             <div
               ref={arrowRef}
@@ -740,9 +735,10 @@ const Header = () => {
         </div>
       </div>
 
+      {/* mobile screen navbar */}
       <div
         ref={containerMRef}
-        className="relative  h-screen w-full  sm:block md:block lg:hidden xl:hidden block "
+        className="relative h-screen w-full block lg:hidden"
       >
         {/* Fixed Header */}
 
@@ -751,16 +747,15 @@ const Header = () => {
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="w-[100%] px-10 flex justify-end gap-3 items-center py-10 header sm:flex lg:hidden md:flex">
-              {/* <div className="absolute top-3 left-1/2 transform -translate-x-1/2 -translate-y-10 z-0">
-              <img src={nav} alt="Nav Background" className="w-64 h-auto z-0" />
-            </div> */}
-
-              <div className="relative  items-center gap-5 ">
+            <div className="w-[100%] px-10 py-10 flex justify-between gap-3 items-center header lg:hidden">
+              <div className="relative items-center gap-5 ">
                 <div className="flex-shrink-0 relative z-10 text-sm sm:hidden hidden md:flex"></div>
               </div>
-              <div className="flex-shrink-0 relative z-10 " ref={navMobileMRef}>
-                <div className="lg:hidden ">
+              <div
+                className="flex-shrink-0 relative z-10 lg:hidden"
+                ref={navMobileMRef}
+              >
+                <div className="lg:hidden">
                   <h4
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="text-white text-2xl cursor-pointer"
@@ -768,7 +763,7 @@ const Header = () => {
                     {menuOpen ? "✖" : "☰"}
                   </h4>
                   {menuOpen && (
-                    <div className="absolute top-full right-0 mt-3 bg-[#181818] p-4 rounded-md shadow-lg z-10 w-60">
+                    <div className="absolute top-full right-0 mt-3 bg-[#181818] p-4 rounded-md shadow-lg z-10 w-60 lg:hidden">
                       <nav
                         ref={navRef}
                         className="relative"
@@ -793,9 +788,9 @@ const Header = () => {
                                     item.dropdown ?? false
                                   );
                                 }}
-                                className={` font-actayRegular
+                                className={` font-actayRegular text-xs sm:text-sm
                       px-7 py-3 rounded-xl
-                          relative z-10 cursor-pointer flex items-center gap-1
+                          relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full
                           ${
                             item.path && isActiveRoute(item.path)
                               ? "text-white"
@@ -811,7 +806,7 @@ const Header = () => {
                                     viewBox="0 0 24 24"
                                     strokeWidth="1.5"
                                     stroke="currentColor"
-                                    className={`w-4 h-4 transition-transform duration-300 ${
+                                    className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 ${
                                       dropdownOpen ? "rotate-180" : "rotate-0"
                                     }`}
                                   >
@@ -826,7 +821,7 @@ const Header = () => {
                               {item.dropdown && dropdownOpen && (
                                 <div
                                   ref={dropdownRef}
-                                  className="  bg-[#202020]  rounded-md shadow-lg border border-[#4b4a4a]"
+                                  className="  bg-[#202020] text-xs sm:text-sm  rounded-md shadow-lg border border-[#4b4a4a]"
                                 >
                                   <div className="py-2 px-4 flex flex-col ">
                                     <a
@@ -847,14 +842,10 @@ const Header = () => {
                             </div>
                           ))}
 
-                          <button className="relative bg-[#222222] text-black border border-white px-6 py-3 rounded-full group transition-transform">
-                            <span className="absolute inset-0 bg-[#222222] border border-white rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2">
-                              {/* This is the red background box */}
-                            </span>
-                            <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0">
-                              {/* This is the white box that moves up */}
-                            </span>
-                            <span className="relative z-10 lg:px-2 md:px-6 sm:px-3 px-3 py-3 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out">
+                          <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                            <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+                            <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+                            <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                               Dev Hub
                             </span>
                           </button>
@@ -868,7 +859,7 @@ const Header = () => {
           </div>
 
           {/* Hero Section with Animated Elements */}
-          <div className="w-[100%] px-20 flex sm:my-[100px]  md:my-[100px] lg:my-[100px] my-[100px]  items-center flex-col relative">
+          <div className="w-[100%] px-20 flex flex-col items-center my-[100px] relative">
             <Image
               ref={mainLogoMRef}
               src={logo}
@@ -889,6 +880,7 @@ const Header = () => {
               />
             </div>
           </div>
+
           {!MobileAnimationCompleted && (
             <div
               ref={arrowRef}

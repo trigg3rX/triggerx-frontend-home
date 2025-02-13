@@ -11,6 +11,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   background-image: url("assets//grid.png");
+  font-family: 'Actay', sans-serif;
 }
 
 .headerbg {
@@ -26,4 +27,31 @@ input {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Sharp Grotesk';
+  src: url('/fonts/sharp-grotesk-300.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Actay Wide';
+  src: url('/fonts/ActayWide-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Actay';
+  src: url('/fonts/actay-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
 }
