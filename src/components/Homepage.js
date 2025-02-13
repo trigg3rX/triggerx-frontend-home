@@ -237,9 +237,9 @@ function Homepage() {
       <div className="relative z-0">
         <Header />
         <div ref={nextGenRef} className="relative -z-10">
-          <section className="my-10 sm:my-20 xl:my-40 ">
+          <section className="my-20 xl:my-40 ">
             <div
-              className="font-sharpGrotesk w-[90%] mx-auto mt-0 xs:mt-[100px] lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px]"
+              className="font-sharpGrotesk w-[90%] mx-auto mt-[100px] lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px]"
               id="target-section"
             >
               <h1 className=" text-center text-2xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] transform scale-y-[.8]">
