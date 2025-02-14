@@ -93,14 +93,15 @@ function Homepage() {
         },
         scrollTrigger: {
           trigger: section,
-          start: "bottom bottom-=10",
-          end: () => `+=${slider.scrollWidth - window.innerWidth}`,
+          start: "bottom bottom",
+          // end: () => `+=${slider.scrollWidth - window.innerWidth}`,
+          end: "+=100%", 
           pin: true,
           pinSpacing: true,
           scrub: 1,
           invalidateOnRefresh: true,
           anticipatePin: 1,
-          // markers: true,
+          markers: true,
         },
       });
   
@@ -457,10 +458,10 @@ function Homepage() {
               <div className="hidden md:inline-block w-[50%] h-max">
                 <Image src={usecase} alt="usecase" className="w-full h-auto" />
               </div>
-              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[5vw] text-center md:text-start leading-normal 2xl:leading-[8rem] xl:mb-5 w-full md:w-auto">
+              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[4rem] xl:mb-5 w-full md:w-auto">
                 Who is
               </h1>
-              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[5vw] text-center md:text-start lg:leading-[6rem] 2xl:leading-[8rem] w-full md:w-auto">
+              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[4rem] w-full md:w-auto">
                 TriggerX For?
               </h1>
               <div className="font-actayRegular w-[95%]">
@@ -473,7 +474,7 @@ function Homepage() {
             </div>
 
             <div className="font-actayWide w-full sm:w-[70%] md:w-1/2 h-full p-4 sm:p-10">
-              <h4 className="text-[#FBF197] text-2xl sm:text-3xl lg:text-[4vw] text-center mb-5 sm:mb-9 lg:mb-14 xl:mb-16 2xl:mb-24 text-nowrap">
+              <h4 className="text-[#FBF197] text-2xl sm:text-3xl lg:text-[3.2vw] text-center mb-5 sm:mb-9 lg:mb-14 xl:mb-16 2xl:mb-24 text-nowrap">
                 <b>Use cases include</b>
               </h4>
               <div className="grid grid-cols-1 w-full">
@@ -568,7 +569,7 @@ function Homepage() {
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[4vw] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] xl:h-[120px] 2xl:h-[250px] text-wrap">
+                      <h3 className="text-[27px] md:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] text-wrap">
                         <b>Speak to Us</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.7vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
@@ -584,7 +585,7 @@ function Homepage() {
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[4vw] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] xl:h-[120px] 2xl:h-[250px] text-wrap">
+                      <h3 className="text-[27px] md:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] text-wrap">
                         <b>Dev Hub</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.7vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
@@ -600,7 +601,7 @@ function Homepage() {
                       <Image src={follow} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[4vw] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] xl:h-[120px] 2xl:h-[250px] text-wrap">
+                      <h3 className="text-[27px] md:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] text-wrap">
                         <b>Follow us on X</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.7vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">

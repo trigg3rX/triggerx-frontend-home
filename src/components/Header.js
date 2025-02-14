@@ -7,6 +7,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import landing from "../app/assets/landing.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,7 +44,7 @@ const Header = () => {
   const navItems = [
     { id: "Dev Hub", path: "/", label: "Dev Hub" },
     { id: "Get Started", path: "/", label: "Get Started", dropdown: true },
-    { id: "Blog", path: "/", label: "Blog" },
+    { id: "Blog", path: "/blogs", label: "Blog" },
     { id: "Contact Us", path: "/", label: "Contact Us" },
   ];
 
@@ -617,35 +618,37 @@ const Header = () => {
                   <div className="relative flex gap-3 xl:gap-5">
                     {navItems.map((item) => (
                       <div key={item.id} className="relative">
-                        <button
-                          onClick={() => toggleDropdown(item)}
-                          onMouseEnter={handleMouseEnter}
-                          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                            item.path && isActiveRoute(item.path)
-                              ? "text-white"
-                              : "text-gray-400"
-                          }`}
-                        >
-                          {item.label}
-                          {item.dropdown && (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="currentColor"
-                              className={`w-4 h-4 transition-transform duration-300 ${
-                                dropdownOpen ? "rotate-180" : "rotate-0"
-                              }`}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                              />
-                            </svg>
-                          )}
-                        </button>
+                        <Link href={item.path}>
+                          <button
+                            onClick={() => toggleDropdown(item)}
+                            onMouseEnter={handleMouseEnter}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                            {item.dropdown && (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className={`w-4 h-4 transition-transform duration-300 ${
+                                  dropdownOpen ? "rotate-180" : "rotate-0"
+                                }`}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                />
+                              </svg>
+                            )}
+                          </button>
+                        </Link>
                         {item.dropdown && dropdownOpen && (
                           <div
                             ref={dropdownRef}

@@ -102,13 +102,13 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-            <h4 className="text-center text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[30px] text-nowrap">
+            <h4 className="text-center text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[25px] text-nowrap">
               © 2025 TriggerX. All rights reserved.
             </h4>
           </div>
 
           <div className="w-[100%] sm:w-auto flex flex-col justify-center gap-4 sm:gap-8 items-end">
-            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-8 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[30px] text-nowrap">
+            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-8 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[25px] text-nowrap">
               <a href="#" className="hover:text-gray-400">
                 Build
               </a>
@@ -119,7 +119,7 @@ const Footer = () => {
                 Dev Hub
               </a>
             </div>
-            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-8 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[30px] text-nowrap">
+            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-8 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[25px] text-nowrap">
               <a href="#" className="hover:text-gray-400">
                 Keeper Network
               </a>
