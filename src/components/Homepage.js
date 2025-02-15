@@ -5,7 +5,6 @@ import choose from "../app/assets/chooseTrigger.svg";
 import honesty from "../app/assets/honesty.svg";
 import security from "../app/assets/security.svg";
 import validation from "../app/assets/validation.svg";
-import why from "../app/assets/why.svg";
 
 import usecase from "../app/assets/usecase svg/usecase.svg";
 
@@ -19,6 +18,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Boxdata from "./Boxdata";
 import Header from "./Header";
 import Footer from "./Footer";
+import Why from "./Why";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,197 +32,51 @@ function Homepage() {
   const sliderRef = useRef(null);
 
   // useEffect(() => {
-  //   // Register ScrollTrigger plugin
-  //   gsap.registerPlugin(ScrollTrigger);
+  //   if (window.innerWidth >= 768) {
+  //     gsap.registerPlugin(ScrollTrigger);
 
-  //   const slider = sliderRef.current;
-  //   const section = componentRef.current;
+  //     const slider = sliderRef.current;
+  //     const section = componentRef.current;
 
-  //   let tl = gsap.timeline({
-  //     defaults: {
+  //     let tl = gsap.timeline({
+  //       defaults: { ease: "none" },
+  //       scrollTrigger: {
+  //         trigger: slider,
+  //         start: "top+=100% bottom", // Ensure it starts only when fully visible
+  //         end: "top+=200% bottom",
+  //         pin: true,
+  //         pinSpacing: true,
+  //         scrub: 1,
+  //         invalidateOnRefresh: true,
+  //         anticipatePin: 1,
+  //         markers: true,
+  //       },
+  //     });
+
+  //     tl.to(slider, {
+  //       x: () => -(slider.scrollWidth - window.innerWidth),
   //       ease: "none",
-  //     },
-  //     scrollTrigger: {
-  //       trigger: section,
-  //       // start: () => "top 100",
-  //       start: "bottom bottom-=10", // Start when bottom of section is 10px from viewport bottom
+  //     });
 
-  //       end: () => `+=${slider.scrollWidth - window.innerWidth}`,
-  //       pin: true,
-  //       pinSpacing: true,
-  //       scrub: 1,
-  //       invalidateOnRefresh: true,
-  //       anticipatePin: 1,
-  //       markers: true,
-  //     },
-  //   });
-
-  //   // Animate the slider horizontally
-  //   tl.to(slider, {
-  //     x: () => -(slider.scrollWidth - window.innerWidth),
-  //     ease: "none",
-  //   });
-
-  //   // Handle resize events
-  //   const handleResize = () => {
-  //     ScrollTrigger.refresh();
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   // Cleanup
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //     tl.kill();
-  //     ScrollTrigger.getAll().forEach((st) => st.kill());
-  //   };
-  // }, []);
-
-  useEffect(() => {
-    if (window.innerWidth >= 768) {
-      gsap.registerPlugin(ScrollTrigger);
-  
-      const slider = sliderRef.current;
-      const section = componentRef.current;
-  
-      let tl = gsap.timeline({
-        defaults: { ease: "none" },
-        scrollTrigger: {
-          trigger: slider,
-          start: "top+=100% bottom", // Ensure it starts only when fully visible
-          end: "top+=200% bottom",
-          pin: true,
-          pinSpacing: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-          markers: true,
-        },
-      });
-  
-      tl.to(slider, {
-        x: () => -(slider.scrollWidth - window.innerWidth),
-        ease: "none",
-      });
-  
-      const handleResize = () => {
-        if (window.innerWidth < 768) {
-          tl.kill();
-          ScrollTrigger.getAll().forEach((st) => st.kill());
-          gsap.set(slider, { x: 0 });
-        } else {
-          setTimeout(() => ScrollTrigger.refresh(), 500); // Ensure it recalculates
-        }
-      };
-  
-      window.addEventListener("resize", handleResize);
-      window.addEventListener("load", () => setTimeout(() => ScrollTrigger.refresh(), 500));
-  
-      return () => {
-        window.removeEventListener("resize", handleResize);
-        tl.kill();
-        ScrollTrigger.getAll().forEach((st) => st.kill());
-      };
-    }
-  }, []);
-  
-
-  // useEffect(() => {
-  //   // Initial animation
-  //   const tl = gsap.timeline({
-  //     onComplete: () => {
-  //       gsap.set(nextGenRef.current, { opacity: 1, yPercent: -0 });
-  //     },
-  //   });
-
-  //   tl.to(nextGenRef.current, {
-  //     opacity: 1,
-  //     duration: 1,
-  //     ease: "power2.out",
-  //   });
-
-  //   // Reset scroll position to again at left 0 when component mounts
-  //   if (section2Ref.current) {
-  //     section2Ref.current.scrollLeft = 0;
-  //   }
-
-  //   // Handle page scroll completion
-  //   const handleScroll = () => {
-  //     if (!section2Ref.current) return;
-
-  //     if (scrollTimeout.current) {
-  //       clearTimeout(scrollTimeout.current);
-  //     }
-
-  //     if (!isScrolling.current) {
-  //       isScrolling.current = true;
-  //     }
-
-  //     scrollTimeout.current = setTimeout(() => {
-  //       isScrolling.current = false;
-
-  //       // Get section's position and dimensions
-  //       const rect = section2Ref.current.getBoundingClientRect();
-  //       const isCompletelyOutOfView = rect.bottom <= 500;
-
-  //       // Only reset scroll when section is completely out of viewport
-  //       if (isCompletelyOutOfView) {
-  //         section2Ref.current.scrollTo({
-  //           left: 0,
-  //           behavior: "smooth",
-  //         });
+  //     const handleResize = () => {
+  //       if (window.innerWidth < 768) {
+  //         tl.kill();
+  //         ScrollTrigger.getAll().forEach((st) => st.kill());
+  //         gsap.set(slider, { x: 0 });
+  //       } else {
+  //         setTimeout(() => ScrollTrigger.refresh(), 500); // Ensure it recalculates
   //       }
-  //     }, 150);
-  //   };
+  //     };
 
-  //   window.addEventListener("scroll", handleScroll);
+  //     window.addEventListener("resize", handleResize);
+  //     window.addEventListener("load", () => setTimeout(() => ScrollTrigger.refresh(), 500));
 
-  //   // Cleanup
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-
-  //     ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   const container = section2Ref.current;
-
-  //   const handleScroll = (event) => {
-  //     if (!container) return; // Check if the container is available
-
-  //     const rect = container.getBoundingClientRect();
-  //     const isAtTop = rect.top <= 200;
-
-  //     // If section hasn't reached top of viewport, allow normal vertical scrolling
-  //     if (!isAtTop) {
-  //       return;
-  //     }
-
-  //     const maxScrollLeft = container.scrollWidth - container.clientWidth;
-
-  //     if (container.scrollLeft === 0 && event.deltaY < 0) {
-  //       // Allow default vertical scroll
-  //       return;
-  //     } else if (container.scrollLeft < maxScrollLeft) {
-  //       // Prevent default vertical scroll behavior
-  //       event.preventDefault();
-  //       // Manually scroll horizontally
-  //       container.scrollLeft += event.deltaY; // deltaY is the vertical scroll amount
-  //     }
-  //   };
-
-  //   // Add the wheel event listener to the container
-  //   if (container) {
-  //     container.addEventListener("wheel", handleScroll);
+  //     return () => {
+  //       window.removeEventListener("resize", handleResize);
+  //       tl.kill();
+  //       ScrollTrigger.getAll().forEach((st) => st.kill());
+  //     };
   //   }
-
-  //   // Clean up the event listener on component unmount
-  //   return () => {
-  //     if (container) {
-  //       container.removeEventListener("wheel", handleScroll);
-  //     }
-  //   };
   // }, []);
 
   return (
@@ -272,59 +126,7 @@ function Homepage() {
           </section>
 
           {/* why */}
-          <section
-            ref={componentRef}
-            className="relative w-full md:w-[98%] md:mx-auto md:overflow-hidden"
-          >
-            <div
-              ref={sliderRef}
-              className="flex flex-col md:flex-row items-center gap-10 md:gap-24 relative"
-              style={{
-                willChange: "transform",
-                transformStyle: "preserve-3d",
-              }}
-            >
-              <div className="flex flex-col items-center ml-0 md:ml-20 gap-10">
-                <h2 className="font-sharpGrotesk text-white font-light text-4xl md:text-5xl 2xl:text-[80px] text-center md:text-start transform scale-y-[.8] leading-normal w-[70%] sm:w-[100%]">
-                  Why TriggerX?
-                </h2>
-
-                <div className="w-full h-max hidden md:flex">
-                  <Image src={why} alt={""} className="w-full h-auto" />
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-4 min-w-max">
-                {Boxdata.map((box, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      boxShadow: "inset 0px 0px 7.91px 0px #656565",
-                    }}
-                    className="relative max-w-[290px] xs:max-w-[300px] 2xl:max-w-sm rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] mr-0 p-2 md:mr-4 md:last:mr-20"
-                  >
-                    <div className="relative z-0 h-32 2xl:h-48 overflow-hidden">
-                      {/* Set a fixed height for the image container */}
-                      <Image
-                        src={box.imageSrc}
-                        alt={box.title}
-                        className="object-bottom rounded-[14px] 2xl:rounded-[30px] w-full h-auto aspect-auto"
-                        fill
-                      />
-                    </div>
-                    <div className="relative z-10 space-y-4 p-6">
-                      <h2 className="font-actayWide text-[17px] md:text-[2vw] lg:text-[1.5vw] text-white font-bold leading-snug">
-                        <b>{box.title}</b>
-                      </h2>
-                      <p className="text-gray-300 text-xs md:text-sm 2xl:text-base font-actayRegular mb-6">
-                        {box.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
+          <Why Boxdata={Boxdata} />
 
           {/* offer */}
           <section className="mx-[10px] xs:mx-[30px] mt-[50px] mb-20 lg:mb-40">
