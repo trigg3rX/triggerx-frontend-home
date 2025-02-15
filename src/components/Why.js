@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import why from "../app/assets/why.svg";
@@ -5,13 +6,18 @@ import why from "../app/assets/why.svg";
 const Why = ({ Boxdata }) => {
   const sectionRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
-  const [scrollFactor, setScrollFactor] = useState(0.77); // Default scaling factor
-  const [isScrollable, setIsScrollable] = useState(window.innerWidth >= 768);
+  const [scrollFactor, setScrollFactor] = useState(0.77);
+  const [isScrollable, setIsScrollable] = useState(
+    typeof window !== "undefined" ? window.innerWidth >= 768 : false
+  );
+
 
   useEffect(() => {
+    if (typeof window === "undefined") return; // Prevent SSR execution
+
     const updateScrollFactor = () => {
       if (window.innerWidth < 768) {
-        setScrollFactor(0); // No horizontal scroll on mobile
+        setScrollFactor(0);
         setIsScrollable(false);
       } else if (window.innerWidth < 1024) {
         setScrollFactor(1);
@@ -31,6 +37,8 @@ const Why = ({ Boxdata }) => {
   }, []);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleScroll = () => {
       if (sectionRef.current && isScrollable) {
         const offsetTop = sectionRef.current.getBoundingClientRect().top;
@@ -44,7 +52,7 @@ const Why = ({ Boxdata }) => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isScrollable]);
 
   return (
     <section ref={sectionRef} className="relative md:h-[300vh]">
@@ -88,7 +96,7 @@ const Why = ({ Boxdata }) => {
                   <h2 className="font-actayWide text-[17px] md:text-[1vw] lg:text-[1.3vw] text-white font-bold leading-snug">
                     <b>{box.title}</b>
                   </h2>
-                  <p className="text-gray-300 text-xs md:text-xs xl:text-base font-actayRegular mb-6">
+                  <p className="text-gray-300 text-xs md:text-xs 2xl:text-base font-actayRegular mb-6">
                     {box.description}
                   </p>
                 </div>
@@ -117,7 +125,7 @@ const Why = ({ Boxdata }) => {
                   <h2 className="font-actayWide text-[17px] md:text-[1vw] lg:text-[1.3vw] text-white font-bold leading-snug">
                     <b>{box.title}</b>
                   </h2>
-                  <p className="text-gray-300 text-xs md:text-xs xl:text-base font-actayRegular mb-6">
+                  <p className="text-gray-300 text-xs md:text-xs 2xl:text-base font-actayRegular mb-6">
                     {box.description}
                   </p>
                 </div>
