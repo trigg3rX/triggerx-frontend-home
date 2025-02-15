@@ -79,23 +79,18 @@ function Homepage() {
   // }, []);
 
   useEffect(() => {
-    // Only initialize ScrollTrigger for screens >= 768px
     if (window.innerWidth >= 768) {
-      // Register ScrollTrigger plugin
       gsap.registerPlugin(ScrollTrigger);
   
       const slider = sliderRef.current;
       const section = componentRef.current;
   
       let tl = gsap.timeline({
-        defaults: {
-          ease: "none",
-        },
+        defaults: { ease: "none" },
         scrollTrigger: {
-          trigger: section,
-          start: "bottom bottom",
-          // end: () => `+=${slider.scrollWidth - window.innerWidth}`,
-          end: "+=100%", 
+          trigger: slider,
+          start: "top+=100% bottom", // Ensure it starts only when fully visible
+          end: "top+=200% bottom",
           pin: true,
           pinSpacing: true,
           scrub: 1,
@@ -105,28 +100,24 @@ function Homepage() {
         },
       });
   
-      // Animate the slider horizontally
       tl.to(slider, {
         x: () => -(slider.scrollWidth - window.innerWidth),
         ease: "none",
       });
   
-      // Handle resize events
       const handleResize = () => {
-        // Kill the animation if screen becomes smaller than 768px
         if (window.innerWidth < 768) {
           tl.kill();
           ScrollTrigger.getAll().forEach((st) => st.kill());
-          // Reset any transformations
           gsap.set(slider, { x: 0 });
         } else {
-          ScrollTrigger.refresh();
+          setTimeout(() => ScrollTrigger.refresh(), 500); // Ensure it recalculates
         }
       };
   
       window.addEventListener("resize", handleResize);
+      window.addEventListener("load", () => setTimeout(() => ScrollTrigger.refresh(), 500));
   
-      // Cleanup
       return () => {
         window.removeEventListener("resize", handleResize);
         tl.kill();
@@ -134,6 +125,7 @@ function Homepage() {
       };
     }
   }, []);
+  
 
   // useEffect(() => {
   //   // Initial animation
@@ -286,7 +278,7 @@ function Homepage() {
           >
             <div
               ref={sliderRef}
-              className="flex flex-col md:flex-row items-center gap-10 md:gap-24"
+              className="flex flex-col md:flex-row items-center gap-10 md:gap-24 relative"
               style={{
                 willChange: "transform",
                 transformStyle: "preserve-3d",
