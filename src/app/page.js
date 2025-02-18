@@ -1,4 +1,5 @@
 import Homepage from "@/components/Homepage";
+import Head from "next/head";
 
 export default function Home() {
   return (
@@ -7,3 +8,9 @@ export default function Home() {
     </div>
   );
 }
+
+export const metadata = {
+  title: "TriggerX",
+  description:
+    "Effortless Blockchain Automation, Limitless Potential.",
+};

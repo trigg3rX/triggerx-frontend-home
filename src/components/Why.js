@@ -23,10 +23,10 @@ const Why = ({ Boxdata }) => {
         setScrollFactor(1);
         setIsScrollable(true);
       } else if (window.innerWidth < 1300) {
-        setScrollFactor(1.3);
+        setScrollFactor(1.2);
         setIsScrollable(true);
       } else if (window.innerWidth < 1500) {
-        setScrollFactor(1.5);
+        setScrollFactor(0.77);
         setIsScrollable(true);
       } else {
         setScrollFactor(0.77);

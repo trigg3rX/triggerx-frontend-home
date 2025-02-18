@@ -44,7 +44,7 @@ const Header = () => {
   const navItems = [
     { id: "Dev Hub", path: "/", label: "Dev Hub" },
     { id: "Get Started", path: "/", label: "Get Started", dropdown: true },
-    { id: "Blog", path: "/blogs", label: "Blog" },
+    { id: "Blog", path: "/", label: "Blog" },
     { id: "Contact Us", path: "/", label: "Contact Us" },
   ];
 
@@ -65,7 +65,7 @@ const Header = () => {
         logo: {
           width: 170,
           x: viewportWidth * -0,
-          y: -170,
+          y: -153,
         },
         nav: {
           x: viewportWidth * -0,
@@ -76,10 +76,6 @@ const Header = () => {
           x: viewportWidth * -0,
           y: -500,
         },
-        // mobile: {
-        //   x: viewportWidth * -0,
-        //   y: viewportHeight * -0,
-        // },
       };
     };
 
@@ -586,12 +582,19 @@ const Header = () => {
     }
   };
 
+   // Add a function to handle logo click - will navigate to homepage
+   const handleLogoClick = () => {
+    if (animationCompleted || MobileAnimationCompleted) {
+      router.push("/");
+    }
+  };
+
   return (
     <div>
       {/* large screen navbar */}
       <div
         ref={containerRef}
-        className="relative h-screen w-full hidden lg:block overflow-hidden"
+        className="relative h-screen w-full max-w-[1600px] hidden lg:block overflow-hidden"
       >
         {/* Fixed Header */}
         <div
@@ -599,7 +602,7 @@ const Header = () => {
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="headerbg w-[100%] px-10 xl:px-20 flex items-center justify-between py-10 header">
+            <div className="headerbg w-[100%] px-10 xl:px-20 flex items-center justify-between py-12 header">
               {/* Logo Container */}
               <div className="w-[120px] opacity-0"></div>
 
@@ -676,19 +679,24 @@ const Header = () => {
                 </nav>
               </div>
 
-              <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+              {/* <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
                 <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                 <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                 <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                   Dev Hub
                 </span>
-              </button>
+              </button> */}
             </div>
           </div>
 
           {/* Hero Section with Animated Elements */}
           <div className="w-[100%] px-20 flex flex-col items-center my-[150px] md:my-[100px] relative">
-            <div className="w-full">
+            <div
+              onClick={handleLogoClick}
+              className={`w-full ${
+                animationCompleted ? "cursor-pointer" : ""
+              }`}
+            >
               <Image
                 ref={mainLogoRef}
                 src={logo}
@@ -845,13 +853,13 @@ const Header = () => {
                             </div>
                           ))}
 
-                          <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                          {/* <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
                             <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                             <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                             <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                               Dev Hub
                             </span>
-                          </button>
+                          </button> */}
                         </div>
                       </nav>
                     </div>

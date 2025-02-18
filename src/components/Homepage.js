@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, React } from "react";
+import { useRef, React, useEffect } from "react";
 import Image from "next/image";
 import choose from "../app/assets/chooseTrigger.svg";
 import honesty from "../app/assets/honesty.svg";
@@ -18,16 +18,13 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Boxdata from "./Boxdata";
 import Header from "./Header";
 import Footer from "./Footer";
-import Why from "./Why";
+import why from "../app/assets/why.svg";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 function Homepage() {
   const nextGenRef = useRef();
-  const section2Ref = useRef();
-  const isScrolling = useRef(false);
-  const scrollTimeout = useRef(null);
-
   const componentRef = useRef(null);
   const sliderRef = useRef(null);
 
@@ -79,12 +76,68 @@ function Homepage() {
   //   }
   // }, []);
 
+  useEffect(() => {
+    // Only initialize ScrollTrigger for screens >= 768px
+    if (window.innerWidth >= 768) {
+      // Register ScrollTrigger plugin
+      gsap.registerPlugin(ScrollTrigger);
+  
+      const slider = sliderRef.current;
+      const section = componentRef.current;
+  
+      let tl = gsap.timeline({
+        defaults: {
+          ease: "none",
+        },
+        scrollTrigger: {
+          trigger: section,
+          start: "bottom bottom-=10",
+          end: () => `+=${slider.scrollWidth - window.innerWidth}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+          // markers: true,
+        },
+      });
+  
+      // Animate the slider horizontally
+      tl.to(slider, {
+        x: () => -(slider.scrollWidth - window.innerWidth),
+        ease: "none",
+      });
+  
+      // Handle resize events
+      const handleResize = () => {
+        // Kill the animation if screen becomes smaller than 768px
+        if (window.innerWidth < 768) {
+          tl.kill();
+          ScrollTrigger.getAll().forEach((st) => st.kill());
+          // Reset any transformations
+          gsap.set(slider, { x: 0 });
+        } else {
+          ScrollTrigger.refresh();
+        }
+      };
+  
+      window.addEventListener("resize", handleResize);
+  
+      // Cleanup
+      return () => {
+        window.removeEventListener("resize", handleResize);
+        tl.kill();
+        ScrollTrigger.getAll().forEach((st) => st.kill());
+      };
+    }
+  }, []);
+
   return (
     <>
-      <div className="relative z-0">
+      <div className="relative z-0 max-w-[1600px] mx-auto">
         <Header />
         <div ref={nextGenRef} className="relative -z-10">
-          <section className="my-20 xl:my-40 ">
+          <section className="my-20 ">
             <div
               className="font-sharpGrotesk w-[90%] mx-auto mt-[100px] lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px]"
               id="target-section"
@@ -126,7 +179,61 @@ function Homepage() {
           </section>
 
           {/* why */}
-          <Why Boxdata={Boxdata} />
+          {/* <Why Boxdata={Boxdata} /> */}
+          <section
+            ref={componentRef}
+            className="relative w-full md:w-[98%] md:mx-auto md:overflow-hidden"
+          >
+            <div
+              ref={sliderRef}
+              className="flex flex-col md:flex-row items-center gap-10 md:gap-24"
+              style={{
+                willChange: "transform",
+                transformStyle: "preserve-3d",
+              }}
+            >
+              <div className="flex flex-col items-center ml-0 md:ml-20 gap-10">
+                <h2 className="font-sharpGrotesk text-white font-light text-4xl md:text-5xl 2xl:text-[80px] text-center md:text-start transform scale-y-[.8] leading-normal w-[70%] sm:w-[100%]">
+                  Why TriggerX?
+                </h2>
+
+                <div className="w-full h-max hidden md:flex">
+                  <Image src={why} alt={""} className="w-full h-auto" />
+                </div>
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-4 min-w-max">
+                {Boxdata.map((box, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      boxShadow: "inset 0px 0px 7.91px 0px #656565",
+                    }}
+                    className="relative max-w-[290px] xs:max-w-[300px] 2xl:max-w-sm rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] mr-0 p-2 md:mr-4 md:last:mr-20"
+                  >
+                    <div className="relative z-0 h-32 2xl:h-48 overflow-hidden">
+                      {/* Set a fixed height for the image container */}
+                      <Image
+                        src={box.imageSrc}
+                        alt={box.title}
+                        className="object-bottom rounded-[14px] 2xl:rounded-[30px] w-full h-auto aspect-auto"
+                        fill
+                      />
+                    </div>
+                    <div className="relative z-10 space-y-4 p-6">
+                      <h2 className="font-actayWide text-[17px] md:text-[2vw] lg:text-[1.5vw] text-white font-bold leading-snug">
+                        <b>{box.title}</b>
+                      </h2>
+                      <p className="text-gray-300 text-xs md:text-sm 2xl:text-base font-actayRegular mb-6">
+                        {box.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
 
           {/* offer */}
           <section className="mx-[10px] xs:mx-[30px] mt-[50px] mb-20 lg:mb-40">
@@ -268,7 +375,7 @@ function Homepage() {
             </div>
 
             <div className="font-actayWide w-full sm:w-[70%] md:w-1/2 h-full p-4 sm:p-10">
-              <h4 className="text-[#FBF197] text-2xl sm:text-3xl lg:text-[3.2vw] text-center mb-5 sm:mb-9 lg:mb-14 xl:mb-16 2xl:mb-24 text-nowrap">
+              <h4 className="text-[#FBF197] text-2xl sm:text-3xl lg:text-[2.7vw] text-center mb-5 sm:mb-9 lg:mb-14 xl:mb-16 2xl:mb-24 text-nowrap">
                 <b>Use cases include</b>
               </h4>
               <div className="grid grid-cols-1 w-full">
