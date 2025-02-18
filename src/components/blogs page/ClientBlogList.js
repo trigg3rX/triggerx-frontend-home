@@ -15,15 +15,15 @@ export default function ClientBlogList({ blogs }) {
       {filteredBlogs.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
           {filteredBlogs.map((blog) => (
-            <Link
-              key={blog._id}
-              href={
-                blog.slug
-                  ? `/blogs/${blog.slug.current}`
-                  : `/blogs/draft/${blog._id}`
-              }
-              className="group"
-            >
+            // <Link
+            //   key={blog._id}
+            //   // href={
+            //   //   blog.slug
+            //   //     ? `/blogs/${blog.slug.current}`
+            //   //     : `/blogs/draft/${blog._id}`
+            //   // }
+            //   className="group"
+            // >
               <article className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-[#0F0F0F] p-3 border border-[#5F5F5F] flex flex-col justify-between">
                 {blog.mainImage?.asset?.url ? (
                   <div className="w-full h-[200px] rounded-2xl bg-green-50 border border-[#5F5F5F] relative overflow-hidden">
@@ -50,7 +50,7 @@ export default function ClientBlogList({ blogs }) {
                   </time>
                 </div>
               </article>
-            </Link>
+            // </Link>
           ))}
         </div>
       ) : (

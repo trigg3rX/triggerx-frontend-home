@@ -54,7 +54,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://t.me/+RDAFhnPrPa1kOWRl"
+                href="https://t.me/triggerxnetwork"
                 className="hover:text-gray-300"
                 title="Telegram"
                 target="blank"
