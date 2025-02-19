@@ -42,10 +42,28 @@ const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const navItems = [
-    { id: "Dev Hub", path: "/", label: "Dev Hub" },
-    { id: "Get Started", path: "/", label: "Get Started", dropdown: true },
-    { id: "Blog", path: "/", label: "Blog" },
-    { id: "Contact Us", path: "/", label: "Contact Us" },
+    {
+      id: "Dev Hub",
+      path: "https://triggerx.gitbook.io/triggerx-docs",
+      label: "Dev Hub",
+      target: "_blank",
+      external: true,
+    },
+    {
+      id: "Get Started",
+      label: "Get Started",
+      path: "",
+      dropdown: true,
+      external: true,
+    },
+    { id: "Blog", path: "/blogs", label: "Blog", external: false },
+    {
+      id: "Contact Us",
+      path: "/#contact", //  Modified path to the contact section on the homepage
+      label: "Contact Us",
+      target: "_self", //  Ensure it opens in the same tab
+      external: false, //  Important:  Set to false for same-page navigation
+    },
   ];
 
   const isActiveRoute = (path) => pathname === path;
@@ -187,7 +205,7 @@ const Header = () => {
 
       return {
         logo: {
-          width: 170,
+          width: 130,
           x: viewportWidth * -0,
           y: -170,
         },
@@ -299,13 +317,26 @@ const Header = () => {
     };
   }, []);
 
-  const handleMenuItemClick = (path, hasDropdown = false) => {
-    if (path && !hasDropdown) {
-      router.push(path);
-      setMenuOpen(false);
-    }
+  // Fixed: Updated handleMenuItemClick to handle internal vs external links
+  const handleMenuItemClick = (
+    path,
+    hasDropdown = false,
+    isExternal = false
+  ) => {
     if (hasDropdown) {
       setDropdownOpen(!dropdownOpen);
+      return;
+    }
+
+    if (path) {
+      if (isExternal) {
+        // External links open in new tab
+        window.open(path, "_blank", "noopener,noreferrer");
+      } else {
+        // Internal links use router for same-tab navigation
+        router.push(path);
+      }
+      setMenuOpen(false);
     }
   };
 
@@ -347,138 +378,9 @@ const Header = () => {
     };
   }, []);
 
-  const handleArrowClick = () => {
-    e.stopPropagation();
-    playAnimation();
+  const handleArrowClick = (e) => {
+    playMobileAnimation();
   };
-
-  useEffect(() => {
-    if (animationPlayed.current) return;
-
-    // Initial setup (using x and y now)
-    gsap.set(mainLogoMRef.current, {
-      x: 0,
-      y: 0,
-    });
-
-    gsap.set(landingImageMRef.current, {
-      x: 0,
-      y: 0,
-      scale: 1,
-    });
-
-    gsap.set(navigationMRef.current, {
-      x: 0,
-      y: 0,
-      scale: 1,
-    });
-
-    gsap.set(navMobileMRef.current, {
-      x: 0,
-      y: 0,
-      scale: 1,
-    });
-
-    // Calculate absolute pixel positions
-    const calculatePositions = () => {
-      const logoElement = mainLogoMRef.current;
-      const navElement = navigationMRef.current;
-      const landingElement = landingImageMRef.current;
-      const navMobileElement = navMobileMRef.current;
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      return {
-        logo: {
-          width: 130, // Setting a width to make x and y values easier to calculate
-          x: -58, // Centering and adding offset from center
-          y: -165, // 70% of the way down
-        },
-        nav: {
-          x: viewportWidth * -0, // Center
-          y: viewportHeight * -0, // 30% from top
-        },
-        landing: {
-          width: 300,
-          x: 0,
-          y: -355,
-          scale: 0.8,
-        },
-      };
-    };
-
-    const positions = calculatePositions();
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        animationPlayed.current = true;
-        // Set final positions using calculated values
-        gsap.set(containerMRef.current, { height: "100px" });
-      },
-
-      scrollTrigger: {
-        trigger: containerMRef.current,
-        start: "top top",
-        end: "+=100",
-        once: true,
-      },
-    });
-
-    // Animate to final positions
-    tl.to(mainLogoMRef.current, {
-      width: positions.logo.width, // Animate the width
-      x: positions.logo.x,
-      y: positions.logo.y,
-
-      ease: "power2.out",
-      duration: 1,
-      zIndex: 10,
-      position: "relative",
-    });
-
-    tl.to(
-      navigationMRef.current,
-      {
-        x: positions.nav.x,
-        y: positions.nav.y,
-        left: "50%", // Keep centering
-        transform: "translateX(-50%)",
-        ease: "power2.out",
-        duration: 1,
-        zIndex: 10,
-      },
-      "<"
-    );
-
-    tl.to(
-      landingImageMRef.current,
-      {
-        width: positions.landing.width, // Animate the width
-
-        x: positions.landing.x,
-        y: positions.landing.y,
-        scale: positions.landing.scale,
-        left: "50%",
-        ease: "power2.out",
-        duration: 1,
-      },
-      "<"
-    );
-
-    tl.to(
-      containerMRef.current,
-      {
-        height: "100px",
-        duration: 1,
-        ease: "power2.out",
-      },
-      0
-    );
-
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
 
   useEffect(() => {
     if (dropdownOpen && dropdownRef.current) {
@@ -522,7 +424,14 @@ const Header = () => {
       }
     };
     const handleGlobalClick = (event) => {
-      playAnimation();
+      const isNavClick =
+        event.target.closest("nav") ||
+        event.target.closest(".scroll-arrow") ||
+        event.target.closest("button");
+
+      if (!isNavClick) {
+        playAnimation();
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -582,8 +491,8 @@ const Header = () => {
     }
   };
 
-   // Add a function to handle logo click - will navigate to homepage
-   const handleLogoClick = () => {
+  // Add a function to handle logo click - will navigate to homepage
+  const handleLogoClick = () => {
     if (animationCompleted || MobileAnimationCompleted) {
       router.push("/");
     }
@@ -621,7 +530,7 @@ const Header = () => {
                   <div className="relative flex gap-3 xl:gap-5">
                     {navItems.map((item) => (
                       <div key={item.id} className="relative">
-                        <Link href={item.path}>
+                        {item.dropdown ? (
                           <button
                             onClick={() => toggleDropdown(item)}
                             onMouseEnter={handleMouseEnter}
@@ -632,26 +541,53 @@ const Header = () => {
                             }`}
                           >
                             {item.label}
-                            {item.dropdown && (
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className={`w-4 h-4 transition-transform duration-300 ${
-                                  dropdownOpen ? "rotate-180" : "rotate-0"
-                                }`}
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                                />
-                              </svg>
-                            )}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className={`w-4 h-4 transition-transform duration-300 ${
+                                dropdownOpen ? "rotate-180" : "rotate-0"
+                              }`}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                              />
+                            </svg>
                           </button>
-                        </Link>
+                        ) : item.external ? (
+                          <a
+                            href={item.path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onMouseEnter={handleMouseEnter}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                          </a>
+                        ) : (
+                          // Internal navigation links - using Next.js Link
+                          <Link
+                            href={item.path}
+                            passHref
+                            onMouseEnter={handleMouseEnter}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        )}
+
                         {item.dropdown && dropdownOpen && (
                           <div
                             ref={dropdownRef}
@@ -659,16 +595,22 @@ const Header = () => {
                           >
                             <div className="py-2 px-4 flex flex-col font-actayRegular">
                               <a
-                                href="/build"
+                                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                                target="_blank"
+                                onClick={(e) => e.stopPropagation()}
+                                rel="noopener noreferrer"
                                 className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
                                 Build
                               </a>
                               <a
-                                href="#"
+                                href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
+                                target="_blank"
+                                onClick={(e) => e.stopPropagation()}
+                                rel="noopener noreferrer"
                                 className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
-                                Keeper Community
+                                Join As Keeper
                               </a>
                             </div>
                           </div>
@@ -678,14 +620,6 @@ const Header = () => {
                   </div>
                 </nav>
               </div>
-
-              {/* <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
-                <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
-                <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                  Dev Hub
-                </span>
-              </button> */}
             </div>
           </div>
 
@@ -693,16 +627,16 @@ const Header = () => {
           <div className="w-[100%] px-20 flex flex-col items-center my-[150px] md:my-[100px] relative">
             <div
               onClick={handleLogoClick}
-              className={`w-full ${
-                animationCompleted ? "cursor-pointer" : ""
-              }`}
+              className={`w-full ${animationCompleted ? "cursor-pointer" : ""}`}
             >
-              <Image
-                ref={mainLogoRef}
-                src={logo}
-                alt="TriggerX Logo"
-                className="w-full"
-              />
+              <a href="/">
+                <Image
+                  ref={mainLogoRef}
+                  src={logo}
+                  alt="TriggerX Logo"
+                  className="w-full"
+                />
+              </a>
             </div>
 
             <Image
@@ -791,15 +725,17 @@ const Header = () => {
                               key={item.id}
                               className="relative "
                             >
-                              <button
-                                key={item.id}
-                                onClick={() => {
-                                  handleMenuItemClick(
-                                    item.path,
-                                    item.dropdown ?? false
-                                  );
-                                }}
-                                className={` font-actayRegular text-xs sm:text-sm
+                              {item.dropdown ? (
+                                <button
+                                  key={item.id}
+                                  onClick={() => {
+                                    handleMenuItemClick(
+                                      item.path,
+                                      item.dropdown ?? false,
+                                      item.external
+                                    );
+                                  }}
+                                  className={` font-actayRegular text-xs sm:text-sm
                       px-7 py-3 rounded-xl
                           relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full
                           ${
@@ -808,9 +744,9 @@ const Header = () => {
                               : "text-gray-400"
                           }
                         `}
-                              >
-                                {item.label}
-                                {item.dropdown && (
+                                >
+                                  {item.label}
+
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -827,39 +763,57 @@ const Header = () => {
                                       d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                                     />
                                   </svg>
-                                )}
-                              </button>
+                                </button>
+                              ) : item.external ? (
+                                <a
+                                  href={item.path}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="font-actayRegular text-xs sm:text-sm
+                      px-7 py-3 rounded-xl
+                          relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full"
+                                >
+                                  {item.label}
+                                </a>
+                              ) : (
+                                // Internal link for mobile
+                                <Link
+                                  href={item.path}
+                                  className="font-actayRegular text-xs sm:text-sm
+                      px-7 py-3 rounded-xl
+                          relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full"
+                                  onClick={() => setMenuOpen(false)}
+                                >
+                                  {item.label}
+                                </Link>
+                              )}
                               {item.dropdown && dropdownOpen && (
                                 <div
                                   ref={dropdownRef}
-                                  className="  bg-[#202020] text-xs sm:text-sm  rounded-md shadow-lg border border-[#4b4a4a]"
+                                  className="bg-[#202020] mt-2 text-xs sm:text-sm rounded-md shadow-lg border border-[#4b4a4a]"
                                 >
-                                  <div className="py-2 px-4 flex flex-col ">
+                                  <div className="py-2 px-4 flex flex-col">
                                     <a
-                                      href="#"
+                                      href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
                                       className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Build
                                     </a>
                                     <a
-                                      href="#"
-                                      className=" font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                      href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
-                                      Keeper Community
+                                      Join As Keeper
                                     </a>
                                   </div>
                                 </div>
                               )}
                             </div>
                           ))}
-
-                          {/* <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
-                            <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
-                            <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                            <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                              Dev Hub
-                            </span>
-                          </button> */}
                         </div>
                       </nav>
                     </div>
@@ -871,12 +825,14 @@ const Header = () => {
 
           {/* Hero Section with Animated Elements */}
           <div className="w-[100%] px-20 flex flex-col items-center my-[100px] relative">
-            <Image
-              ref={mainLogoMRef}
-              src={logo}
-              alt="TriggerX Logo"
-              className="w-[250px] max-w-[900px] sm:w-[250px] md:w-[500px] lg:w-[400px] xl:w-[500px]"
-            />
+            <a href="/">
+              <Image
+                ref={mainLogoMRef}
+                src={logo}
+                alt="TriggerX Logo"
+                className="w-[250px] max-w-[900px] sm:w-[250px] md:w-[500px] lg:w-[400px] xl:w-[500px]"
+              />
+            </a>
 
             <div className="absolute sm:top-10 top-5 md:top-6 lg:top-10 xl:top-0 ">
               <Image

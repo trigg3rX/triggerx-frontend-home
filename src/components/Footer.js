@@ -84,7 +84,7 @@ const Footer = () => {
                   viewBox="0 0 45 45"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10"
+                  className="hover:fill-white transition-colors duration-300 w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10"
                 >
                   <rect
                     x="0.25"
@@ -93,7 +93,7 @@ const Footer = () => {
                     height="44.5"
                     rx="22.25"
                     stroke="white"
-                    // className="hover:fill-black transition-colors duration-300"
+                    className="hover:fill-white "
                   />
                   <path
                     d="M20.341 23.2008C21.6799 23.9728 22.349 24.3584 23.0847 24.3591C23.8204 24.3598 24.4895 23.975 25.8306 23.2052L34.3732 18.3004C34.5626 18.1917 34.72 18.0349 34.8295 17.8459C34.9389 17.6568 34.9966 17.4423 34.9966 17.2239C34.9966 17.0054 34.9389 16.7909 34.8295 16.6019C34.72 16.4129 34.5626 16.2561 34.3732 16.1473L25.8269 11.2403C24.488 10.4728 23.8189 10.0879 23.084 10.0879C22.349 10.0879 21.6807 10.4728 20.3425 11.2425L12.9952 15.4686L12.8879 15.5308C11.6549 16.2516 10.6304 17.2805 9.91505 18.5167C9.19971 19.7529 8.81806 21.1538 8.80756 22.582V22.8293C8.81821 24.2768 9.21015 25.6961 9.94389 26.944C10.6776 28.1919 11.7273 29.2244 12.9871 29.9375L17.5892 32.5916C20.2707 34.1385 21.6118 34.9119 23.0847 34.9119C24.5576 34.9126 25.8979 34.1399 28.5809 32.5953L33.4391 29.7976C34.7825 29.0242 35.4545 28.6378 35.8224 28.0006C36.1924 27.3626 36.1924 26.5884 36.1924 25.04V22.0477C36.1927 21.8396 36.1381 21.6351 36.0342 21.4549C35.9303 21.2746 35.7807 21.1249 35.6006 21.0208C35.4204 20.9168 35.216 20.862 35.0079 20.862C34.7999 20.8621 34.5955 20.9169 34.4154 21.0211L24.4532 26.7408C23.7849 27.1242 23.4511 27.3167 23.084 27.3167C22.7176 27.3167 22.383 27.125 21.7147 26.7416L14.9721 22.8759C14.6339 22.682 14.4651 22.585 14.3297 22.568C14.1793 22.5487 14.0268 22.5796 13.8957 22.6559C13.7647 22.7322 13.6625 22.8496 13.6051 22.9899C13.5533 23.1157 13.5548 23.3103 13.5562 23.6989C13.5585 23.9853 13.5592 24.1282 13.5858 24.2607C13.6458 24.5552 13.8005 24.8232 14.0277 25.0208C14.1291 25.1096 14.2534 25.1807 14.5014 25.3242L21.7103 29.4801C22.3808 29.8664 22.7161 30.0596 23.084 30.0596C23.4518 30.0596 23.7871 29.8672 24.4576 29.4808L33.2941 24.3932C33.5235 24.2614 33.6375 24.1955 33.7233 24.2451C33.8092 24.2947 33.8092 24.4265 33.8092 24.6907V26.0473C33.8092 26.4352 33.8092 26.6283 33.7167 26.7875C33.6249 26.9473 33.4569 27.0436 33.1209 27.2375L25.8328 31.434C24.4909 32.206 23.8204 32.5923 23.084 32.5916C22.3475 32.5908 21.6777 32.2045 20.3366 31.4311L13.5178 27.4965L13.4756 27.4721C12.7731 27.0623 12.1897 26.4764 11.7828 25.7723C11.3759 25.0682 11.1596 24.2701 11.1553 23.4569V22.1624C11.1554 21.7136 11.2735 21.2727 11.4977 20.8839C11.7219 20.4951 12.0443 20.1721 12.4327 19.9472C12.7761 19.7483 13.1659 19.6434 13.5627 19.6432C13.9595 19.6429 14.3494 19.7472 14.6931 19.9457L20.341 23.2008Z"
@@ -102,25 +102,38 @@ const Footer = () => {
                 </svg>
               </a>
             </div>
-            <h4 className="text-center text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[25px] text-nowrap">
+            <h4 className="text-center text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap">
               © 2025 TriggerX. All rights reserved.
             </h4>
           </div>
 
           <div className="w-[100%] sm:w-auto flex flex-col justify-center gap-4 sm:gap-8 items-end">
-            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-8 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[25px] text-nowrap">
-              <a href="#" className="hover:text-gray-400">
+            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-16 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap  tracking-wide">
+              <a
+                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                className="hover:text-gray-400"
+                target="blank"
+              >
                 Build
               </a>
-              <a href="#" className="hover:text-gray-400 ">
+              <a
+                href="https://triggerx.gitbook.io/triggerx-docs"
+                className="hover:text-gray-400 "
+              >
                 Docs
               </a>
-              <a href="#" className="hover:text-gray-400">
+              <a
+                href="https://triggerx.gitbook.io/triggerx-docs"
+                className="hover:text-gray-400"
+              >
                 Dev Hub
               </a>
             </div>
-            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-8 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[25px] text-nowrap">
-              <a href="#" className="hover:text-gray-400">
+            <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-3 md:gap-6 lg:gap-10 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap tracking-wide">
+              <a
+                href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
+                className="hover:text-gray-400"
+              >
                 Keeper Network
               </a>
               <a href="#" className="hover:text-gray-400">
@@ -146,7 +159,7 @@ const Footer = () => {
         <Image
           src={footer2}
           alt=""
-          className="absolute right-[0%] sm:right-0 -z-10 bottom-[70%] sm:bottom-[50%] w-[80px] sm:w-[130px] 2xl:w-[220px] h-auto"
+          className="absolute right-[0%] sm:right-0 -z-10 bottom-[70%] sm:bottom-[50%] lg:bottom-[55%] w-[80px] sm:w-[130px] 2xl:w-[220px] h-auto"
         />
       </div>
     </>

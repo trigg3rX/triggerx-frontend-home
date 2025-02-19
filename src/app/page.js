@@ -11,6 +11,5 @@ export default function Home() {
 
 export const metadata = {
   title: "TriggerX",
-  description:
-    "Effortless Blockchain Automation, Limitless Potential.",
+  description: "Automate Tasks Effortlessly",
 };
