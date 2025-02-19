@@ -659,7 +659,7 @@ const Header = () => {
                           >
                             <div className="py-2 px-4 flex flex-col font-actayRegular">
                               <a
-                                href="/build"
+                                href="/"
                                 className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
                                 Build

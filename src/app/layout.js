@@ -12,6 +12,22 @@ export default function RootLayout({ children }) {
           content="djQGIHSzWTlJhzreZXs-NxM40IBE2P_6I_V4VqdCXQY"
         />
 
+        {/* Google Tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-K47KJ7HQ0D"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-K47KJ7HQ0D');
+            `,
+          }}
+        />
+
         {/* Google Tag Manager (GTM) */}
         <script
           dangerouslySetInnerHTML={{
@@ -26,15 +42,20 @@ export default function RootLayout({ children }) {
         />
       </Head>
       <body>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-T9XQH8N8"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
-        </noscript>
+         {/* Google Tag Manager (noscript) */}
+         <div
+          dangerouslySetInnerHTML={{
+            __html: `
+              <noscript>
+                <iframe 
+                  src="https://www.googletagmanager.com/ns.html?id=GTM-T9XQH8N8"
+                  height="0" width="0" 
+                  style="display:none; visibility:hidden">
+                </iframe>
+              </noscript>
+            `,
+          }}
+        />
         {children}
       </body>
     </html>
