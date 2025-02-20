@@ -1,13 +1,13 @@
 import "./globals.css";
 import "../app/styles/fonts.css";
 import Head from "next/head";
-import { GoogleTagManager } from '@next/third-parties/google'
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <Head>
-      <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -17,8 +17,8 @@ export default function RootLayout({ children }) {
               })(window,document,'script','dataLayer','GTM-T9XQH8N8');
           `,
           }}
-        /> 
-{/* 
+        />
+        {/* 
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -31,7 +31,6 @@ export default function RootLayout({ children }) {
         /> */}
 
         {/* Google Tag Manager (Head) */}
-    
 
         {/* Twitter Conversion Tracking Base Pixel */}
         <script
@@ -45,13 +44,10 @@ export default function RootLayout({ children }) {
           }}
         />
       </Head>
-      <body>
-        {/* Google Tag Manager (noscript) */}
-        {/* <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9XQH8N8"
-        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> */}
-        {children}
-      </body>
-      <GoogleTagManager gtmId="T9XQH8N8"/>
+      <GoogleTagManager gtmId="T9XQH8N8" />
+
+      <body>{children}</body>
+      {/* <GoogleTagManager gtmId="T9XQH8N8" /> */}
     </html>
   );
 }

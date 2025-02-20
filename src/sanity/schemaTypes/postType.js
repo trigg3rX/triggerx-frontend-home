@@ -40,17 +40,6 @@ export const postType = defineType({
       name: 'ogImage',
       title: 'OG Image',
       type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-          validation: (Rule) => Rule.required(),
-        })
-      ],
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -66,6 +55,64 @@ export const postType = defineType({
       },
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'publishedAt',
+      type: 'datetime',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'readTime',
+      title: 'Read Time (in minutes)',
+      type: 'number',
+      validation: (Rule) => Rule.required().min(1),
+    }),
+    defineField({
+      name: 'body',
+      type: 'blockContent',
+    }),
+    defineField({
+      name: 'headingPairs',
+      title: 'Heading Pairs',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'h2Heading',
+              title: 'H2 Heading',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'displayHeading',
+              title: 'Display Heading',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'h2Heading',
+              subtitle: 'displayHeading',
+            },
+          },
+        }),
+      ],
+    }),
+
+    // YouTube section
+    defineField({
+      name: 'youtubeSection',
+      title: 'YouTube Video',
+      type: 'url',
+      validation: (Rule) =>
+        Rule.uri({
+          scheme: ['http', 'https'],
+          allowRelative: false,
+        })
+    }),
+  ],
     // defineField({
     //   name: 'author',
     //   type: 'reference',
@@ -90,20 +137,10 @@ export const postType = defineType({
     //   type: 'array',
     //   of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
     // }),
-    defineField({
-      name: 'publishedAt',
-      type: 'datetime',
-    }),
-    defineField({
-      name: 'body',
-      type: 'blockContent',
-    }),
-  ],
   preview: {
     select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
+      title: 'ogTitle',
+      media: 'ogImage',
     },
     prepare(selection) {
       const {author} = selection
