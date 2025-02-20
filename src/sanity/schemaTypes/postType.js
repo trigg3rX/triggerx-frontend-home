@@ -71,25 +71,25 @@ export const postType = defineType({
     //   type: 'reference',
     //   to: {type: 'author'},
     // }),
-    defineField({
-      name: 'mainImage',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      fields: [
-        defineField({
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative text',
-        })
-      ]
-    }),
-    defineField({
-      name: 'categories',
-      type: 'array',
-      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
-    }),
+    // defineField({
+    //   name: 'mainImage',
+    //   type: 'image',
+    //   options: {
+    //     hotspot: true,
+    //   },
+    //   fields: [
+    //     defineField({
+    //       name: 'alt',
+    //       type: 'string',
+    //       title: 'Alternative text',
+    //     })
+    //   ]
+    // }),
+    // defineField({
+    //   name: 'categories',
+    //   type: 'array',
+    //   of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
+    // }),
     defineField({
       name: 'publishedAt',
       type: 'datetime',
