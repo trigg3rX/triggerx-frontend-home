@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        {/* Google Tag Manager (GTM) */}
+        {/* Google Tag Manager (GTM) - Add in Head */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -40,19 +40,29 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-      </Head>
-      <body>
-         {/* Google Tag Manager (noscript) */}
-         <div
+
+        {/* Twitter Conversion Tracking Base Pixel */}
+        <script
           dangerouslySetInnerHTML={{
             __html: `
-              <noscript>
-                <iframe 
-                  src="https://www.googletagmanager.com/ns.html?id=GTM-T9XQH8N8"
-                  height="0" width="0" 
-                  style="display:none; visibility:hidden">
-                </iframe>
-              </noscript>
+              !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
+              },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
+              a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+              twq('config','p5ka3');
+            `,
+          }}
+        />
+      </Head>
+      <body>
+        {/* Google Tag Manager (noscript) - Move to immediately after <body> */}
+        <noscript
+          dangerouslySetInnerHTML={{
+            __html: `
+              <iframe 
+                src="https://www.googletagmanager.com/ns.html?id=GTM-T9XQH8N8"
+                height="0" width="0" 
+                style="display:none; visibility:hidden">
+              </iframe>
             `,
           }}
         />

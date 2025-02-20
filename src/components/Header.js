@@ -43,8 +43,8 @@ const Header = () => {
 
   const navItems = [
     { id: "Dev Hub", path: "/", label: "Dev Hub" },
-    { id: "Get Started", path: "/", label: "Get Started", dropdown: true },
-    { id: "Blog", path: "/", label: "Blog" },
+    { id: "Get Started", path: "", label: "Get Started", dropdown: true },
+    { id: "Blog", path: "/blog", label: "Blog" },
     { id: "Contact Us", path: "/", label: "Contact Us" },
   ];
 
@@ -590,7 +590,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className="relative z-50">
       {/* large screen navbar */}
       <div
         ref={containerRef}
