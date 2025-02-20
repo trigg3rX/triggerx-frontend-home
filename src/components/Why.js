@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import why from "../app/assets/why.svg";
@@ -10,7 +10,6 @@ const Why = ({ Boxdata }) => {
   const [isScrollable, setIsScrollable] = useState(
     typeof window !== "undefined" ? window.innerWidth >= 768 : false
   );
-
 
   useEffect(() => {
     if (typeof window === "undefined") return; // Prevent SSR execution
@@ -59,7 +58,7 @@ const Why = ({ Boxdata }) => {
 
   return (
     <section ref={sectionRef} className="relative md:h-[300vh]">
-      <div className="md:sticky top-0 left-0 w-[98%] md:h-[100vh] mx-auto md:overflow-hidden flex items-center">
+      <div className="md:sticky top-[10%] left-0 w-[98%] md:h-[500px] xl:h-[750px] mx-auto md:overflow-hidden flex items-center">
         <div
           className="flex flex-col md:flex-row gap-4 md:gap-0 w-[100%] md:w-[200%] transition-transform duration-300"
           style={{
@@ -68,8 +67,8 @@ const Why = ({ Boxdata }) => {
               : "none",
           }}
         >
-          <div className="md:w-[50%] overflow-hidden gap-4 flex flex-col md:flex-row justify-end items-center h-full">
-            <div className="flex flex-col items-center justify-center gap-3 h-[60vh]">
+          <div className="md:w-[50%] overflow-hidden gap-4 flex flex-col md:flex-row justify-end items-center h-full ml-[100px]">
+            <div className="flex flex-col items-center justify-center gap-3 h-[370px] xl:h-[500px]">
               <h2 className="font-sharpGrotesk text-white font-light text-4xl md:text-5xl 2xl:text-[80px] text-center md:text-start transform scale-y-[.8] leading-normal w-[70%] sm:w-[100%]">
                 Why TriggerX?
               </h2>
@@ -84,9 +83,9 @@ const Why = ({ Boxdata }) => {
                 style={{
                   boxShadow: "inset 0px 0px 7.91px 0px #656565",
                 }}
-                className="relative w-[290px] xs:w-[300px] lg:w-[350px] 2xl:w-[400px] rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-2 h-[60vh] md:last:mr-[16px]"
+                className="relative w-[290px] xs:w-[300px] lg:w-[350px] xl:w-[400px] rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-2 h-[370px] xl:h-[500px] md:last:mr-[16px]"
               >
-                <div className="relative z-0 h-32 2xl:h-48 overflow-hidden">
+                <div className="relative z-0 h-32 xl:h-44 2xl:h-48 overflow-hidden">
                   {/* Set a fixed height for the image container */}
                   <Image
                     src={box.imageSrc}
@@ -99,7 +98,7 @@ const Why = ({ Boxdata }) => {
                   <h2 className="font-actayWide text-[17px] md:text-[1vw] lg:text-[1.3vw] text-white font-bold leading-snug">
                     <b>{box.title}</b>
                   </h2>
-                  <p className="text-gray-300 text-xs md:text-xs 2xl:text-base font-actayRegular mb-6">
+                  <p className="text-gray-300 text-xs md:text-xs xl:text-base font-actayRegular mb-6">
                     {box.description}
                   </p>
                 </div>
@@ -113,9 +112,9 @@ const Why = ({ Boxdata }) => {
                 style={{
                   boxShadow: "inset 0px 0px 7.91px 0px #656565",
                 }}
-                className="relative w-[290px] xs:w-[300px] 2xl:w-sm rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-2 h-[60vh]"
+                className="relative w-[290px] xs:w-[300px] xl:w-[400px] rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-2 h-[370px] xl:h-[500px]"
               >
-                <div className="relative z-0 h-32 2xl:h-48 overflow-hidden">
+                <div className="relative z-0 h-32 xl:h-44 2xl:h-48 overflow-hidden">
                   {/* Set a fixed height for the image container */}
                   <Image
                     src={box.imageSrc}
@@ -128,7 +127,7 @@ const Why = ({ Boxdata }) => {
                   <h2 className="font-actayWide text-[17px] md:text-[1vw] lg:text-[1.3vw] text-white font-bold leading-snug">
                     <b>{box.title}</b>
                   </h2>
-                  <p className="text-gray-300 text-xs md:text-xs 2xl:text-base font-actayRegular mb-6">
+                  <p className="text-gray-300 text-xs md:text-xs xl:text-base font-actayRegular mb-6">
                     {box.description}
                   </p>
                 </div>
