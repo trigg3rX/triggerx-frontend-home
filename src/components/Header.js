@@ -42,12 +42,6 @@ const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const navItems = [
-<<<<<<< HEAD
-    { id: "Dev Hub", path: "/", label: "Dev Hub" },
-    { id: "Get Started", path: "", label: "Get Started", dropdown: true },
-    { id: "Blog", path: "/blog", label: "Blog" },
-    { id: "Contact Us", path: "/", label: "Contact Us" },
-=======
     {
       id: "Dev Hub",
       path: "https://triggerx.gitbook.io/triggerx-docs",
@@ -62,7 +56,7 @@ const Header = () => {
       dropdown: true,
       external: true,
     },
-    { id: "Blog", path: "/blogs", label: "Blog", external: false },
+    { id: "Blog", path: "/blog", label: "Blog", external: false },
     {
       id: "Contact Us",
       path: "/#contact", //  Modified path to the contact section on the homepage
@@ -70,7 +64,6 @@ const Header = () => {
       target: "_self", //  Ensure it opens in the same tab
       external: false, //  Important:  Set to false for same-page navigation
     },
->>>>>>> d953457145ca1c89544cdf90a5c696af7073fe6b
   ];
 
   const isActiveRoute = (path) => pathname === path;
