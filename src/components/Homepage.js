@@ -187,7 +187,7 @@ function Homepage() {
           <div className="w-full h-auto my-20 mx-auto">
             <Why
               baseWidth={300}
-              autoplay={false}
+              autoplay={true}
               autoplayDelay={2000}
               pauseOnHover={true}
               loop={true}
