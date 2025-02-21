@@ -529,7 +529,7 @@ const Header = () => {
   };
 
   return (
-    <div>
+    <div className="relative z-50">
       {/* large screen navbar */}
       <div
         ref={containerRef}

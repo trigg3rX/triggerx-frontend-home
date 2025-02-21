@@ -6,41 +6,97 @@ import { useSearch } from "@/app/context/SearchContext";
 export default function ClientBlogList({ blogs }) {
   const { search } = useSearch();
 
+  // Sort blogs by published date (newest first)
+  const sortedBlogs = [...blogs].sort(
+    (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+  );
+
+  // Get the most recent blog
+  const mostRecentBlog = sortedBlogs[0];
+  const otherBlogs = sortedBlogs.slice(1);
+
+  // Filter blogs based on search
   const filteredBlogs = blogs.filter((blog) =>
     blog.title.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Check if the most recent blog matches the search
+  const isRecentBlogInSearch =
+    search && filteredBlogs.some((blog) => blog._id === mostRecentBlog._id);
+
   return (
-    <div className="mt-10">
+    <>
+      {!search && mostRecentBlog && !isRecentBlogInSearch && (
+        <div className="my-10 bg-[#0F0F0F] p-6 sm:p-9 md:p-14 lg:p-20 rounded-2xl flex flex-col md:flex-row items-start justify-between gap-4 md:gap-6 border border-[#5F5F5F] h-auto">
+          <div className="w-full md:w-[47%]">
+            <p className="text-[#FBF197] text-xs sm:text-sm">
+              {new Date(mostRecentBlog.publishedAt).toLocaleDateString(
+                "en-US",
+                {
+                  month: "short",
+                  day: "2-digit",
+                  year: "numeric",
+                }
+              )}
+            </p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sharpGrotesk font-light mt-4 leading-tight transform scale-y-[.8]">
+              {mostRecentBlog.title}
+            </h2>
+          </div>
+          <div className="w-full md:w-1/2">
+            <p className="text-[#B7B7B7] text-xs sm:text-sm">
+              [{mostRecentBlog.readTime} min read]
+            </p>
+            <p className="text-gray-300 mt-3 sm:mt-7 font-actayWide font-light text-xs sm:text-sm md:text-base">
+              {mostRecentBlog.ogDescription}
+            </p>
+            <Link
+              href={`/blog/${mostRecentBlog.slug?.current}`}
+              className="text-white text-xs sm:text-sm md:text-base mt-3 sm:mt-12 lg:mt-20 xl:mt-24 inline-block hover:underline"
+            >
+              Read ↗
+            </Link>
+          </div>
+        </div>
+      )}
       {filteredBlogs.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
           {filteredBlogs.map((blog) => (
-              <article className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-[#0F0F0F] p-3 border border-[#5F5F5F] flex flex-col justify-between">
-                {blog.mainImage?.asset?.url ? (
-                  <div className="w-full h-[200px] rounded-2xl bg-green-50 border border-[#5F5F5F] relative overflow-hidden">
-                    <Image
-                      src={blog.mainImage.asset.url}
-                      alt={blog.title || "Blog Image"}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-full h-[200px] rounded-2xl bg-green-50 flex items-center justify-center">
-                    <span className="text-gray-400 text-sm">No Image</span>
-                  </div>
-                )}
-
-                <h2 className="font-actayWide text-xl group-hover:text-[#B7B7B7] transition-colors p-4 mt-8">
-                  {blog.title}
-                </h2>
-
-                <div className="mt-8 p-4">
-                  <time className="text-sm bg-[#222222] text-[#B7B7B7] px-7 py-2 rounded-lg w-max">
-                    {new Date(blog.publishedAt).toLocaleDateString()}
-                  </time>
+            <Link
+              href={`/blog/${blog.slug?.current}`}
+              key={blog._id}
+              className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow bg-[#0F0F0F] p-3 border border-[#5F5F5F] flex flex-col justify-between"
+            >
+              {blog.ogImage?.asset?.url ? (
+                <div className="w-full h-[200px] rounded-2xl border border-[#5F5F5F] relative overflow-hidden">
+                  <Image
+                    src={blog.ogImage.asset.url}
+                    alt={blog.title || "Blog Image"}
+                    fill
+                    className="h-full w-auto"
+                  />
                 </div>
-              </article>
+              ) : (
+                <div className="w-full h-[200px] rounded-2xl bg-green-50 flex items-center justify-center">
+                  <span className="text-gray-400 text-sm">No Image</span>
+                </div>
+              )}
+
+              <h2 className="font-actayWide text-base sm:text-xl group-hover:text-[#B7B7B7] transition-colors p-4 mt-4 sm:mt-8">
+                {blog.title}
+              </h2>
+
+              <div className="mt-4 sm:mt-8 p-4">
+                <time className="bg-[#222222] text-[#B7B7B7] px-6 py-2 rounded-lg w-max text-xs sm:text-sm">
+                  {new Date(blog.publishedAt).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  })}{" "}[{blog.readTime} min read]
+
+                </time>
+              </div>
+            </Link>
           ))}
         </div>
       ) : (
@@ -48,6 +104,6 @@ export default function ClientBlogList({ blogs }) {
           <p className="text-gray-400 text-lg">No blogs found.</p>
         </div>
       )}
-    </div>
+    </>
   );
 }
