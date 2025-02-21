@@ -15,8 +15,8 @@ export default function blogs() {
   );
 }
 export const metadata = {
-  metadataBase: new URL("https://www.triggerx.network/"),
-  title: "TriggerX",
+  metadataBase: new URL("https://www.triggerx.network/blog"),
+  title: "TriggerX | Blog",
   description: "Automate Tasks Effortlessly",
   openGraph: {
     images: [

@@ -20,114 +20,9 @@ import Why from "./Why";
 gsap.registerPlugin(ScrollTrigger);
 function Homepage() {
   const contactSectionRef = useRef(null);
-
   const nextGenRef = useRef();
   const componentRef = useRef(null);
   const sliderRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (window.innerWidth >= 768) {
-  //     gsap.registerPlugin(ScrollTrigger);
-
-  //     const slider = sliderRef.current;
-  //     const section = componentRef.current;
-
-  //     let tl = gsap.timeline({
-  //       defaults: { ease: "none" },
-  //       scrollTrigger: {
-  //         trigger: slider,
-  //         start: "top+=100% bottom", // Ensure it starts only when fully visible
-  //         end: "top+=200% bottom",
-  //         pin: true,
-  //         pinSpacing: true,
-  //         scrub: 1,
-  //         invalidateOnRefresh: true,
-  //         anticipatePin: 1,
-  //         markers: true,
-  //       },
-  //     });
-
-  //     tl.to(slider, {
-  //       x: () => -(slider.scrollWidth - window.innerWidth),
-  //       ease: "none",
-  //     });
-
-  //     const handleResize = () => {
-  //       if (window.innerWidth < 768) {
-  //         tl.kill();
-  //         ScrollTrigger.getAll().forEach((st) => st.kill());
-  //         gsap.set(slider, { x: 0 });
-  //       } else {
-  //         setTimeout(() => ScrollTrigger.refresh(), 500); // Ensure it recalculates
-  //       }
-  //     };
-
-  //     window.addEventListener("resize", handleResize);
-  //     window.addEventListener("load", () => setTimeout(() => ScrollTrigger.refresh(), 500));
-
-  //     return () => {
-  //       window.removeEventListener("resize", handleResize);
-  //       tl.kill();
-  //       ScrollTrigger.getAll().forEach((st) => st.kill());
-  //     };
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   // Only initialize ScrollTrigger for screens >= 768px
-  //   if (window.innerWidth >= 768) {
-  //     // Register ScrollTrigger plugin
-  //     gsap.registerPlugin(ScrollTrigger);
-
-  //     const slider = sliderRef.current;
-  //     const section = componentRef.current;
-
-  //     let tl = gsap.timeline({
-  //       defaults: {
-  //         ease: "none",
-  //       },
-  //       scrollTrigger: {
-  //         trigger: section,
-  //         start: "bottom bottom-=10",
-  //         end: () => `+=${slider.scrollWidth - window.innerWidth}`,
-  //         pin: true,
-  //         pinSpacing: true,
-  //         scrub: 1,
-  //         invalidateOnRefresh: true,
-  //         anticipatePin: 1,
-  //         // markers: true,
-  //       },
-  //     });
-
-  //     // Animate the slider horizontally
-  //     tl.to(slider, {
-  //       x: () => -(slider.scrollWidth - window.innerWidth),
-  //       ease: "none",
-  //     });
-
-  //     // Handle resize events
-  //     const handleResize = () => {
-  //       // Kill the animation if screen becomes smaller than 768px
-  //       if (window.innerWidth < 768) {
-  //         tl.kill();
-  //         ScrollTrigger.getAll().forEach((st) => st.kill());
-  //         // Reset any transformations
-  //         gsap.set(slider, { x: 0 });
-  //       } else {
-  //         ScrollTrigger.refresh();
-  //       }
-  //     };
-
-  //     window.addEventListener("resize", handleResize);
-
-  //     // Cleanup
-  //     return () => {
-  //       window.removeEventListener("resize", handleResize);
-  //       tl.kill();
-  //       ScrollTrigger.getAll().forEach((st) => st.kill());
-  //     };
-  //   }
-  // }, []);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -241,23 +136,29 @@ function Homepage() {
         <div ref={nextGenRef} className="relative -z-10">
           <section className="my-20 max-w-[1600px] mx-auto">
             <div
-              className="font-sharpGrotesk w-[90%] mx-auto mt-[100px] lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px]"
+              className="font-sharpGrotesk w-[90%] mx-auto  lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px] "
               id="target-section"
             >
-              <h1 className=" text-center text-2xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] transform scale-y-[.8]">
+              <h1 className=" text-center text-5xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] transform scale-y-[.8] leading-normal">
                 Effortless Blockchain
               </h1>
-              <h1 className="text-center text-2xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8]">
+              <h1 className="text-center text-5xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8] leading-6">
                 Automation
               </h1>
-              <h1 className=" text-center text-2xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8]">
+              <h1 className=" text-center text-5xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8] leading-normal">
                 <span className="text-[#82FBD0]">.</span>Limitless Potential
                 <span className="text-[#82FBD0]">.</span>
               </h1>
             </div>
 
-            <h4 className="relative text-[#A2A2A2] font-actayRegular text-center text-xs sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-auto my-6 lg:my-10">
+            <h4 className="sm:hidden hidden xl:block lg:block md:block relative text-[#A2A2A2] font-actayRegular text-center text-xs sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-6 lg:mx-auto xl:mx-auto md:mx-auto my-6 lg:my-10">
               Powered by Eigenlayer. Built with ♥️ for the Superchain.
+              <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
+              <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
+            </h4>
+            <h4 className="md:hidden xl:hidden lg:hidden relative text-[#A2A2A2] font-actayRegular text-center text-sm sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-auto lg:mx-auto xl:mx-auto my-6 lg:my-10">
+              Powered by Eigenlayer.
+              <h4>Built with ♥️ for the Superchain.</h4>
               <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
             </h4>
@@ -282,63 +183,20 @@ function Homepage() {
               </button>
             </div>
           </section>
-          {/* why */}
-          <Why Boxdata={Boxdata} />
-          {/* <section
-            ref={componentRef}
-            className="relative w-full md:w-[98%] md:mx-auto md:overflow-hidden"
-          >
-            <div
-              ref={sliderRef}
-              className="flex flex-col md:flex-row items-center gap-10 md:gap-24"
-              style={{
-                willChange: "transform",
-                transformStyle: "preserve-3d",
-              }}
-            >
-              <div className="flex flex-col items-center ml-0 md:ml-20 gap-10">
-                <h2 className="font-sharpGrotesk text-white font-light text-4xl md:text-5xl 2xl:text-[80px] text-center md:text-start transform scale-y-[.8] leading-normal w-[70%] sm:w-[100%]">
-                  Why TriggerX?
-                </h2>
+          {/* Why */}
+          <div className="w-full h-auto my-20 mx-auto">
+            <Why
+              baseWidth={300}
+              autoplay={false}
+              autoplayDelay={2000}
+              pauseOnHover={true}
+              loop={true}
+              round={true}
+              Boxdata={Boxdata}
+            />
+          </div>
 
-                <div className="w-full h-max hidden md:flex">
-                  <Image src={why} alt={""} className="w-full h-auto" />
-                </div>
-              </div>
-
-              <div className="flex flex-col md:flex-row gap-4 min-w-max">
-                {Boxdata.map((box, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      boxShadow: "inset 0px 0px 7.91px 0px #656565",
-                    }}
-                    className="relative max-w-[290px] xs:max-w-[300px] 2xl:max-w-sm rounded-[20px] 2xl:rounded-[30px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] mr-0 p-2 md:mr-4 md:last:mr-20"
-                  >
-                    <div className="relative z-0 h-32 2xl:h-48 overflow-hidden">
-                      <Image
-                        src={box.imageSrc}
-                        alt={box.title}
-                        className="object-bottom rounded-[14px] 2xl:rounded-[30px] w-full h-auto aspect-auto"
-                        fill
-                      />
-                    </div>
-                    <div className="relative z-10 space-y-4 p-6">
-                      <h2 className="font-actayWide text-[17px] md:text-[2vw] lg:text-[1.5vw] text-white font-bold leading-snug">
-                        <b>{box.title}</b>
-                      </h2>
-                      <p className="text-gray-300 text-xs md:text-sm 2xl:text-base font-actayRegular mb-6">
-                        {box.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section> */}
-
-          {/* offer */}
-          <section className=" mt-[50px] mb-20 lg:mb-40 max-w-[1600px] mx-auto">
+          <section className=" my-20 lg:mb-40 max-w-[1600px] sm:mx-5 mx-5 md:mx-5 lg:mx-5 xl:mx-auto">
             <div className="bg-white rounded-3xl shadow-lg text-black flex flex-col items-start justify-center relative overflow-hidden px-3 xs:px-7 py-10 sm:py-16 md:p-16 2xl:p-24">
               <div className="absolute right-0 top-[-20px] md:top-[-50px] lg:top-[-100px] w-[150px] md:w-[200px] lg:w-[300px] h-max">
                 <Image src={choose} alt="image" className="w-full h-auto" />
@@ -458,8 +316,8 @@ function Homepage() {
             </div>
           </section>
           {/* use cases */}
-          <section className="max-w-[1600px]  mx-auto w-[90%] h-auto  my-5 lg:my-20 flex justify-between items-start flex-col md:flex-row">
-            <div className="flex flex-col items-start w-full md:w-1/2 p-4 sm:p-6 2xl:p-10">
+          <section className="max-w-[1600px]  mx-auto w-[90%] h-auto  my-20 flex justify-between items-start flex-col md:flex-row">
+            <div className="flex flex-col items-start w-full md:w-1/2 p-4 sm:p-6 2xl:p-10 mb-10">
               <div className="hidden md:inline-block w-[50%] h-max">
                 <Image src={usecase} alt="usecase" className="w-full h-auto" />
               </div>
@@ -469,7 +327,7 @@ function Homepage() {
               <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[4rem] w-full md:w-auto">
                 TriggerX For?
               </h1>
-              <div className="font-actayRegular w-[95%]">
+              <div className="font-actayRegular w-[100%]">
                 <h4 className="text-xs xs:text-sm lg:text-[18px] 2xl:text-[18px] text-[#A2A2A2] text-center md:text-left mt-6 sm:mt-12  leading-normal lg:leading-[2.1rem] 2xl:leading-[2.1rem]">
                   Whether you're a dApp developer, DeFi protocol creator, or
                   enterprise innovator, TriggerX empowers you to automate tasks
@@ -561,18 +419,18 @@ function Homepage() {
           {/* Get Started Section */}
           <section
             id="contact-section"
-            className="w-[100%] mx-auto mt-6 mb-32 sm:mb-20 md:mt-10 md:mb-40 max-w-[1600px] "
+            className="w-[100%] mx-auto my-20 max-w-[1600px] "
           >
             <div className="w-full text-center">
               <h1 className="text-3xl sm:text-5xl lg:text-6xl 2xl:text-5xl text-white pb-2 text-center font-sharpGrotesk">
                 Get Started Today
               </h1>
 
-              <div className="mt-10 md:mt-20">
+              <div className="mt-10 md:mt-20 mx-5">
                 {/* Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
                   <div className="relative overflow-hidden bg-[#141414] group-hover:underline rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
-                    <div className="block md:hidden absolute right-[-30%] xs:right-[-15%] top-[-35%]">
+                    <div className="block md:hidden absolute right-0">
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
@@ -588,7 +446,7 @@ function Homepage() {
                   </div>
 
                   <div className="relative overflow-hidden bg-[#141414] rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
-                    <div className="block md:hidden absolute right-[-30%] xs:right-[-15%] top-[-35%]">
+                    <div className="block md:hidden absolute right-0">
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
@@ -604,7 +462,7 @@ function Homepage() {
                   </div>
 
                   <div className="relative overflow-hidden bg-[#141414] rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
-                    <div className="block md:hidden absolute right-[-30%] xs:right-[-15%] top-[-35%]">
+                    <div className="block md:hidden absolute right-0">
                       <Image src={follow} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
@@ -624,6 +482,7 @@ function Homepage() {
           </section>
         </div>
       </div>
+
       <Footer />
     </>
   );

@@ -1,5 +1,7 @@
 import Homepage from "@/components/Homepage";
+import Why from "@/components/Why";
 import Head from "next/head";
+import Boxdata from "../components/Boxdata";
 
 export default function Home() {
   return (
