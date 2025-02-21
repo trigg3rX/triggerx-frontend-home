@@ -7,7 +7,7 @@ export default function blogs() {
   return (
     <SearchProvider>
       <Header />
-      <div className="w-[95%] mx-auto my-16 relative z-40">
+      <div className="w-[95%] max-w-[1600px] mx-auto my-16 relative z-40">
         <BlogHeader />
         <BlogList />
       </div>

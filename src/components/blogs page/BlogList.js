@@ -4,25 +4,24 @@ import ClientBlogList from "./ClientBlogList";
 const query = `*[_type == "post"] | order(publishedAt desc) {
   _id,
   title,
-  slug {
-    current
-  },
-  mainImage {
+  seoTitle,
+  metaDescription,
+  canonicalUrl,
+  ogTitle,
+  ogDescription,
+  ogImage {
     asset -> {
       url
     }
   },
-  publishedAt,
-  author -> {
-    name,
-    image {
-      asset -> {
-        url
-      }
-    }
+  ogUrl,
+  slug {
+    current
   },
-  body
+  publishedAt,
+  readTime,
 }`;
+
 
 async function getBlogs() {
   try {

@@ -1,0 +1,204 @@
+"use client";
+import Image from "next/image";
+import { PortableText } from "@portabletext/react";
+import Header from "@/components/Header";
+import { useEffect, useState } from "react";
+import Footer from "../Footer";
+import { useRouter } from "next/navigation";
+import arrow from "@/app/assets/blogs page/arrow.svg";
+
+export default function ClientSlug({ blog }) {
+  const router = useRouter();
+  const [activeHeading, setActiveHeading] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const headings = document.querySelectorAll("h2");
+      let currentActive = "";
+
+      for (let i = 0; i < headings.length; i++) {
+        const rect = headings[i].getBoundingClientRect();
+
+        // If heading is above 120px, set it as active
+        if (rect.top <= 500) {
+          currentActive = headings[i].innerText;
+        } else {
+          break; // Stop checking further, as the next heading hasn't reached 120px yet
+        }
+      }
+
+      setActiveHeading(currentActive);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <>
+      <Header />
+      <main className="w-[95%] max-w-[1600px] mx-auto my-4 lg:my-16 relative z-40">
+        <article>
+          <header className="mb-3 lg:mb-12 mt-0 lg:mt-32">
+            <h1 className="font-sharpGrotesk text-4xl lg:text-5xl font-bold mb-5 lg:mb-10 text-center w-[97%] mx-auto transform scale-y-[.8] leading-snug">
+              {blog.title}
+            </h1>
+            {blog.ogImage?.asset?.url ? (
+              <div className="w-[98%] mx-auto h-max min-h-[240px] sm:min-h-[300px] md:min-h-[400px] xl:min-h-[600px] relative rounded-2xl border overflow-hidden">
+                <Image
+                  src={blog.ogImage.asset.url}
+                  alt={blog.title || "Blog Image"}
+                  fill
+                  className="w-98% h-full relative"
+                />
+              </div>
+            ) : (
+              <div className="w-full h-[200px] rounded-2xl bg-green-50 relative overflow-hidden flex items-center justify-center">
+                <span className="text-gray-400 text-sm">No Image</span>
+              </div>
+            )}
+            <div></div>
+          </header>
+
+          <div className="flex flex-col md:flex-row gap-2 md:gap-8 w-[97%] mx-auto">
+            {/* Table of Content */}
+            <aside className="w-full md:w-1/4 min-w-[230px] md:sticky top-24 h-full">
+              {/* Mobile Dropdown */}
+              <div className="md:hidden relative my-4">
+                <button
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="w-full flex justify-between items-center px-4 py-2 bg-[#141313] text-white rounded-lg border border-[#5F5F5F] text-xs font-actayWide"
+                >
+                  Table Of Content
+                  <span
+                    className={`transform transition ${isOpen ? "rotate-180" : ""}`}
+                  >
+                    <Image src={arrow} alt="arrow"></Image>
+                  </span>
+                </button>
+
+                {isOpen && (
+                  <ul className="absolute w-full bg-[#141313] text-white rounded-lg border border-[#5F5F5F] mt-2 shadow-lg z-10 text-xs font-actay">
+                    {blog.headingPairs?.map((pair, index) => (
+                      <li key={index} className="py-2 px-2">
+                        <a
+                          href={`#${pair.h2Heading}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            const targetElement = document.getElementById(
+                              pair.h2Heading
+                            );
+                            if (targetElement) {
+                              const yOffset = -160; // Adjust the offset (200px from top)
+                              const y =
+                                targetElement.getBoundingClientRect().top +
+                                window.scrollY +
+                                yOffset;
+                              window.scrollTo({ top: y, behavior: "smooth" });
+                            }
+                          }}
+                          className={`text-xs hover:underline ${
+                            activeHeading === pair.h2Heading
+                              ? "text-green-400 font-bold"
+                              : "text-gray-300"
+                          }`}
+                        >
+                          [ {index + 1} ] {pair.displayHeading}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <h2 className="hidden md:block font-actayWide text-sm lg:text-lg font-extrabold my-10">
+                Table of Content
+              </h2>
+              <ul className="hidden md:block space-y-2 font-actay">
+                {blog.headingPairs?.map((pair, index) => (
+                  <li key={index}>
+                    <a
+                      href={`#${pair.h2Heading}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const targetElement = document.getElementById(
+                          pair.h2Heading
+                        );
+                        if (targetElement) {
+                          const yOffset = -160; // Adjust the offset (200px from top)
+                          const y =
+                            targetElement.getBoundingClientRect().top +
+                            window.scrollY +
+                            yOffset;
+                          window.scrollTo({ top: y, behavior: "smooth" });
+                        }
+                      }}
+                      className={`text-xs lg:text-sm hover:underline ${
+                        activeHeading === pair.h2Heading
+                          ? "text-green-400 font-bold"
+                          : "text-gray-300"
+                      }`}
+                    >
+                      [ {index + 1} ] {pair.displayHeading}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </aside>
+
+            {/* Blog Content */}
+            <article className="w-full md:w-3/4 mt-0 md:mt-10">
+              <PortableText
+                value={blog.body}
+                components={{
+                  types: {},
+                  marks: {},
+                  block: {
+                    h2: ({ children }) => {
+                      const text = children?.[0]; // Extract text from children array
+                      return (
+                        <h2
+                          id={text}
+                          className="font-actayWide text-xl sm:text-2xl xl:text-3xl font-bold mt-10 mb-4"
+                        >
+                          {text}
+                        </h2>
+                      );
+                    },
+                    h3: ({ children }) => {
+                      const text = children?.[0];
+                      return (
+                        <h3
+                          id={text}
+                          className="text-sm sm:text-lg xl:text-xl mt-4"
+                        >
+                          {text}
+                        </h3>
+                      );
+                    },
+                    normal: ({ children }) => (
+                      <p className="my-2 text-xs sm:text-sm xl:text-base">
+                        {children}
+                      </p>
+                    ),
+                  },
+                }}
+              />
+            </article>
+          </div>
+
+          <div className="flex items-center justify-center">
+            <button
+              onClick={() => router.push("/blog")}
+              className="bg-white rounded-full my-16 px-4 sm:px-6 lg:px-8 py-3 lg:py-4 text-black mx-auto text-xs sm:text-sm lg:text-base"
+            >
+              Go Back to blog Page
+            </button>
+          </div>
+        </article>
+      </main>
+      <Footer />
+    </>
+  );
+}
