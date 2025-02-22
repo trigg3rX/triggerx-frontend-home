@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useState, useRef, useEffect } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import logo from "../app/assets/logo.svg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -17,14 +17,16 @@ const Header = () => {
   const [prevRect, setPrevRect] = useState();
   const navRef = useRef();
   const router = useRouter();
+
   const navMobileRef = useRef(null);
   const navMobileMRef = useRef(null);
   const [animationCompleted, setAnimationCompleted] = useState(false);
   const [MobileAnimationCompleted, setMobileAnimationCompleted] =
     useState(false);
+
   const landingImageRef = useRef(null);
   const landingImageMRef = useRef(null);
-  const pathname = usePathname(); // Get the current path
+  const logoRef = useRef(null);
   const mainLogoRef = useRef(null);
   const containerRef = useRef(null);
   const headerMRef = useRef(null);
@@ -34,6 +36,8 @@ const Header = () => {
   const navigationMRef = useRef(null);
   const navigationRef = useRef(null);
   const [imageOpacity, setImageOpacity] = useState(1); // State for image opacity
+  const [imageMOpacity, setImageMOpacity] = useState(1); // State for image opacity
+
   const animationPlayed = useRef(false);
   const circularTextRef = useRef(null);
   const arrowRef = useRef(null);
@@ -64,9 +68,9 @@ const Header = () => {
     },
   ];
 
-  const isActiveRoute = (path) => pathname === path;
+  const isActiveRoute = (path) => location.pathname === path;
 
-  const playAnimation = (navigateToContact = false) => {
+  const playAnimation = () => {
     if (animationPlayed.current) return;
     setTimeout(() => {
       console.log("Animation completed");
@@ -81,7 +85,7 @@ const Header = () => {
         logo: {
           width: 170,
           x: viewportWidth * -0,
-          y: -170,
+          y: -160,
         },
         nav: {
           x: viewportWidth * -0,
@@ -90,7 +94,11 @@ const Header = () => {
         landing: {
           width: 500,
           x: viewportWidth * -0,
-          y: -500,
+          y: -480,
+        },
+        mobile: {
+          x: viewportWidth * -0,
+          y: viewportHeight * -0,
         },
       };
     };
@@ -98,9 +106,13 @@ const Header = () => {
     const positions = calculatePositions();
 
     // Initial setup
-    // Update your initial gsap.set call in playAnimation()
     gsap.set(
-      [mainLogoRef.current, landingImageRef.current, navigationRef.current],
+      [
+        mainLogoRef.current,
+        landingImageRef.current,
+        navigationRef.current,
+        navMobileRef.current,
+      ],
       {
         x: 0,
         y: 0,
@@ -112,23 +124,6 @@ const Header = () => {
         animationPlayed.current = true;
         setAnimationCompleted(true);
         gsap.set(containerRef.current, { height: "100px" });
-
-        // Navigate to contact section *after* animation
-        if (navigateToContact) {
-          // Delay slightly to ensure layout is stable
-          setTimeout(() => {
-            const contactSection = document.getElementById("contact-section");
-            if (contactSection) {
-              const contactPosition = contactSection.offsetTop; // Absolute offset from top
-              window.scrollTo({
-                top: contactPosition,
-                behavior: "smooth",
-              });
-            } else {
-              console.warn("Contact section not found.");
-            }
-          }, 50); // Very short delay (adjust if needed)
-        }
       },
     });
 
@@ -149,6 +144,7 @@ const Header = () => {
         y: positions.nav.y,
         left: "50%",
         opacity: 1,
+
         transform: "translateX(-50%)",
         ease: "power2.out",
         duration: 1,
@@ -170,6 +166,20 @@ const Header = () => {
     );
 
     tl.to(
+      navMobileRef.current,
+      {
+        x: positions.nav.x,
+        y: positions.nav.y,
+        left: "50%",
+        transform: "translateX(-50%)",
+        ease: "power2.out",
+        duration: 1,
+        zIndex: 10,
+      },
+      "<"
+    );
+
+    tl.to(
       containerRef.current,
       {
         height: "100px",
@@ -186,188 +196,6 @@ const Header = () => {
       repeat: -1,
       ease: "linear",
     });
-  };
-
-  const playMobileAnimation = (navigateToContact = false) => {
-    if (animationPlayed.current) return;
-
-    setTimeout(() => {
-      console.log("Animation completed");
-      window.scrollTo(0, 0); // Reset scroll position to top
-    }, 0); // Adjust duration to your animation's timing
-    // Calculate positions
-
-    const calculatePositions = () => {
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      return {
-        logo: {
-          width: 130, // Setting a width to make x and y values easier to calculate
-          x: -110, // Centering and adding offset from center
-          y: -170, // 70% of the way down
-        },
-        nav: {
-          x: viewportWidth * -0, // Center
-          y: viewportHeight * -0, // 30% from top
-        },
-        landing: {
-          width: 250,
-          x: viewportWidth * -0,
-          y: -355,
-          scale: 0.8,
-        },
-      };
-    };
-
-    const positions = calculatePositions();
-
-    // Initial setup
-    gsap.set(
-      [mainLogoMRef.current, landingImageMRef.current, navigationMRef.current],
-      {
-        x: 0,
-        y: 0,
-        // scale: 1,
-      }
-    );
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        animationPlayed.current = true;
-        setMobileAnimationCompleted(true);
-        gsap.set(containerMRef.current, { height: "100px" });
-        if (navigateToContact) {
-          setTimeout(() => {
-            const contactSection = document.getElementById("contact-section");
-            if (contactSection) {
-              const contactPosition = contactSection.offsetTop;
-              window.scrollTo({
-                top: contactPosition,
-                behavior: "smooth",
-              });
-            } else {
-              console.warn("Contact section not found.");
-            }
-          }, 50); // Very short delay (adjust if needed)
-        }
-      },
-    });
-
-    // Animation sequence
-    // Animate to final positions
-    tl.to(mainLogoMRef.current, {
-      width: positions.logo.width, // Animate the width
-      x: positions.logo.x,
-      y: positions.logo.y,
-
-      ease: "power2.out",
-      duration: 1,
-      zIndex: 10,
-      position: "relative",
-    });
-
-    tl.to(
-      navigationMRef.current,
-      {
-        x: positions.nav.x,
-        y: positions.nav.y,
-        left: "50%", // Keep centering
-        transform: "translateX(-50%)",
-        ease: "power2.out",
-        duration: 1,
-        zIndex: 10,
-      },
-      "<"
-    );
-
-    tl.to(
-      landingImageMRef.current,
-      {
-        width: positions.landing.width, // Animate the width
-
-        x: positions.landing.x,
-        y: positions.landing.y,
-        scale: positions.landing.scale,
-        // left: "50%",
-        ease: "power2.out",
-        duration: 1,
-      },
-      "<"
-    );
-
-    tl.to(
-      containerMRef.current,
-      {
-        height: "100px",
-        duration: 1,
-        ease: "power2.out",
-      },
-      0
-    );
-  };
-
-  useEffect(() => {
-    // Event listeners for different triggers
-    const handleScroll = () => {
-      playMobileAnimation();
-    };
-
-    // Add event listeners
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  // Fixed: Updated handleMenuItemClick to handle internal vs external links
-  const handleMenuItemClick = (
-    path,
-    hasDropdown = false,
-    isExternal = false,
-    // Added the extra parameter.
-    isContact = false
-  ) => {
-    if (hasDropdown) {
-      setDropdownOpen(!dropdownOpen);
-      return;
-    }
-
-    if (path) {
-      if (isExternal) {
-        // External links open in new tab
-        window.open(path, "_blank", "noopener,noreferrer");
-      } else {
-        // Internal links
-        if (isContact) {
-          //Trigger Contact logic.
-          if (!animationPlayed.current) {
-            //If Animation hasnt played, then we play it.
-            playAnimation(true);
-          } else {
-            //If the animation has already been played, then just push.
-            const contactSection = document.getElementById("contact-section");
-            if (contactSection) {
-              const contactPosition = contactSection.offsetTop;
-              window.scrollTo({
-                top: contactPosition,
-                behavior: "smooth",
-              });
-            } else {
-              console.warn("Contact section not found.");
-            }
-          }
-        } else {
-          //For non contact pages just push
-          router.push(path);
-        }
-      }
-      setMenuOpen(false);
-    }
   };
 
   useEffect(() => {
@@ -408,6 +236,145 @@ const Header = () => {
     };
   }, []);
 
+  const playMobileAnimation = () => {
+    if (animationPlayed.current) return;
+
+    setTimeout(() => {
+      console.log("Animation completed");
+      window.scrollTo(0, 0); // Reset scroll position to top
+    }, 0); // Adjust duration to your animation's timing
+    // Calculate positions
+
+    const calculatePositions = () => {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+
+      return {
+        logo: {
+          width: 130, // Setting a width to make x and y values easier to calculate
+          x: -58, // Centering and adding offset from center
+          y: -165, // 70% of the way down
+        },
+        nav: {
+          x: viewportWidth * -0, // Center
+          y: viewportHeight * -0, // 30% from top
+        },
+        landing: {
+          width: 300,
+          x: viewportWidth * -0,
+          y: -355,
+          scale: 0.8,
+        },
+      };
+    };
+
+    const positions = calculatePositions();
+
+    // Initial setup
+    gsap.set(
+      [
+        mainLogoMRef.current,
+        landingImageMRef.current,
+        navigationMRef.current,
+        navMobileMRef.current,
+      ],
+      {
+        x: 0,
+        y: 0,
+        scale: 1,
+      }
+    );
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        animationPlayed.current = true;
+        setMobileAnimationCompleted(true);
+        gsap.set(containerMRef.current, { height: "100px" });
+      },
+    });
+
+    // Animation sequence
+    // Animate to final positions
+    tl.to(mainLogoMRef.current, {
+      width: positions.logo.width, // Animate the width
+      x: positions.logo.x,
+      y: positions.logo.y,
+
+      ease: "power2.out",
+      duration: 1,
+      zIndex: 10,
+      position: "relative",
+    });
+
+    tl.to(
+      navigationMRef.current,
+      {
+        x: positions.nav.x,
+        y: positions.nav.y,
+        left: "50%", // Keep centering
+
+        
+        transform: "translateX(-50%)",
+        ease: "power2.out",
+        duration: 1,
+        zIndex: 10,
+      },
+      "<"
+    );
+
+    tl.to(
+      landingImageMRef.current,
+      {
+        width: positions.landing.width, // Animate the width
+
+        x: positions.landing.x,
+        y: positions.landing.y,
+        scale: positions.landing.scale,
+        // left: "0%",
+        ease: "power2.out",
+        duration: 1,
+      },
+      "<"
+    );
+
+    tl.to(
+      containerMRef.current,
+      {
+        height: "100px",
+        duration: 1,
+        ease: "power2.out",
+      },
+      0
+    );
+  };
+
+  useEffect(() => {
+    // Event listeners for different triggers
+    const handleScroll = () => {
+      playMobileAnimation();
+    };
+
+    // Add event listeners
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
+
+  const handleMenuItemClick = (path, hasDropdown = false) => {
+    if (path && !hasDropdown) {
+      router.push(path);
+      setMenuOpen(false);
+    }
+    if (hasDropdown) {
+      setDropdownOpen(!dropdownOpen);
+    }
+  };
+
   const handleArrowClick = (e) => {
     playMobileAnimation();
   };
@@ -447,32 +414,11 @@ const Header = () => {
         });
       }
     };
-    const handleKeyPress = (event) => {
-      // You can specify certain keys or remove this condition to trigger on any key
-      if (event.key === "Enter") {
-        playAnimation();
-      }
-    };
-    const handleGlobalClick = (event) => {
-      const isNavClick =
-        event.target.closest("nav") ||
-        event.target.closest(".scroll-arrow") ||
-        event.target.closest("button");
-
-      if (!isNavClick) {
-        playAnimation();
-      }
-    };
 
     window.addEventListener("scroll", handleScroll);
-    document.addEventListener("keydown", handleKeyPress);
-    document.addEventListener("click", handleGlobalClick);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("click", handleGlobalClick);
-
-      document.removeEventListener("keydown", handleKeyPress);
     };
   }, [animationPlayed]);
 
@@ -483,7 +429,7 @@ const Header = () => {
   const handleMouseEnter = (event) => {
     const hoveredElement = event.currentTarget;
     if (!hoveredElement) return;
-    const rect = hoveredElement.getBoundingClientRect();
+    const rect = (hoveredElement ).getBoundingClientRect();
     const navRect = navRef.current
       ? navRef.current.getBoundingClientRect()
       : { x: 0, y: 0, width: 0, height: 0 };
@@ -528,10 +474,30 @@ const Header = () => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownRef.current && 
+        !dropdownRef.current.contains(event.target) &&
+        !event.target.closest('button')  // Exclude the button that opens the dropdown
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    if (dropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [dropdownOpen]);
+
+
   return (
-    <div className="relative z-50">
-      {/* large screen navbar */}
-      <div
+    <div>
+     <div
         ref={containerRef}
         className="relative h-screen w-full max-w-[1600px] hidden lg:block overflow-hidden "
       >
@@ -685,7 +651,7 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="Landing illustration"
-              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-20"
+              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-10"
               style={{
                 opacity: imageOpacity,
                 transition: "opacity 0.3s ease",
@@ -697,7 +663,7 @@ const Header = () => {
             <div
               ref={arrowRef}
               onClick={handleArrowDown}
-              className="fixed right-5 bottom-10 md:right-10 md:bottom-20 z-50 flex flex-col items-center"
+              className="fixed right-5 bottom-10 md:right-10 md:bottom-20 z-50 flex flex-col items-center "
             >
               <div className="circular-text-container">
                 <div className="scroll-arrow border border-white rounded-full p-2 md:p-3">
@@ -721,27 +687,27 @@ const Header = () => {
           )}
         </div>
       </div>
-      {/* mobile screen navbar */}
+
       <div
         ref={containerMRef}
-        className="relative h-screen w-full block lg:hidden "
+        className="relative  h-screen w-full  sm:block md:block lg:hidden xl:hidden block"
       >
         {/* Fixed Header */}
-
         <div
           ref={headerMRef}
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="w-[100%] px-10 py-10 flex justify-between gap-3 items-center header lg:hidden">
-              <div className="relative items-center gap-5 ">
+            <div className="w-[100%] px-10 flex justify-end gap-3 items-center py-10 header sm:flex lg:hidden md:flex">
+              {/* <div className="absolute top-3 left-1/2 transform -translate-x-1/2 -translate-y-10 z-0">
+              <img src={nav} alt="Nav Background" className="w-64 h-auto z-0" />
+            </div> */}
+
+              <div className="relative  items-center gap-5 ">
                 <div className="flex-shrink-0 relative z-10 text-sm sm:hidden hidden md:flex"></div>
               </div>
-              <div
-                className="flex-shrink-0 relative z-10 lg:hidden"
-                ref={navMobileMRef}
-              >
-                <div className="lg:hidden">
+              <div className="flex-shrink-0 relative z-10 " ref={navMobileMRef}>
+              <div className="lg:hidden">
                   <h4
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="text-white text-2xl cursor-pointer"
@@ -865,33 +831,32 @@ const Header = () => {
           </div>
 
           {/* Hero Section with Animated Elements */}
-          <div className="w-[100%] px-20 flex flex-col items-center my-[100px] relative">
-            <a href="/">
+          <div className="w-[100%] px-20 flex sm:my-[100px]  md:my-[100px] lg:my-[100px] my-[100px]  items-center flex-col relative">
+            <div className="w-full relative">
               <Image
                 ref={mainLogoMRef}
                 src={logo}
                 alt="TriggerX Logo"
-                className="w-[250px] max-w-[900px] sm:w-[250px] md:w-[500px] lg:w-[400px] xl:w-[500px]"
+                className="w-full"
               />
-            </a>
+            </div>
 
-            <Image
-              ref={landingImageMRef}
-              src={landing}
-              alt="Landing illustration"
-              className="md:w-[450px] sm:w-[200px] w-[200px] lg:w-[450px] xl:w-[450px] absolute sm:top-10 top-5 md:top-6 lg:top-10 xl:top-0 "
-              style={{
-                opacity: imageOpacity,
-                transition: "opacity 0.3s ease",
-              }}
-            />
+              <Image
+                ref={landingImageMRef}
+                src={landing}
+                alt="Landing illustration"
+                className="md:w-[450px] sm:w-[250px] w-[250px] absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-0"
+                style={{
+                  opacity: imageMOpacity,
+                  transition: "opacity 0.3s ease",
+                }}
+              />
           </div>
-
           {!MobileAnimationCompleted && (
             <div
               ref={arrowRef}
               onClick={handleArrowClick}
-              className="fixed inset-x-0 bottom-10 z-50 flex flex-col items-center"
+              className="fixed inset-x-0 bottom-10 z-50 flex flex-col items-center md:hidden"
             >
               <div className="scroll-arrow circular-text-container flex items-center flex-col ">
                 <div className="border-none p-2 md:p-3">

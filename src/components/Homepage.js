@@ -139,13 +139,13 @@ function Homepage() {
               className="font-sharpGrotesk w-[90%] mx-auto  lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px] "
               id="target-section"
             >
-              <h1 className=" text-center text-5xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] transform scale-y-[.8] leading-normal">
+              <h1 className=" text-center text-4xl sm:text-4xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] transform scale-y-[.8] leading-normal">
                 Effortless Blockchain
               </h1>
-              <h1 className="text-center text-5xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8] leading-6">
+              <h1 className="text-center text-4xl sm:text-4xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8] leading-6">
                 Automation
               </h1>
-              <h1 className=" text-center text-5xl sm:text-5xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8] leading-normal">
+              <h1 className=" text-center text-4xl sm:text4xl md:text-5xl xl:text-[70px] 2xl:text-[4vw] lg:mt-3 md:mt-3 sm:mt-0 mt-0 transform scale-y-[.8] leading-normal">
                 <span className="text-[#82FBD0]">.</span>Limitless Potential
                 <span className="text-[#82FBD0]">.</span>
               </h1>
@@ -194,9 +194,9 @@ function Homepage() {
               round={true}
               Boxdata={Boxdata}
             />
-          </div>
+          </div> 
 
-          <section className=" my-20 lg:mb-40 max-w-[1600px] sm:mx-5 mx-5 md:mx-5 lg:mx-5 xl:mx-auto">
+          <section className=" w-[90%] my-20 lg:mb-40 max-w-[1600px] mx-auto">
             <div className="bg-white rounded-3xl shadow-lg text-black flex flex-col items-start justify-center relative overflow-hidden px-3 xs:px-7 py-10 sm:py-16 md:p-16 2xl:p-24">
               <div className="absolute right-0 top-[-20px] md:top-[-50px] lg:top-[-100px] w-[150px] md:w-[200px] lg:w-[300px] h-max">
                 <Image src={choose} alt="image" className="w-full h-auto" />
@@ -214,7 +214,6 @@ function Homepage() {
 
               <div className="flex flex-col gap-10 lg:gap-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20">
-                  {/* First Item */}
                   <div className="space-y-4 xl:space-y-5">
                     <h2 className="font-actayWide text-sm xs:text-lg sm:text-xl lg:text-3xl xl:text-3xl 2xl:text-3xl px-2 extra-bold text-nowrap">
                       <b>
@@ -240,7 +239,6 @@ function Homepage() {
                     </h4>
                   </div>
 
-                  {/* Second Item */}
                   <div className="space-y-4 xl:space-y-5">
                     <h2 className="font-actayWide text-sm xs:text-lg sm:text-xl lg:text-3xl xl:text-4xl 2xl:text-3xl px-2 extra-bold text-nowrap">
                       <b>
@@ -258,7 +256,6 @@ function Homepage() {
                     </h4>
                   </div>
 
-                  {/* Third Item */}
                   <div className="space-y-4 xl:space-y-5">
                     <h2 className="font-actayWide text-sm xs:text-lg sm:text-xl lg:text-3xl xl:text-4xl 2xl:text-3xl px-2 extra-bold text-nowrap">
                       <b>
@@ -275,7 +272,6 @@ function Homepage() {
                       Web3 landscape evolves.{" "}
                     </h4>
                   </div>
-                  {/* Forth Item */}
                   <div className="space-y-4 xl:space-y-5">
                     <h2 className="font-actayWide text-sm xs:text-lg sm:text-xl lg:text-3xl xl:text-4xl 2xl:text-3xl px-2 extra-bold text-nowrap">
                       <b>
@@ -321,7 +317,7 @@ function Homepage() {
               <div className="hidden md:inline-block w-[50%] h-max">
                 <Image src={usecase} alt="usecase" className="w-full h-auto" />
               </div>
-              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[4rem] xl:mb-5 w-full md:w-auto">
+              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[1rem] xl:mb-5 w-full md:w-auto">
                 Who is
               </h1>
               <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[4rem] w-full md:w-auto">
@@ -336,79 +332,79 @@ function Homepage() {
               </div>
             </div>
 
-            <div className="font-actayWide w-full sm:w-[70%] md:w-1/2 h-full p-4 sm:p-10">
-              <h4 className="text-[#FBF197] text-2xl sm:text-3xl lg:text-[2.5vw] sm:p-6 lg:p-[30px] 2xl:p-[30px] text-start  text-nowrap">
+            <div className="font-actayWide w-full sm:w-[70%] md:w-1/2 h-full p-4 sm:p-6 2xl:p-10">
+              <h4 className="text-[#FBF197] text-2xl sm:text-3xl md:text-2xl lg:text-[2.5vw] sm:p-6 lg:p-[30px] 2xl:p-[30px] md:text-start text-center text-nowrap md:p-3">
                 <b>Use cases include</b>
               </h4>
-              <div className="grid grid-cols-1 w-full">
-                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[30px] 2xl:p-[35px]">
+              <div className="grid grid-cols-1 md:w-full w-[85%] mx-auto">
+                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[25px] 2xl:p-[30px]">
                   <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
-                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full">
+                  <div className="flex items-center  gap-4 sm:gap-8 lg:gap-14 w-full">
                     <Image
                       src={honesty}
                       alt={"--"}
                       width={30}
-                      className="w-6 sm:w-7 lg:w-8 xl:w-10"
+                      className="w-6 sm:w-7 lg:w-8 xl:w-8"
                     />
-                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[20px] tracking-wide text-nowrap">
+                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[18px] tracking-wide text-nowrap">
                       Automated API calls
                     </h3>
                   </div>
                 </div>
 
-                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[30px] 2xl:p-[35px]">
+                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[25px] 2xl:p-[30px]">
                   <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
-                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full">
+                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full ">
                     <Image
                       src={validation}
                       alt={"--"}
                       width={30}
-                      className="w-6 sm:w-7 lg:w-8 xl:w-10"
+                      className="w-6 sm:w-7 lg:w-8 xl:w-8"
                     />
-                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[20px] tracking-wide text-nowrap">
+                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[18px] tracking-wide text-nowrap">
                       Governance actions
                     </h3>
                   </div>
                 </div>
 
-                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[30px] 2xl:p-[35px]">
+                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[25px] 2xl:p-[30px]">
                   <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
-                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full">
+                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full ">
                     <Image
                       src={security}
                       alt={"--"}
                       width={30}
-                      className="w-6 sm:w-7 lg:w-8 xl:w-10"
+                      className="w-6 sm:w-7 lg:w-8 xl:w-8"
                     />
-                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[20px] tracking-wide text-nowrap">
+                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[18px] tracking-wide text-nowrap">
                       Liquidity management
                     </h3>
                   </div>
                 </div>
 
-                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[30px] 2xl:p-[35px]">
+                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[25px] 2xl:p-[30px]">
                   <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
-                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full">
+                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full ">
                     <Image
                       src={honesty}
                       alt={"--"}
                       width={30}
-                      className="w-6 sm:w-7 lg:w-8 xl:w-10"
+                      className="w-6 sm:w-7 lg:w-8 xl:w-8"
                     />
-                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[20px] tracking-wide text-nowrap">
+                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[18px] tracking-wide text-nowrap">
                       Token burns or mints
                     </h3>
                   </div>
                 </div>
-                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[30px] 2xl:p-[35px]">
-                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full">
+                <div className="relative flex items-center justify-start gap-3 px-0 py-6 sm:p-6 lg:p-[25px] 2xl:p-[30px]">
+                  <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full ">
                     <Image
                       src={honesty}
                       alt={"--"}
                       width={30}
-                      className="w-6 sm:w-7 lg:w-8 xl:w-10"
+                      className="w-6 sm:w-7 lg:w-8 xl:w-8"
                     />
-                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[20px] tracking-wide text-nowrap">
+                    <h3 className="text-xs sm:text-sm lg:text-base xl:text-xl 2xl:text-[18px] tracking-wide text-nowrap">
                       User notifications and more !
                     </h3>
                   </div>
@@ -419,7 +415,7 @@ function Homepage() {
           {/* Get Started Section */}
           <section
             id="contact-section"
-            className="w-[100%] mx-auto my-20 max-w-[1600px] "
+            className="w-[90%] mx-auto my-20 max-w-[1600px] "
           >
             <div className="w-full text-center">
               <h1 className="text-3xl sm:text-5xl lg:text-6xl 2xl:text-5xl text-white pb-2 text-center font-sharpGrotesk">
@@ -427,14 +423,13 @@ function Homepage() {
               </h1>
 
               <div className="mt-10 md:mt-20 mx-5">
-                {/* Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
                   <div className="relative overflow-hidden bg-[#141414] group-hover:underline rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
                     <div className="block md:hidden absolute right-0">
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[27px] md:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] text-wrap">
+                    <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
                         <b>Speak to Us</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] group-hover:underline  text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
@@ -450,8 +445,8 @@ function Homepage() {
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[27px] md:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] text-wrap">
-                        <b>Dev Hub</b>
+                    <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                    <b>Dev Hub</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
                         <a href="hello@triggerx.network" target="_blank">
@@ -466,8 +461,8 @@ function Homepage() {
                       <Image src={follow} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[27px] md:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[90px] text-wrap">
-                        <b>Follow us on X</b>
+                    <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                    <b>Follow us on X</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
                         <a href="https://x.com/TriggerXnetwork" target="_blank">
