@@ -62,7 +62,6 @@ const Header = () => {
     { id: "Blog", path: "/blog", label: "Blog", external: false },
     {
       id: "Contact Us",
-      path: "#contact-section", //  Modified path to the contact section on the homepage
       label: "Contact Us",
       external: false, //  Important:  Set to false for same-page navigation
     },
@@ -527,105 +526,106 @@ const Header = () => {
                     style={highlightStyle}
                   />
 
-                  <div className="relative flex gap-3 xl:gap-5">
-                    {navItems.map((item) => (
-                      <div key={item.id} className="relative">
-                        {item.dropdown ? (
-                          <button
-                            onClick={() => toggleDropdown(item)}
-                            onMouseEnter={handleMouseEnter}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
-                          >
-                            {item.label}
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth="1.5"
-                              stroke="currentColor"
-                              className={`w-4 h-4 transition-transform duration-300 ${
-                                dropdownOpen ? "rotate-180" : "rotate-0"
-                              }`}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                              />
-                            </svg>
-                          </button>
-                        ) : item.external ? (
-                          <a
-                            href={item.path}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onMouseEnter={handleMouseEnter}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
-                          >
-                            {item.label}
-                          </a>
-                        ) : (
-                          // Internal navigation links - using Next.js Link
-                          <Link
-                            href={item.path}
-                            passHref
-                            onMouseEnter={handleMouseEnter}
-                            onClick={() => {
-                              handleMenuItemClick(
-                                item.path,
-                                item.dropdown ?? false,
-                                item.external,
-                                item.label === "Contact Us"
-                              );
-                            }}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
-                          >
-                            {item.label}
-                          </Link>
-                        )}
+<div className="relative flex gap-3 xl:gap-5">
+  {navItems.map((item) => (
+    <div key={item.id} className="relative">
+      {item.dropdown ? (
+        <button
+          onClick={() => toggleDropdown(item)}
+          onMouseEnter={handleMouseEnter}
+          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
+          }`}
+        >
+          {item.label}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className={`w-4 h-4 transition-transform duration-300 ${
+              dropdownOpen ? "rotate-180" : "rotate-0"
+            }`}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+          </svg>
+        </button>
+      ) : item.external ? (
+        <a
+          href={item.path}
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={handleMouseEnter}
+          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
+          }`}
+        >
+          {item.label}
+        </a>
+      ) : item.label === "Contact Us" ? (
+        <button
+          onClick={() => {
+            const section = document.getElementById("contact-section");
+            if (section) {
+              section.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+          onMouseEnter={handleMouseEnter}
+          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
+          }`}        >
+          {item.label}
+        </button>
+      ) : (
+        <Link
+          href={item.path}
+          passHref
+          onMouseEnter={handleMouseEnter}
+          onClick={() =>
+            handleMenuItemClick(
+              item.path,
+              item.dropdown ?? false,
+              item.external,
+              item.label === "Contact Us"
+            )
+          }
+          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
+          }`}
+        >
+          {item.label}
+        </Link>
+      )}
 
-                        {item.dropdown && dropdownOpen && (
-                          <div
-                            ref={dropdownRef}
-                            className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]"
-                          >
-                            <div className="py-2 px-4 flex flex-col font-actayRegular">
-                              <a
-                                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
-                                target="_blank"
-                                onClick={(e) => e.stopPropagation()}
-                                rel="noopener noreferrer"
-                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
-                              >
-                                Build
-                              </a>
-                              <a
-                                href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
-                                target="_blank"
-                                onClick={(e) => e.stopPropagation()}
-                                rel="noopener noreferrer"
-                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
-                              >
-                                Join As Keeper
-                              </a>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+      {item.dropdown && dropdownOpen && (
+        <div ref={dropdownRef} className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]">
+          <div className="py-2 px-4 flex flex-col font-actayRegular">
+            <a
+              href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+              rel="noopener noreferrer"
+              className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+            >
+              Build
+            </a>
+            <a
+              href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
+              target="_blank"
+              onClick={(e) => e.stopPropagation()}
+              rel="noopener noreferrer"
+              className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+            >
+              Join As Keeper
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  ))}
+</div>
+
                 </nav>
               </div>
             </div>

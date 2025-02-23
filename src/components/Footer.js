@@ -7,6 +7,8 @@ import footer2 from "../app/assets/footer2.svg";
 import Image from "next/image";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <>
       <div className="relative flex flex-col items-center justify-center gap-[10px] sm:gap-[90px] lg:gap-[120px] 2xl:gap-[120px]">
@@ -106,7 +108,7 @@ const Footer = () => {
               </a>
             </div>
             <h4 className="text-center text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap">
-              © 2025 TriggerX. All rights reserved.
+              © {currentYear} TriggerX. All rights reserved.
             </h4>
           </div>
 

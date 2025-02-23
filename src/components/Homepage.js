@@ -158,7 +158,7 @@ function Homepage() {
             </h4>
             <h4 className="md:hidden xl:hidden lg:hidden relative text-[#A2A2A2] font-actayRegular text-center text-sm sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-auto lg:mx-auto xl:mx-auto my-6 lg:my-10">
               Powered by Eigenlayer.
-              <h4>Built with ♥️ for the Superchain.</h4>
+              <div>Built with ♥️ for the Superchain.</div>
               <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
             </h4>
@@ -184,7 +184,7 @@ function Homepage() {
             </div>
           </section>
           {/* Why */}
-          <div className="w-full h-auto my-20 mx-auto">
+          <div className="w-full h-auto my-30 mx-auto">
             <Why
               baseWidth={300}
               autoplay={true}
