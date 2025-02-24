@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import logo from "../app/assets/logo.svg";
 import gsap from "gsap";
+import { usePathname } from "next/navigation";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import landing from "../app/assets/landing.svg";
 import Image from "next/image";
@@ -67,8 +68,10 @@ const Header = () => {
     },
   ];
 
-  const isActiveRoute = (path) => location.pathname === path;
-
+  const isActiveRoute = (path) => {
+    const pathname = usePathname();
+    return pathname === path;
+  };
   const playAnimation = () => {
     if (animationPlayed.current) return;
     setTimeout(() => {
