@@ -35,7 +35,18 @@ async function getBlogs() {
 }
 
 export default async function BlogList() {
-  const blogs = await getBlogs();
+  try {
+    const blogs = await getBlogs();
+    
+    // Add null check before passing to ClientBlogList
+    if (!blogs || !Array.isArray(blogs)) {
+      console.error("Invalid blogs data:", blogs);
+      return <div>Error loading blogs</div>;
+    }
 
-  return <ClientBlogList blogs={blogs} />;
+    return <ClientBlogList blogs={blogs} />;
+  } catch (error) {
+    console.error("Error in BlogList:", error);
+    return <div>Error loading blogs</div>;
+  }
 }
