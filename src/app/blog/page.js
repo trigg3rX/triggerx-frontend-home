@@ -6,7 +6,7 @@ import { SearchProvider } from "@/app/context/SearchContext";
 export default function blogs() {
   return (
     <SearchProvider>
-      <Header />
+      {/* <Header /> */}
       <div className="w-[95%] max-w-[1600px] mx-auto my-16 relative z-40">
         <BlogHeader />
         <BlogList />

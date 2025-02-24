@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import logo from "../app/assets/logo.svg";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
+
 import ScrollTrigger from "gsap/ScrollTrigger";
 import landing from "../app/assets/landing.svg";
 import Image from "next/image";
@@ -18,7 +19,8 @@ const Header = () => {
   const [prevRect, setPrevRect] = useState();
   const navRef = useRef();
   const router = useRouter();
-
+  const pathname = usePathname();
+  const [scrollToSection, setScrollToSection] = useState(false);
   const navMobileRef = useRef(null);
   const navMobileMRef = useRef(null);
   const [animationCompleted, setAnimationCompleted] = useState(false);
@@ -60,7 +62,7 @@ const Header = () => {
       dropdown: true,
       external: true,
     },
-    { id: "Blog", path: "/blog", label: "Blog", external: false },
+    { id: "Blog", path: "/blog", label: "Blog" },
     {
       id: "Contact Us",
       label: "Contact Us",
@@ -495,6 +497,28 @@ const Header = () => {
     };
   }, [dropdownOpen]);
 
+  useEffect(() => {
+    if (scrollToSection && pathname === "/") {
+      const section = document.getElementById("contact-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+      setScrollToSection(false);
+    }
+  }, [pathname, scrollToSection]);
+
+  const handleClick = () => {
+    if (pathname !== "/") {
+      setScrollToSection(true);
+      router.push("/");
+    } else {
+      const section = document.getElementById("contact-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <div>
       <div
@@ -574,13 +598,14 @@ const Header = () => {
                           </a>
                         ) : item.label === "Contact Us" ? (
                           <button
-                            onClick={() => {
-                              const section =
-                                document.getElementById("contact-section");
-                              if (section) {
-                                section.scrollIntoView({ behavior: "smooth" });
-                              }
-                            }}
+                            onClick={handleClick}
+                            // onClick={() => {
+                            //   const section =
+                            //     document.getElementById("contact-section");
+                            //   if (section) {
+                            //     section.scrollIntoView({ behavior: "smooth" });
+                            //   }
+                            // }}
                             onMouseEnter={handleMouseEnter}
                             className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
                               item.path && isActiveRoute(item.path)

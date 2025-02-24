@@ -37,7 +37,7 @@ export default function ClientSlug({ blog }) {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main className="w-[95%] max-w-[1600px] mx-auto my-4 lg:my-16 relative z-40">
         <article>
           <header className="mb-3 lg:mb-12 mt-0 lg:mt-32">

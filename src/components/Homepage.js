@@ -132,7 +132,6 @@ function Homepage() {
   return (
     <>
       <div className="relative z-0 mx-auto">
-        <Header contactSectionRef={contactSectionRef} />
         <div ref={nextGenRef} className="relative -z-10">
           <section className="my-20 max-w-[1600px] mx-auto">
             <div
@@ -478,8 +477,6 @@ function Homepage() {
           </section>
         </div>
       </div>
-
-      <Footer />
     </>
   );
 }
