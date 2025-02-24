@@ -128,7 +128,7 @@ const Footer = () => {
                 Docs
               </a>
               <a
-                href="https://triggerx.gitbook.io/triggerx-docs"
+                href="https://t.me/triggerxnetwork"
                 className="hover:text-gray-400"
               >
                 Dev Hub
@@ -139,7 +139,7 @@ const Footer = () => {
                 href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
                 className="hover:text-gray-400"
               >
-                Join AS Keeper
+                Join As Keeper
               </a>
               <a href="#" className="hover:text-gray-400">
                 Term of Use

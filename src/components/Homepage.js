@@ -163,7 +163,12 @@ function Homepage() {
             </h4>
 
             <div className="flex gap-4 justify-center">
-              <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+              <button
+                onClick={() =>
+                  window.open("https://t.me/triggerxnetwork", "_blank")
+                }
+                className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform"
+              >
                 <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                 <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                 <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
@@ -183,7 +188,7 @@ function Homepage() {
             </div>
           </section>
           {/* Why */}
-          <section className="my-[10rem]">
+          <section className="md:my-[10rem] xs:my-[6rem]">
             <div className="w-full h-auto  mx-auto">
               <Why
                 baseWidth={300}
@@ -290,7 +295,12 @@ function Homepage() {
                 </div>
 
                 <div className="flex gap-4 justify-center">
-                  <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                  <button
+                    onClick={() =>
+                      window.open("https://t.me/triggerxnetwork", "_blank")
+                    }
+                    className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform"
+                  >
                     <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50  rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                     <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                     <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
@@ -422,18 +432,18 @@ function Homepage() {
                 Get Started Today
               </h1>
 
-              <div className="mt-10 md:mt-20 mx-5">
+              <div className="mt-10 md:mt-20 md:mx-5">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
                   <div className="relative overflow-hidden bg-[#141414] group-hover:underline rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
                     <div className="block md:hidden absolute right-0">
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                      <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
                         <b>Speak to Us</b>
                       </h3>
-                      <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] group-hover:underline  text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
-                        <a href="hello@triggerx.network" target="_blank">
+                      <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] group-hover:underline text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
+                        <a href="mailto:hello@triggerx.network" target="_blank">
                           hello@triggerx.network
                         </a>
                       </h4>
@@ -445,11 +455,11 @@ function Homepage() {
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                      <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
                         <b>Dev Hub</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
-                        <a href="hello@triggerx.network" target="_blank">
+                        <a href="https://t.me/triggerxnetwork" target="_blank">
                           Connect
                         </a>
                       </h4>
@@ -461,7 +471,7 @@ function Homepage() {
                       <Image src={follow} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                      <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                      <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
                         <b>Follow us on X</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">

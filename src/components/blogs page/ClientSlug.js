@@ -198,7 +198,6 @@ export default function ClientSlug({ blog }) {
           </div>
         </article>
       </main>
-      <Footer />
     </>
   );
 }

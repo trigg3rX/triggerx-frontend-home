@@ -50,7 +50,7 @@ const Header = () => {
   const navItems = [
     {
       id: "Dev Hub",
-      path: "https://triggerx.gitbook.io/triggerx-docs",
+      path: "https://t.me/triggerxnetwork",
       label: "Dev Hub",
       target: "_blank",
       external: true,
