@@ -184,18 +184,19 @@ function Homepage() {
             </div>
           </section>
           {/* Why */}
-          <div className="w-full h-auto my-30 mx-auto">
-            <Why
-              baseWidth={300}
-              autoplay={true}
-              autoplayDelay={2000}
-              pauseOnHover={true}
-              loop={true}
-              round={true}
-              Boxdata={Boxdata}
-            />
-          </div> 
-
+          <section className="my-[10rem]">
+            <div className="w-full h-auto  mx-auto">
+              <Why
+                baseWidth={300}
+                autoplay={true}
+                autoplayDelay={2000}
+                pauseOnHover={true}
+                loop={true}
+                round={true}
+                Boxdata={Boxdata}
+              />
+            </div>
+          </section>
           <section className=" w-[90%] my-20 lg:mb-40 max-w-[1600px] mx-auto">
             <div className="bg-white rounded-3xl shadow-lg text-black flex flex-col items-start justify-center relative overflow-hidden px-3 xs:px-7 py-10 sm:py-16 md:p-16 2xl:p-24">
               <div className="absolute right-0 top-[-20px] md:top-[-50px] lg:top-[-100px] w-[150px] md:w-[200px] lg:w-[300px] h-max">
@@ -312,12 +313,12 @@ function Homepage() {
             </div>
           </section>
           {/* use cases */}
-          <section className="max-w-[1600px]  mx-auto w-[90%] h-auto  my-20 flex justify-between items-start flex-col md:flex-row">
+          <section className="max-w-[1600px]  mx-auto w-[90%] h-auto  my-20 flex justify-between items-center flex-col md:flex-row">
             <div className="flex flex-col items-start w-full md:w-1/2 p-4 sm:p-6 2xl:p-10 mb-10">
               <div className="hidden md:inline-block w-[50%] h-max">
                 <Image src={usecase} alt="usecase" className="w-full h-auto" />
               </div>
-              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[1rem] xl:mb-5 w-full md:w-auto">
+              <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[3rem] xl:mb-5 w-full md:w-auto">
                 Who is
               </h1>
               <h1 className="font-sharpGrotesk text-3xl sm:text-4xl lg:text-[3vw] text-center md:text-start leading-normal 2xl:leading-[4rem] w-full md:w-auto">
@@ -333,7 +334,7 @@ function Homepage() {
             </div>
 
             <div className="font-actayWide w-full sm:w-[70%] md:w-1/2 h-full p-4 sm:p-6 2xl:p-10">
-              <h4 className="text-[#FBF197] text-2xl sm:text-3xl md:text-2xl lg:text-[2.5vw] sm:p-6 lg:p-[30px] 2xl:p-[30px] md:text-start text-center text-nowrap md:p-3">
+              <h4 className="text-[#FBF197] text-2xl sm:text-3xl md:text-2xl lg:text-[2.5vw] sm:p-6 lg:p-[30px] 2xl:p-[35px] md:text-start text-center text-nowrap md:p-3">
                 <b>Use cases include</b>
               </h4>
               <div className="grid grid-cols-1 md:w-full w-[85%] mx-auto">
@@ -429,7 +430,7 @@ function Homepage() {
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                    <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                      <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
                         <b>Speak to Us</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] group-hover:underline  text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
@@ -445,8 +446,8 @@ function Homepage() {
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                    <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
-                    <b>Dev Hub</b>
+                      <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                        <b>Dev Hub</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
                         <a href="hello@triggerx.network" target="_blank">
@@ -461,8 +462,8 @@ function Homepage() {
                       <Image src={follow} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
-                    <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
-                    <b>Follow us on X</b>
+                      <h3 className="text-[27px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
+                        <b>Follow us on X</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] hover:underline py-2 md:py-5 font-actayRegular">
                         <a href="https://x.com/TriggerXnetwork" target="_blank">

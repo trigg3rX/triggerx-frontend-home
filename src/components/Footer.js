@@ -158,7 +158,7 @@ const Footer = () => {
         <Image
           src={footer1}
           alt=""
-          className="absolute left-0 -z-10 bottom-[75%] sm:bottom-[26%] lg:bottom-[30%] w-[80px] sm:w-[130px] lg:w-[150px] 2xl:w-[200px] h-auto"
+          className="absolute left-0 -z-10 bottom-[75%] sm:bottom-[26%] lg:bottom-[40%] w-[80px] sm:w-[130px] lg:w-[150px] 2xl:w-[200px] h-auto"
         />
 
         <Image

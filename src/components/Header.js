@@ -312,7 +312,6 @@ const Header = () => {
         y: positions.nav.y,
         left: "50%", // Keep centering
 
-        
         transform: "translateX(-50%)",
         ease: "power2.out",
         duration: 1,
@@ -428,7 +427,7 @@ const Header = () => {
   const handleMouseEnter = (event) => {
     const hoveredElement = event.currentTarget;
     if (!hoveredElement) return;
-    const rect = (hoveredElement ).getBoundingClientRect();
+    const rect = hoveredElement.getBoundingClientRect();
     const navRect = navRef.current
       ? navRef.current.getBoundingClientRect()
       : { x: 0, y: 0, width: 0, height: 0 };
@@ -476,27 +475,26 @@ const Header = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        dropdownRef.current && 
+        dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
-        !event.target.closest('button')  // Exclude the button that opens the dropdown
+        !event.target.closest("button") // Exclude the button that opens the dropdown
       ) {
         setDropdownOpen(false);
       }
     };
 
     if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
 
-
   return (
     <div>
-     <div
+      <div
         ref={containerRef}
         className="relative h-screen w-full max-w-[1600px] hidden lg:block overflow-hidden "
       >
@@ -526,106 +524,122 @@ const Header = () => {
                     style={highlightStyle}
                   />
 
-<div className="relative flex gap-3 xl:gap-5">
-  {navItems.map((item) => (
-    <div key={item.id} className="relative">
-      {item.dropdown ? (
-        <button
-          onClick={() => toggleDropdown(item)}
-          onMouseEnter={handleMouseEnter}
-          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
-          }`}
-        >
-          {item.label}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className={`w-4 h-4 transition-transform duration-300 ${
-              dropdownOpen ? "rotate-180" : "rotate-0"
-            }`}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-          </svg>
-        </button>
-      ) : item.external ? (
-        <a
-          href={item.path}
-          target="_blank"
-          rel="noopener noreferrer"
-          onMouseEnter={handleMouseEnter}
-          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
-          }`}
-        >
-          {item.label}
-        </a>
-      ) : item.label === "Contact Us" ? (
-        <button
-          onClick={() => {
-            const section = document.getElementById("contact-section");
-            if (section) {
-              section.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-          onMouseEnter={handleMouseEnter}
-          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
-          }`}        >
-          {item.label}
-        </button>
-      ) : (
-        <Link
-          href={item.path}
-          passHref
-          onMouseEnter={handleMouseEnter}
-          onClick={() =>
-            handleMenuItemClick(
-              item.path,
-              item.dropdown ?? false,
-              item.external,
-              item.label === "Contact Us"
-            )
-          }
-          className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-            item.path && isActiveRoute(item.path) ? "text-white" : "text-gray-400"
-          }`}
-        >
-          {item.label}
-        </Link>
-      )}
+                  <div className="relative flex gap-3 xl:gap-5">
+                    {navItems.map((item) => (
+                      <div key={item.id} className="relative">
+                        {item.dropdown ? (
+                          <button
+                            onClick={() => toggleDropdown(item)}
+                            onMouseEnter={handleMouseEnter}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className={`w-4 h-4 transition-transform duration-300 ${
+                                dropdownOpen ? "rotate-180" : "rotate-0"
+                              }`}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                              />
+                            </svg>
+                          </button>
+                        ) : item.external ? (
+                          <a
+                            href={item.path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onMouseEnter={handleMouseEnter}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                          </a>
+                        ) : item.label === "Contact Us" ? (
+                          <button
+                            onClick={() => {
+                              const section =
+                                document.getElementById("contact-section");
+                              if (section) {
+                                section.scrollIntoView({ behavior: "smooth" });
+                              }
+                            }}
+                            onMouseEnter={handleMouseEnter}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                          </button>
+                        ) : (
+                          <Link
+                            href={item.path}
+                            passHref
+                            onMouseEnter={handleMouseEnter}
+                            onClick={() =>
+                              handleMenuItemClick(
+                                item.path,
+                                item.dropdown ?? false,
+                                item.external,
+                                item.label === "Contact Us"
+                              )
+                            }
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                              item.path && isActiveRoute(item.path)
+                                ? "text-white"
+                                : "text-gray-400"
+                            }`}
+                          >
+                            {item.label}
+                          </Link>
+                        )}
 
-      {item.dropdown && dropdownOpen && (
-        <div ref={dropdownRef} className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]">
-          <div className="py-2 px-4 flex flex-col font-actayRegular">
-            <a
-              href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
-              target="_blank"
-              onClick={(e) => e.stopPropagation()}
-              rel="noopener noreferrer"
-              className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
-            >
-              Build
-            </a>
-            <a
-              href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
-              target="_blank"
-              onClick={(e) => e.stopPropagation()}
-              rel="noopener noreferrer"
-              className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
-            >
-              Join As Keeper
-            </a>
-          </div>
-        </div>
-      )}
-    </div>
-  ))}
-</div>
-
+                        {item.dropdown && dropdownOpen && (
+                          <div
+                            ref={dropdownRef}
+                            className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]"
+                          >
+                            <div className="py-2 px-4 flex flex-col font-actayRegular">
+                              <a
+                                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                                target="_blank"
+                                onClick={(e) => e.stopPropagation()}
+                                rel="noopener noreferrer"
+                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                              >
+                                Build
+                              </a>
+                              <a
+                                href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
+                                target="_blank"
+                                onClick={(e) => e.stopPropagation()}
+                                rel="noopener noreferrer"
+                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                              >
+                                Join As Keeper
+                              </a>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </nav>
               </div>
             </div>
@@ -651,7 +665,7 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="Landing illustration"
-              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-10"
+              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-28"
               style={{
                 opacity: imageOpacity,
                 transition: "opacity 0.3s ease",
@@ -707,7 +721,7 @@ const Header = () => {
                 <div className="flex-shrink-0 relative z-10 text-sm sm:hidden hidden md:flex"></div>
               </div>
               <div className="flex-shrink-0 relative z-10 " ref={navMobileMRef}>
-              <div className="lg:hidden">
+                <div className="lg:hidden">
                   <h4
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="text-white text-2xl cursor-pointer"
@@ -841,16 +855,16 @@ const Header = () => {
               />
             </div>
 
-              <Image
-                ref={landingImageMRef}
-                src={landing}
-                alt="Landing illustration"
-                className="md:w-[450px] sm:w-[250px] w-[250px] absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-0"
-                style={{
-                  opacity: imageMOpacity,
-                  transition: "opacity 0.3s ease",
-                }}
-              />
+            <Image
+              ref={landingImageMRef}
+              src={landing}
+              alt="Landing illustration"
+              className="md:w-[450px] sm:w-[250px] w-[250px] absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-0"
+              style={{
+                opacity: imageMOpacity,
+                transition: "opacity 0.3s ease",
+              }}
+            />
           </div>
           {!MobileAnimationCompleted && (
             <div

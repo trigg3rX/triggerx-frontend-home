@@ -16,6 +16,7 @@ export default function Why({
   autoplayDelay = 2000,
   pauseOnHover = true,
   loop = true,
+  round = false,
 }) {
   const [screenWidth, setScreenWidth] = useState(0);
   const [itemWidth, setItemWidth] = useState(350);
@@ -27,58 +28,61 @@ export default function Why({
 
   // Create wrapped items array for infinite loop
   const wrappedItems = [...Boxdata, ...Boxdata, ...Boxdata];
+  const totalItems = Boxdata.length; // Store the length of the original data
 
   // Update screen width and item width on mount and resize
   useEffect(() => {
     const updateDimensions = () => {
       setScreenWidth(window.innerWidth);
       // Responsive item width
-      if (window.innerWidth < 640) { // mobile
+      if (window.innerWidth < 640) {
+        // mobile
         setItemWidth(window.innerWidth - 32); // full width minus padding
-      } else if (window.innerWidth < 1024) { // tablet
+      } else if (window.innerWidth < 1024) {
+        // tablet
         setItemWidth(350);
-      } else { // desktop
+      } else {
+        // desktop
         setItemWidth(350);
       }
     };
 
     updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
+    window.addEventListener("resize", updateDimensions);
+    return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
   // Calculate dimensions
   const trackWidth = (itemWidth + GAP) * wrappedItems.length;
-  const containerWidth = screenWidth < 1024 
-    ? screenWidth - 32 // Full width minus padding on mobile/tablet
-    : (itemWidth + GAP) * visibleItems - GAP;
+  const containerWidth =
+    screenWidth < 1024
+      ? screenWidth - 32 // Full width minus padding on mobile/tablet
+      : (itemWidth + GAP) * visibleItems - GAP;
 
   // Autoplay functionality
   useEffect(() => {
     if (autoplay && (!pauseOnHover || !isHovered) && !isDragging) {
       const timer = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % Boxdata.length);
+        setCurrentIndex((prev) => {
+          const nextIndex = prev + 1;
+          if (loop) {
+            return nextIndex; // Let it go beyond Boxdata.length, the `handleAnimationComplete` will fix it
+          } else {
+            return nextIndex % Boxdata.length;
+          }
+        });
       }, autoplayDelay);
       return () => clearInterval(timer);
     }
-  }, [autoplay, autoplayDelay, isHovered, isDragging, Boxdata.length, pauseOnHover]);
-
-  // Handle infinite loop
-  useEffect(() => {
-    if (currentIndex >= Boxdata.length) {
-      // If we've gone past the end, jump back to start
-      setTimeout(() => {
-        x.set(0);
-        setCurrentIndex(0);
-      }, 50);
-    } else if (currentIndex < 0) {
-      // If we've gone before the start, jump to end
-      setTimeout(() => {
-        x.set(-(Boxdata.length - 1) * (itemWidth + GAP));
-        setCurrentIndex(Boxdata.length - 1);
-      }, 50);
-    }
-  }, [currentIndex, Boxdata.length, itemWidth, x]);
+  }, [
+    autoplay,
+    autoplayDelay,
+    isHovered,
+    isDragging,
+    Boxdata.length,
+    pauseOnHover,
+    loop,
+  ]);
 
   const handleDragStart = () => setIsDragging(true);
   const handleDragEnd = (_, info) => {
@@ -87,9 +91,19 @@ export default function Why({
     const velocity = info.velocity.x;
 
     if (offset < -DRAG_BUFFER || velocity < -VELOCITY_THRESHOLD) {
-      setCurrentIndex(prev => prev + 1);
+      setCurrentIndex((prev) => prev + 1);
     } else if (offset > DRAG_BUFFER || velocity > VELOCITY_THRESHOLD) {
-      setCurrentIndex(prev => prev - 1);
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleAnimationComplete = () => {
+    if (loop) {
+      if (currentIndex >= totalItems * 2) {
+        setCurrentIndex(totalItems); // Shift to the second set of Boxdata
+      } else if (currentIndex < totalItems) {
+        setCurrentIndex(totalItems);
+      }
     }
   };
 
@@ -107,7 +121,7 @@ export default function Why({
         </div>
 
         {/* Carousel section */}
-        <div 
+        <div
           ref={containerRef}
           className="w-full lg:w-3/4 overflow-hidden"
           onMouseEnter={() => setIsHovered(true)}
@@ -118,13 +132,14 @@ export default function Why({
             drag="x"
             dragConstraints={{
               left: -trackWidth + containerWidth,
-              right: 0
+              right: 0,
             }}
             dragElastic={0.1}
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
             animate={{ x: -(currentIndex * (itemWidth + GAP)) }}
             transition={SPRING_OPTIONS}
+            onAnimationComplete={handleAnimationComplete}
           >
             <AnimatePresence>
               {wrappedItems.map((box, index) => (
