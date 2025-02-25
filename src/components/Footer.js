@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import logo from "../app/assets/footerLogo.svg";
 import footer1 from "../app/assets/footer1.svg";
 import footer2 from "../app/assets/footer2.svg";
-import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -152,16 +151,16 @@ const Footer = () => {
         </div>
 
         <div className="w-[95%] mx-auto h-max p-5">
-          <Image src={logo} alt="footer logo" className="w-full h-auto" />
+          <img src={logo} alt="footer logo" className="w-full h-auto" />
         </div>
 
-        <Image
+        <img
           src={footer1}
           alt=""
           className="absolute left-0 -z-10 bottom-[75%] sm:bottom-[26%] lg:bottom-[40%] w-[80px] sm:w-[130px] lg:w-[150px] 2xl:w-[200px] h-auto"
         />
 
-        <Image
+        <img
           src={footer2}
           alt=""
           className="absolute right-[0%] sm:right-0 -z-10 bottom-[60%] sm:bottom-[50%] lg:bottom-[30%] w-[80px] sm:w-[130px] 2xl:w-[220px] h-auto"

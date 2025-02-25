@@ -27,7 +27,7 @@ const Boxdata = [
   },
 
   {
-    imageSrc: keeper,
+    imageSrc: visibility,
     title: "Decentralized Keeper Network",
     description:
       "Robust keeper network operates independently, ensuring resilience and censorship resistance for your mission-critical tasks.",
@@ -45,7 +45,7 @@ const Boxdata = [
       "Advanced BLS signature aggregation streamlines task execution, to maximize efficiency and minimize costs.",
   },
   {
-    imageSrc: visibility,
+    imageSrc: keeper,
     title: "Total Control, Total Visibility",
     description:
       "Intuitive dashboards that provide complete control and real-time visibility into your automation tasks, keeper performance, and overall progress.",
