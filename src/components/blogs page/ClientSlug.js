@@ -159,8 +159,8 @@ export default function ClientSlug({ blog }) {
                           <Image
                             src={value.asset.url}
                             alt={value.alt || "Blog Image"}
-                            width={200}
-                            height={100}
+                            width={3000}
+                            height={2000}
                             className="rounded-2xl !relative w-full h-auto"
                           />
                         )}
