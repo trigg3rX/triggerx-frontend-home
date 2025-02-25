@@ -315,8 +315,7 @@ const Header = () => {
       {
         x: positions.nav.x,
         y: positions.nav.y,
-        left: "50%", // Keep centering
-
+        opacity: 1,
         transform: "translateX(-50%)",
         ease: "power2.out",
         duration: 1,
@@ -404,13 +403,13 @@ const Header = () => {
     // Function to handle scroll event
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
-        gsap.to(landingImageRef.current, {
+        gsap.to(landingImageRef.current && landingImageMRef.current, {
           opacity: 0,
           duration: 0, // Short duration for fade out
           ease: "power1.inOut",
         });
       } else {
-        gsap.to(landingImageRef.current, {
+        gsap.to(landingImageRef.current && landingImageMRef.current, {
           opacity: 1,
           duration: 0.8, // Short duration for fade in
           ease: "power1.inOut",
@@ -569,7 +568,6 @@ const Header = () => {
                               xmlns="http://www.w3.org/2000/svg"
                               fill="none"
                               viewBox="0 0 24 24"
-                              strokeWidth="1.5"
                               stroke="currentColor"
                               className={`w-4 h-4 transition-transform duration-300 ${
                                 dropdownOpen ? "rotate-180" : "rotate-0"
@@ -748,7 +746,11 @@ const Header = () => {
               <div className="relative  items-center gap-5 ">
                 <div className="flex-shrink-0 relative z-10 text-sm sm:hidden hidden md:flex"></div>
               </div>
-              <div className="flex-shrink-0 relative z-10 " ref={navMobileMRef}>
+              <div
+                className="flex-shrink-0 relative z-10 "
+                ref={navigationMRef}
+                style={{ opacity: 0 }}
+              >
                 <div className="lg:hidden">
                   <h4
                     onClick={() => setMenuOpen(!menuOpen)}
@@ -758,11 +760,7 @@ const Header = () => {
                   </h4>
                   {menuOpen && (
                     <div className="absolute top-full right-0 mt-3 bg-[#181818] p-4 rounded-md shadow-lg z-10 w-60 lg:hidden">
-                      <nav
-                        ref={navRef}
-                        className="relative"
-                        onMouseLeave={handleMouseLeave}
-                      >
+                      <nav ref={navRef} className="relative">
                         <div
                           className="absolute bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A] opacity-0"
                           style={highlightStyle}
@@ -826,7 +824,7 @@ const Header = () => {
                                 </a>
                               ) : (
                                 // Internal link for mobile
-                                <Link
+                                <a
                                   href={item.path}
                                   className="font-actayRegular text-xs sm:text-sm
                       px-7 py-3 rounded-xl
@@ -834,7 +832,7 @@ const Header = () => {
                                   onClick={() => setMenuOpen(false)}
                                 >
                                   {item.label}
-                                </Link>
+                                </a>
                               )}
                               {item.dropdown && dropdownOpen && (
                                 <div
