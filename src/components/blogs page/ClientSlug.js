@@ -152,7 +152,33 @@ export default function ClientSlug({ blog }) {
               <PortableText
                 value={blog.body}
                 components={{
-                  types: {},
+                  types: {
+                    image: ({ value }) => (
+                      <div className="my-10 w-full h-auto">
+                        {value?.asset?.url && (
+                          <Image
+                            src={value.asset.url}
+                            alt={value.alt || "Blog Image"}
+                            width={200}
+                            height={100}
+                            className="rounded-2xl !relative w-full h-auto"
+                          />
+                        )}
+                      </div>
+                    ),
+                    youtube: ({ value }) => (
+                      <div className="my-4 aspect-w-16 aspect-h-9">
+                        <iframe
+                          className="w-full h-full rounded-lg"
+                          src={`https://www.youtube.com/embed/${value?.url?.split("v=")[1]}`}
+                          title="YouTube video player"
+                          style={{ border: "none" }}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                    ),
+                  },
                   marks: {},
                   block: {
                     h2: ({ children }) => {
