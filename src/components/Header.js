@@ -691,7 +691,7 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="Landing illustration"
-              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-28"
+              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
               style={{
                 opacity: imageOpacity,
                 transition: "opacity 0.3s ease",
