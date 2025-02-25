@@ -19,51 +19,54 @@ export default function ClientBlogList({ blogs }) {
   const otherBlogs = sortedBlogs.slice(1);
 
   // Filter blogs based on search with null checks
-  const filteredBlogs = validBlogs.filter((blog) =>
-    blog?.title?.toLowerCase().includes(search?.toLowerCase() || '')
-  );
+  // Filter blogs based on search with null checks
+  const filteredBlogs = search
+    ? validBlogs.filter((blog) =>
+        blog?.title?.toLowerCase().startsWith(search?.toLowerCase() || "")
+      )
+    : otherBlogs; // Use otherBlogs when not searching
 
   // Check if the most recent blog matches the search
-  const isRecentBlogInSearch =
-    search && filteredBlogs.some((blog) => blog._id === mostRecentBlog._id);
+  // const isRecentBlogInSearch =
+  //   search && filteredBlogs.some((blog) => blog._id === mostRecentBlog._id);
 
   return (
     <>
-      {!search && mostRecentBlog && !isRecentBlogInSearch && (
-        <div className="my-10 bg-[#0F0F0F] p-6 sm:p-9 md:p-14 lg:p-20 rounded-2xl flex flex-col md:flex-row items-start justify-between gap-4 md:gap-6 border border-[#5F5F5F] h-auto">
-          <div className="w-full md:w-[47%]">
-            <p className="text-[#FBF197] text-xs sm:text-sm">
-              {new Date(mostRecentBlog.publishedAt).toLocaleDateString(
-                "en-US",
-                {
-                  month: "short",
-                  day: "2-digit",
-                  year: "numeric",
-                }
-              )}
-            </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sharpGrotesk font-light mt-4 leading-tight transform scale-y-[.8]">
-              {mostRecentBlog.title}
-            </h2>
+      <Link href={`/blog/${mostRecentBlog.slug?.current}`}>
+        {!search && mostRecentBlog  && (
+          <div className="my-10 bg-[#0F0F0F] p-6 sm:p-9 md:p-14 lg:p-20 rounded-2xl flex flex-col md:flex-row items-start justify-between gap-4 md:gap-6 border border-[#5F5F5F] h-auto group">
+            <div className="w-full md:w-[47%]">
+              <p className="text-[#FBF197] text-xs sm:text-sm">
+                {new Date(mostRecentBlog.publishedAt).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "2-digit",
+                    year: "numeric",
+                  }
+                )}
+              </p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-sharpGrotesk font-light mt-4 leading-tight transform scale-y-[.8]">
+                {mostRecentBlog.title}
+              </h2>
+            </div>
+            <div className="w-full md:w-1/2">
+              <p className="text-[#B7B7B7] text-xs sm:text-sm">
+                [{mostRecentBlog.readTime} min read]
+              </p>
+              <p className="text-gray-300 mt-3 sm:mt-7 font-actayWide font-light text-xs sm:text-sm md:text-base">
+                {mostRecentBlog.ogDescription}
+              </p>
+              <p className="text-white text-xs sm:text-sm md:text-base mt-3 sm:mt-12 lg:mt-20 xl:mt-24 inline-block group-hover:underline">
+                Read ↗
+              </p>
+            </div>
           </div>
-          <div className="w-full md:w-1/2">
-            <p className="text-[#B7B7B7] text-xs sm:text-sm">
-              [{mostRecentBlog.readTime} min read]
-            </p>
-            <p className="text-gray-300 mt-3 sm:mt-7 font-actayWide font-light text-xs sm:text-sm md:text-base">
-              {mostRecentBlog.ogDescription}
-            </p>
-            <Link
-              href={`/blog/${mostRecentBlog.slug?.current}`}
-              className="text-white text-xs sm:text-sm md:text-base mt-3 sm:mt-12 lg:mt-20 xl:mt-24 inline-block hover:underline"
-            >
-              Read ↗
-            </Link>
-          </div>
-        </div>
-      )}
+        )}
+      </Link>
+
       {filteredBlogs.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-8 mb-40">
           {filteredBlogs.map((blog) => (
             <Link
               href={`/blog/${blog.slug?.current}`}
@@ -95,8 +98,8 @@ export default function ClientBlogList({ blogs }) {
                     month: "short",
                     day: "2-digit",
                     year: "numeric",
-                  })}{" "}[{blog.readTime} min read]
-
+                  })}{" "}
+                  [{blog.readTime} min read]
                 </time>
               </div>
             </Link>

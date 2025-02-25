@@ -38,19 +38,19 @@ export default function ClientSlug({ blog }) {
   return (
     <>
       {/* <Header /> */}
-      <main className="w-[95%] max-w-[1600px] mx-auto my-4 lg:my-16 relative z-40">
+      <main className="w-[95%] max-w-[1600px] mx-auto my-4 lg:my-20 xl:my-40 relative z-40">
         <article>
-          <header className="mb-3 lg:mb-12 mt-0 lg:mt-32">
-            <h1 className="font-sharpGrotesk text-4xl lg:text-5xl font-bold mb-5 lg:mb-10 text-center w-[97%] mx-auto transform scale-y-[.8] leading-snug">
+          <header className="mb-3 lg:mb-12 sm:mt-20 lg:mt-32">
+            <h1 className="font-sharpGrotesk text-2xl sm:text-4xl lg:text-5xl font-bold mb-5 lg:mb-10 text-center w-[97%] mx-auto transform scale-y-[.8] leading-snug">
               {blog.title}
             </h1>
             {blog.ogImage?.asset?.url ? (
-              <div className="w-[98%] mx-auto h-max min-h-[240px] sm:min-h-[300px] md:min-h-[400px] xl:min-h-[600px] relative rounded-2xl border overflow-hidden">
+              <div className="rounded-2xl border overflow-hidden">
                 <Image
                   src={blog.ogImage.asset.url}
                   alt={blog.title || "Blog Image"}
                   fill
-                  className="w-98% h-full relative"
+                  className="!relative"
                 />
               </div>
             ) : (
@@ -134,7 +134,7 @@ export default function ClientSlug({ blog }) {
                           window.scrollTo({ top: y, behavior: "smooth" });
                         }
                       }}
-                      className={`text-xs lg:text-sm hover:underline ${
+                      className={`text-xs lg:text-sm 2xl:text-base hover:underline ${
                         activeHeading === pair.h2Heading
                           ? "text-green-400 font-bold"
                           : "text-gray-300"
@@ -152,7 +152,33 @@ export default function ClientSlug({ blog }) {
               <PortableText
                 value={blog.body}
                 components={{
-                  types: {},
+                  types: {
+                    image: ({ value }) => (
+                      <div className="my-10 w-full h-auto">
+                        {value?.asset?.url && (
+                          <Image
+                            src={value.asset.url}
+                            alt={value.alt || "Blog Image"}
+                            width={2500}
+                            height={2000}
+                            className="rounded-2xl !relative w-full h-auto"
+                          />
+                        )}
+                      </div>
+                    ),
+                    youtube: ({ value }) => (
+                      <div className="my-4 aspect-w-16 aspect-h-9">
+                        <iframe
+                          className="w-full h-full rounded-lg"
+                          src={`https://www.youtube.com/embed/${value?.url?.split("v=")[1]}`}
+                          title="YouTube video player"
+                          style={{ border: "none" }}
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      </div>
+                    ),
+                  },
                   marks: {},
                   block: {
                     h2: ({ children }) => {
@@ -160,7 +186,7 @@ export default function ClientSlug({ blog }) {
                       return (
                         <h2
                           id={text}
-                          className="font-actayWide text-xl sm:text-2xl xl:text-3xl font-bold mt-10 mb-4"
+                          className="font-actayWide text-xl sm:text-2xl xl:text-3xl 2xl:text-4xl font-bold mt-10 mb-4"
                         >
                           {text}
                         </h2>
@@ -171,14 +197,14 @@ export default function ClientSlug({ blog }) {
                       return (
                         <h3
                           id={text}
-                          className="text-sm sm:text-lg xl:text-xl mt-4"
+                          className="text-sm sm:text-lg xl:text-xl 2xl:text-2xl mt-4"
                         >
                           {text}
                         </h3>
                       );
                     },
                     normal: ({ children }) => (
-                      <p className="my-2 text-xs sm:text-sm xl:text-base">
+                      <p className="my-2 text-xs sm:text-sm xl:text-base 2xl:text-lg">
                         {children}
                       </p>
                     ),

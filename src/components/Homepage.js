@@ -182,7 +182,7 @@ function Homepage() {
                 <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                 <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                 <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                  Let's Talk
+                  Let&apos;s Talk
                 </span>
               </button>
             </div>
@@ -254,7 +254,7 @@ function Homepage() {
                     </h2>
 
                     <h4 className="text-[#1F1F1F] leading-relaxed px-2 text-xs sm:text-base xl:text-lg 2xl:text-lg">
-                      Relax, your automation tasks are in safe hands. TriggerX's
+                      Relax, your automation tasks are in safe hands. TriggerX&apos;s
                       integration with EigenLayer and its innovative AVS system
                       ensures that keepers are incentivized to act honestly,
                       protecting you from any malicious activity.{" "}
@@ -271,7 +271,7 @@ function Homepage() {
                     </h2>
 
                     <h4 className="text-[#1F1F1F] leading-relaxed px-2 text-xs sm:text-base xl:text-lg 2xl:text-lg">
-                      TriggerX's multi-chain architecture allows you to
+                      TriggerX&apos;s multi-chain architecture allows you to
                       seamlessly scale to new networks. Integrate with emerging
                       L2 chains and expand your automation capabilities as the
                       Web3 landscape evolves.{" "}
@@ -314,7 +314,7 @@ function Homepage() {
                     <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                     <span className="absolute inset-0 bg-white rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                     <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                      Let's Talk
+                      Let&apos;s Talk
                     </span>
                   </button>
                 </div>
@@ -335,7 +335,7 @@ function Homepage() {
               </h1>
               <div className="font-actayRegular w-[100%]">
                 <h4 className="text-xs xs:text-sm lg:text-[18px] 2xl:text-[18px] text-[#A2A2A2] text-center md:text-left mt-6 sm:mt-12  leading-normal lg:leading-[2.1rem] 2xl:leading-[2.1rem]">
-                  Whether you're a dApp developer, DeFi protocol creator, or
+                  Whether you&apos;re a dApp developer, DeFi protocol creator, or
                   enterprise innovator, TriggerX empowers you to automate tasks
                   with ease and confidence.
                 </h4>

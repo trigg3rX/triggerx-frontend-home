@@ -71,9 +71,9 @@ const Header = () => {
   ];
 
   const isActiveRoute = (path) => {
-    const pathname = usePathname();
     return pathname === path;
   };
+  
   const playAnimation = () => {
     if (animationPlayed.current) return;
     setTimeout(() => {
@@ -622,6 +622,7 @@ const Header = () => {
                         ) : item.label === "Contact Us" ? (
                           <button
                             onClick={handleClick}
+                            onMouseEnter={handleMouseEnter}
                             // onClick={() => {
                             //   const section =
                             //     document.getElementById("contact-section");
@@ -701,14 +702,14 @@ const Header = () => {
               onClick={handleLogoClick}
               className={`w-full ${animationCompleted ? "cursor-pointer" : ""}`}
             >
-              <a href="/">
+              <Link href="/">
                 <Image
                   ref={mainLogoRef}
                   src={logo}
                   alt="TriggerX Logo"
                   className="w-full"
                 />
-              </a>
+              </Link>
             </div>
 
             <Image
