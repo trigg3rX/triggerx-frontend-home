@@ -403,13 +403,38 @@ const Header = () => {
     // Function to handle scroll event
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
-        gsap.to(landingImageRef.current && landingImageMRef.current, {
+        gsap.to(landingImageRef.current, {
           opacity: 0,
           duration: 0, // Short duration for fade out
           ease: "power1.inOut",
         });
       } else {
-        gsap.to(landingImageRef.current && landingImageMRef.current, {
+        gsap.to(landingImageRef.current, {
+          opacity: 1,
+          duration: 0.8, // Short duration for fade in
+          ease: "power1.inOut",
+        });
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [animationPlayed]);
+
+  useEffect(() => {
+    // Function to handle scroll event
+    const handleScroll = () => {
+      if (animationPlayed.current && window.scrollY > 0) {
+        gsap.to(landingImageMRef.current, {
+          opacity: 0,
+          duration: 0, // Short duration for fade out
+          ease: "power1.inOut",
+        });
+      } else {
+        gsap.to(landingImageMRef.current, {
           opacity: 1,
           duration: 0.8, // Short duration for fade in
           ease: "power1.inOut",
@@ -546,7 +571,7 @@ const Header = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   <div
-                    className="absolute bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A] opacity-0"
+                    className="absolute bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A] "
                     style={highlightStyle}
                   />
 
@@ -604,7 +629,6 @@ const Header = () => {
                             //     section.scrollIntoView({ behavior: "smooth" });
                             //   }
                             // }}
-                            onMouseEnter={handleMouseEnter}
                             className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
                               item.path && isActiveRoute(item.path)
                                 ? "text-white"
@@ -822,17 +846,38 @@ const Header = () => {
                                 >
                                   {item.label}
                                 </a>
-                              ) : (
-                                // Internal link for mobile
-                                <a
-                                  href={item.path}
-                                  className="font-actayRegular text-xs sm:text-sm
-                      px-7 py-3 rounded-xl
-                          relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full"
-                                  onClick={() => setMenuOpen(false)}
+                              ) : item.label === "Contact Us" ? (
+                                <button
+                                  onClick={handleClick}
+                                  // onClick={() => {
+                                  //   const section =
+                                  //     document.getElementById("contact-section");
+                                  //   if (section) {
+                                  //     section.scrollIntoView({ behavior: "smooth" });
+                                  //   }
+                                  // }}
+                                  className={`text-nowrap font-actayRegular text-center text-sm xl:text-base   px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                                    item.path && isActiveRoute(item.path)
+                                      ? "text-white"
+                                      : "text-gray-400"
+                                  }`}
                                 >
                                   {item.label}
-                                </a>
+                                </button>
+                              ) : (
+                                <Link
+                                  href={item.path}
+                                  onClick={() => {
+                                    setMenuOpen(false);
+                                  }}
+                                  className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
+                                    item.path && isActiveRoute(item.path)
+                                      ? "text-white"
+                                      : "text-gray-400"
+                                  }`}
+                                >
+                                  {item.label}
+                                </Link>
                               )}
                               {item.dropdown && dropdownOpen && (
                                 <div
