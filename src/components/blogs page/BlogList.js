@@ -41,12 +41,12 @@ export default async function BlogList() {
     // Add null check before passing to ClientBlogList
     if (!blogs || !Array.isArray(blogs)) {
       console.error("Invalid blogs data:", blogs);
-      return <div>Error loading blogs</div>;
+      return <div>Oops! we are facing some issues, Try again in some time!</div>;
     }
 
     return <ClientBlogList blogs={blogs} />;
   } catch (error) {
     console.error("Error in BlogList:", error);
-    return <div>Error loading blogs</div>;
+    return <div>Oops! we are facing some issues, Try again in some time!</div>;
   }
 }
