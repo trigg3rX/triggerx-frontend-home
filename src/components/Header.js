@@ -73,7 +73,7 @@ const Header = () => {
   const isActiveRoute = (path) => {
     return pathname === path;
   };
-  
+
   const playAnimation = () => {
     if (animationPlayed.current) return;
     setTimeout(() => {
@@ -668,7 +668,7 @@ const Header = () => {
                           >
                             <div className="py-2 px-4 flex flex-col font-actayRegular">
                               <a
-                                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                                href="https://trigger-x-frontend-app.vercel.app/"
                                 target="_blank"
                                 onClick={(e) => e.stopPropagation()}
                                 rel="noopener noreferrer"
@@ -887,7 +887,7 @@ const Header = () => {
                                 >
                                   <div className="py-2 px-4 flex flex-col">
                                     <a
-                                      href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                                      href="https://trigger-x-frontend-app.vercel.app/"
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
