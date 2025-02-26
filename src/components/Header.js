@@ -889,7 +889,6 @@ const Header = () => {
                                     <a
                                       href="https://trigger-x-frontend-app.vercel.app/"
                                       target="_blank"
-                                      rel="noopener noreferrer"
                                       className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Build
