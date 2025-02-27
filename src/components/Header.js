@@ -583,8 +583,8 @@ const Header = () => {
                             onMouseEnter={handleMouseEnter}
                             className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
                               item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
+                                ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A]"
+                                : "transaparent"
                             }`}
                           >
                             {item.label}
