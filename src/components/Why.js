@@ -12,7 +12,7 @@ const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
 export default function Why({
   Boxdata,
   visibleItems = 3,
-  autoplay = false,
+  autoplay = true,
   autoplayDelay = 2000,
   pauseOnHover = true,
   loop = true,

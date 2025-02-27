@@ -370,7 +370,6 @@ const Header = () => {
   const handleMenuItemClick = (path, hasDropdown = false) => {
     if (path && !hasDropdown) {
       router.push(path);
-      setMenuOpen(false);
     }
     if (hasDropdown) {
       setDropdownOpen(!dropdownOpen);
@@ -668,7 +667,7 @@ const Header = () => {
                           >
                             <div className="py-2 px-4 flex flex-col font-actayRegular">
                               <a
-                                href="https://trigger-x-frontend-app.vercel.app/"
+                                href="https://app.triggerx.network/"
                                 target="_blank"
                                 onClick={(e) => e.stopPropagation()}
                                 rel="noopener noreferrer"
@@ -841,6 +840,7 @@ const Header = () => {
                                   href={item.path}
                                   target="_blank"
                                   rel="noopener noreferrer"
+                                  onClick={() => setMenuOpen(false)}
                                   className="font-actayRegular text-xs sm:text-sm
                       px-7 py-3 rounded-xl
                           relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full"
@@ -849,14 +849,10 @@ const Header = () => {
                                 </a>
                               ) : item.label === "Contact Us" ? (
                                 <button
-                                  onClick={handleClick}
-                                  // onClick={() => {
-                                  //   const section =
-                                  //     document.getElementById("contact-section");
-                                  //   if (section) {
-                                  //     section.scrollIntoView({ behavior: "smooth" });
-                                  //   }
-                                  // }}
+                                  onClick={() => {
+                                    handleClick();
+                                    setMenuOpen(false);
+                                  }}
                                   className={`text-nowrap font-actayRegular text-center text-sm xl:text-base   px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
                                     item.path && isActiveRoute(item.path)
                                       ? "text-white"
@@ -887,8 +883,9 @@ const Header = () => {
                                 >
                                   <div className="py-2 px-4 flex flex-col">
                                     <a
-                                      href="https://trigger-x-frontend-app.vercel.app/"
+                                      href="https://app.triggerx.network/"
                                       target="_blank"
+                                      onClick={() => setMenuOpen(false)}
                                       className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Build
@@ -897,6 +894,7 @@ const Header = () => {
                                       href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
                                       target="_blank"
                                       rel="noopener noreferrer"
+                                      onClick={() => setMenuOpen(false)}
                                       className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Join As Keeper

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import logo from "../app/assets/footerLogo.svg";
 import footer1 from "../app/assets/footer1.svg";
 import footer2 from "../app/assets/footer2.svg";
+import Image from "next/image";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -114,7 +115,7 @@ const Footer = () => {
           <div className="w-[100%] sm:w-auto flex flex-col justify-center gap-4 sm:gap-8 items-end">
             <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-0 md:gap-6 lg:gap-16 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap  tracking-wide">
               <a
-                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                href="https://app.triggerx.network/"
                 className="hover:text-gray-400"
                 target="blank"
               >
@@ -154,13 +155,13 @@ const Footer = () => {
           <img src={logo} alt="footer logo" className="w-full h-auto" />
         </div>
 
-        <img
+        <Image
           src={footer1}
           alt=""
           className="absolute left-0 -z-10 bottom-[75%] sm:bottom-[26%] lg:bottom-[40%] w-[80px] sm:w-[130px] lg:w-[150px] 2xl:w-[200px] h-auto"
         />
 
-        <img
+        <Image
           src={footer2}
           alt=""
           className="absolute right-[0%] sm:right-0 -z-10 bottom-[60%] sm:bottom-[50%] lg:bottom-[30%] w-[80px] sm:w-[130px] 2xl:w-[220px] h-auto"

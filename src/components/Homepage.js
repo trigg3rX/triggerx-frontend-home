@@ -16,6 +16,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import why from "../app/assets/why.svg";
 import Why from "./Why";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 function Homepage() {
@@ -163,18 +164,15 @@ function Homepage() {
             </h4>
 
             <div className="flex gap-4 justify-center">
-              <button
-                onClick={() =>
-                  window.open("https://t.me/triggerxnetwork", "_blank")
-                }
-                className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform"
-              >
-                <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
-                <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                  Dev Hub
-                </span>
-              </button>
+              <Link href="https://t.me/triggerxnetwork" target="blank">
+                <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                  <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+                  <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+                  <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                    Dev Hub
+                  </span>
+                </button>
+              </Link>
               <button
                 onClick={() => scrollToSection("contact-section")}
                 className="relative bg-[#222222] text-black border border-black px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform"
@@ -192,7 +190,7 @@ function Homepage() {
             <div className="w-full h-auto  mx-auto">
               <Why
                 baseWidth={300}
-                autoplay={false}
+                autoplay={true}
                 autoplayDelay={2000}
                 pauseOnHover={true}
                 loop={true}
@@ -254,10 +252,11 @@ function Homepage() {
                     </h2>
 
                     <h4 className="text-[#1F1F1F] leading-relaxed px-2 text-xs sm:text-base xl:text-lg 2xl:text-lg">
-                      Relax, your automation tasks are in safe hands. TriggerX&apos;s
-                      integration with EigenLayer and its innovative AVS system
-                      ensures that keepers are incentivized to act honestly,
-                      protecting you from any malicious activity.{" "}
+                      Relax, your automation tasks are in safe hands.
+                      TriggerX&apos;s integration with EigenLayer and its
+                      innovative AVS system ensures that keepers are
+                      incentivized to act honestly, protecting you from any
+                      malicious activity.{" "}
                     </h4>
                   </div>
 
@@ -295,18 +294,15 @@ function Homepage() {
                 </div>
 
                 <div className="flex gap-4 justify-center">
-                  <button
-                    onClick={() =>
-                      window.open("https://t.me/triggerxnetwork", "_blank")
-                    }
-                    className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform"
-                  >
-                    <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50  rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
-                    <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                    <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                      Dev Hub
-                    </span>
-                  </button>
+                  <Link href="https://t.me/triggerxnetwork" target="blank">
+                    <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                      <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50  rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+                      <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+                      <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                        Dev Hub
+                      </span>
+                    </button>
+                  </Link>
                   <button
                     onClick={() => scrollToSection("contact-section")}
                     className="relative bg-[#222222] text-black border border-black px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform"
@@ -335,9 +331,9 @@ function Homepage() {
               </h1>
               <div className="font-actayRegular w-[100%]">
                 <h4 className="text-xs xs:text-sm lg:text-[18px] 2xl:text-[18px] text-[#A2A2A2] text-center md:text-left mt-6 sm:mt-12  leading-normal lg:leading-[2.1rem] 2xl:leading-[2.1rem]">
-                  Whether you&apos;re a dApp developer, DeFi protocol creator, or
-                  enterprise innovator, TriggerX empowers you to automate tasks
-                  with ease and confidence.
+                  Whether you&apos;re a dApp developer, DeFi protocol creator,
+                  or enterprise innovator, TriggerX empowers you to automate
+                  tasks with ease and confidence.
                 </h4>
               </div>
             </div>
