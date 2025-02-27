@@ -114,7 +114,7 @@ const Footer = () => {
           <div className="w-[100%] sm:w-auto flex flex-col justify-center gap-4 sm:gap-8 items-end">
             <div className="w-[100%] sm:w-auto flex justify-between sm:justify-end gap-0 md:gap-6 lg:gap-16 text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap  tracking-wide">
               <a
-                href="https://triggerx.gitbook.io/triggerx-docs/create-your-first-job"
+                href="https://trigger-x-frontend-app.vercel.app/"
                 className="hover:text-gray-400"
                 target="blank"
               >
