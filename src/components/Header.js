@@ -584,7 +584,7 @@ const Header = () => {
                             className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
                               item.path && isActiveRoute(item.path)
                                 ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A]"
-                                : "transaparent"
+                                : "transparent"
                             }`}
                           >
                             {item.label}
@@ -605,35 +605,21 @@ const Header = () => {
                             </svg>
                           </button>
                         ) : item.external ? (
-                          <a
+                          <Link
                             href={item.path}
                             target="_blank"
                             rel="noopener noreferrer"
                             onMouseEnter={handleMouseEnter}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 `}
                           >
                             {item.label}
-                          </a>
+                          </Link>
                         ) : item.label === "Contact Us" ? (
                           <button
                             onClick={handleClick}
                             onMouseEnter={handleMouseEnter}
-                            // onClick={() => {
-                            //   const section =
-                            //     document.getElementById("contact-section");
-                            //   if (section) {
-                            //     section.scrollIntoView({ behavior: "smooth" });
-                            //   }
-                            // }}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 
+                            `}
                           >
                             {item.label}
                           </button>
@@ -650,11 +636,7 @@ const Header = () => {
                                 item.label === "Contact Us"
                               )
                             }
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
-                                ? "text-white"
-                                : "text-gray-400"
-                            }`}
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 }`}
                           >
                             {item.label}
                           </Link>
@@ -666,7 +648,7 @@ const Header = () => {
                             className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]"
                           >
                             <div className="py-2 px-4 flex flex-col font-actayRegular">
-                              <a
+                              <Link
                                 href="https://app.triggerx.network/"
                                 target="_blank"
                                 onClick={(e) => e.stopPropagation()}
@@ -674,8 +656,8 @@ const Header = () => {
                                 className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
                                 Build
-                              </a>
-                              <a
+                              </Link>
+                              <Link
                                 href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
                                 target="_blank"
                                 onClick={(e) => e.stopPropagation()}
@@ -683,7 +665,7 @@ const Header = () => {
                                 className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                               >
                                 Join As Keeper
-                              </a>
+                              </Link>
                             </div>
                           </div>
                         )}
