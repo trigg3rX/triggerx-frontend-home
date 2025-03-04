@@ -1,18 +1,17 @@
-import React from 'react';
-import { ArrowLeft, Search, Home } from 'lucide-react';
+import React from "react";
+import { ArrowLeft, Search, Home } from "lucide-react";
+import error from "./assets/404.svg";
+import Image from "next/image";
 
 const NotFound = () => {
- 
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 md:mt-[5rem] mt-[5rem]">
-      <div className="w-full max-w-md bg-[#0F0F0F] rounded-xl shadow-lg p-8 text-center">
-        {/* Error Code and Graphics */}
+    <div className="flex flex-col items-center justify-center  px-4 py-12  mt-[10rem] lg:mt-[20rem] lg:mb-[10rem] mb-[5rem]">
+      {/* <div className="w-full max-w-md bg-[#0F0F0F] rounded-xl shadow-lg p-8 text-center">
         <div className="mb-6">
           <div className="relative mx-auto w-32 h-32 mb-4">
             <div className="absolute inset-0 border border-gray-800 rounded-full "></div>
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-5xl font-bold text-white">404</span>
+              <span className="text-6xl font-bold text-white">404</span>
             </div>
           </div>
           <h1 className="text-2xl font-bold text-white">Page Not Found</h1>
@@ -21,25 +20,17 @@ const NotFound = () => {
           </p>
         </div>
 
-       
-
-        {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-1">
-         
-          
-          <a 
+          <a
             href="/"
             className="flex items-center justify-center gap-2 bg-gray-100 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-200 font-medium transition-colors w-1/2 mx-auto"
           >
             <ArrowLeft size={16} />
             Go Back
           </a>
-          
-          
         </div>
-      </div>
-      
-     
+      </div> */}
+      <Image src={error} alt="" className="w-1/2 " />
     </div>
   );
 };
