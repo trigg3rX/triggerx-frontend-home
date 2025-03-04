@@ -73,14 +73,40 @@ const Header = () => {
   const isActiveRoute = (path) => {
     return pathname === path;
   };
+  // Add this new effect near the top of your component where other useEffects are defined
+  useEffect(() => {
+    // Check if we're on a direct route that's not the home page
+    const isDirectRoute = pathname !== "/" && pathname !== "";
+
+    // If we're on a direct route like /blog, automatically trigger the animation
+    if (isDirectRoute && !animationPlayed.current) {
+      // Small delay to ensure component is fully mounted
+      const timer = setTimeout(() => {
+        // For desktop
+        if (window.innerWidth >= 1024) {
+          playAnimation();
+        }
+        // For mobile
+        else {
+          playMobileAnimation();
+        }
+      }, 0);
+
+      // Clean up timer
+      return () => clearTimeout(timer);
+    }
+  }, [pathname]); // Depend on pathname so it runs when route changes
 
   const playAnimation = () => {
     if (animationPlayed.current) return;
-    setTimeout(() => {
-      console.log("Animation completed");
-      window.scrollTo(0, 0); // Reset scroll position to top
-    }, 0); // Adjust duration to your animation's timing
-    // Calculate positions
+
+    const isDirectRoute = pathname !== "/" && pathname !== "";
+    if (!isDirectRoute) {
+      setTimeout(() => {
+        console.log("Animation completed");
+        window.scrollTo(0, 0); // Reset scroll position to top
+      }, 0);
+    }
     const calculatePositions = () => {
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
@@ -136,7 +162,7 @@ const Header = () => {
       width: positions.logo.width,
       x: positions.logo.x,
       y: positions.logo.y,
-      left: "50%",
+
       ease: "power2.out",
       duration: 1,
     });
@@ -403,14 +429,15 @@ const Header = () => {
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
         gsap.to(landingImageRef.current, {
-          opacity: 0,
-          duration: 0, // Short duration for fade out
+          top: -150,
+
+          duration: 0,
           ease: "power1.inOut",
         });
       } else {
         gsap.to(landingImageRef.current, {
-          opacity: 1,
-          duration: 0.8, // Short duration for fade in
+          top: 100,
+          duration: 0.7, // Short duration for fade in
           ease: "power1.inOut",
         });
       }
@@ -428,14 +455,14 @@ const Header = () => {
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
         gsap.to(landingImageMRef.current, {
-          opacity: 0,
-          duration: 0, // Short duration for fade out
+          top: -150,
+          duration: 0,
           ease: "power1.inOut",
         });
       } else {
         gsap.to(landingImageMRef.current, {
-          opacity: 1,
-          duration: 0.8, // Short duration for fade in
+          top: 0,
+          duration: 0.7,
           ease: "power1.inOut",
         });
       }
@@ -688,7 +715,7 @@ const Header = () => {
                   ref={mainLogoRef}
                   src={logo}
                   alt="TriggerX Logo"
-                  className="w-full"
+                  className="w-full absolute"
                 />
               </Link>
             </div>
@@ -698,10 +725,6 @@ const Header = () => {
               src={landing}
               alt="landing"
               className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
-              style={{
-                opacity: imageOpacity,
-                transition: "opacity 0.3s ease",
-              }}
             />
           </div>
 
@@ -902,7 +925,7 @@ const Header = () => {
                 ref={mainLogoMRef}
                 src={logo}
                 alt="TriggerX Logo"
-                className="w-full"
+                className="w-full "
               />
             </div>
 
@@ -911,10 +934,6 @@ const Header = () => {
               src={landing}
               alt="Landing illustration"
               className="md:w-[450px] sm:w-[250px] w-[250px] absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-0"
-              style={{
-                opacity: imageMOpacity,
-                transition: "opacity 0.3s ease",
-              }}
             />
           </div>
           {!MobileAnimationCompleted && (
