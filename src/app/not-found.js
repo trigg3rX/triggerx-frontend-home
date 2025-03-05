@@ -1,11 +1,11 @@
 import React from "react";
 import { ArrowLeft, Search, Home } from "lucide-react";
-import error from "./assets/404.svg";
+import error from "./assets/404.gif";
 import Image from "next/image";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col items-center justify-center  px-4 py-12  mt-[10rem] lg:mt-[20rem] lg:mb-[10rem] mb-[5rem]">
+    <div className="flex flex-col items-center justify-center  px-4 py-12  mt-[10rem] lg:mt-[10rem] ">
       {/* <div className="w-full max-w-md bg-[#0F0F0F] rounded-xl shadow-lg p-8 text-center">
         <div className="mb-6">
           <div className="relative mx-auto w-32 h-32 mb-4">
