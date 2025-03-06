@@ -15,7 +15,7 @@ module.exports = {
       loc: path,
       lastmod: new Date().toISOString(),
       changefreq: 'daily',
-      priority: 0.7,
+      priority: 1.0,
     };
   },
 
