@@ -115,7 +115,7 @@ const Header = () => {
         logo: {
           width: 170,
           x: viewportWidth * -0,
-          y: -160,
+          y: -180,
         },
         nav: {
           x: viewportWidth * -0,
@@ -124,7 +124,7 @@ const Header = () => {
         landing: {
           width: 500,
           x: viewportWidth * -0,
-          y: -480,
+          y: -520,
         },
         mobile: {
           x: viewportWidth * -0,
@@ -429,7 +429,7 @@ const Header = () => {
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
         gsap.to(landingImageRef.current, {
-          top: -150,
+          top: -200,
 
           duration: 0,
           ease: "power1.inOut",
@@ -701,6 +701,17 @@ const Header = () => {
                   </div>
                 </nav>
               </div>
+              {animationCompleted && (
+                <Link href="https://app.triggerx.network/">
+                  <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                    <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+                    <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+                    <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                      Start Building
+                    </span>
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
 
@@ -724,7 +735,7 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="landing"
-              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
+              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-16 xl:top-24"
             />
           </div>
 
@@ -794,6 +805,7 @@ const Header = () => {
                           className="absolute bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A] opacity-0"
                           style={highlightStyle}
                         />
+
                         <div className="flex flex-col gap-4">
                           {navItems.map((item) => (
                             <div
@@ -811,7 +823,7 @@ const Header = () => {
                                       item.external
                                     );
                                   }}
-                                  className={` font-actayRegular text-xs sm:text-sm
+                                  className={` font-actayRegular text-sm sm:text-sm
                       px-7 py-3 rounded-xl
                           relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full
                           ${
@@ -846,7 +858,8 @@ const Header = () => {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                   onClick={() => setMenuOpen(false)}
-                                  className="font-actayRegular text-xs sm:text-sm
+                                  className="font-actayRegular text-sm
+                                   sm:text-sm
                       px-7 py-3 rounded-xl
                           relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full"
                                 >
@@ -891,7 +904,7 @@ const Header = () => {
                                       href="https://app.triggerx.network/"
                                       target="_blank"
                                       onClick={() => setMenuOpen(false)}
-                                      className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                      className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px] text-sm"
                                     >
                                       Build
                                     </a>
@@ -900,7 +913,7 @@ const Header = () => {
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       onClick={() => setMenuOpen(false)}
-                                      className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
+                                      className="text-sm font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
                                     >
                                       Join As Keeper
                                     </a>
@@ -910,6 +923,19 @@ const Header = () => {
                             </div>
                           ))}
                         </div>
+                        {MobileAnimationCompleted && (
+                          <div className=" px-5 py-3">
+                            <Link href="https://app.triggerx.network/">
+                              <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform w-full">
+                                <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+                                <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+                                <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                                  Start Building
+                                </span>
+                              </button>
+                            </Link>
+                          </div>
+                        )}
                       </nav>
                     </div>
                   )}
@@ -933,7 +959,7 @@ const Header = () => {
               ref={landingImageMRef}
               src={landing}
               alt="Landing illustration"
-              className="md:w-[450px] sm:w-[250px] w-[250px] absolute sm:top-10 top-0 md:top-6 lg:top-10 xl:top-0"
+              className="md:w-[450px] sm:w-[250px] w-[200px] absolute sm:top-10 top-5 md:top-6 lg:top-10 xl:top-0"
             />
           </div>
           {!MobileAnimationCompleted && (
