@@ -115,7 +115,7 @@ const Header = () => {
         logo: {
           width: 170,
           x: viewportWidth * -0,
-          y: -180,
+          y: -160,
         },
         nav: {
           x: viewportWidth * -0,
@@ -124,7 +124,7 @@ const Header = () => {
         landing: {
           width: 500,
           x: viewportWidth * -0,
-          y: -520,
+          y: -480,
         },
         mobile: {
           x: viewportWidth * -0,
@@ -429,7 +429,7 @@ const Header = () => {
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
         gsap.to(landingImageRef.current, {
-          top: -200,
+          top: -150,
 
           duration: 0,
           ease: "power1.inOut",
@@ -634,7 +634,6 @@ const Header = () => {
                         ) : item.external ? (
                           <Link
                             href={item.path}
-                            target="_blank"
                             rel="noopener noreferrer"
                             onMouseEnter={handleMouseEnter}
                             className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 `}
@@ -702,15 +701,17 @@ const Header = () => {
                 </nav>
               </div>
               {animationCompleted && (
-                <Link href="https://app.triggerx.network/" target="blank">
-                  <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
-                    <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
-                    <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                    <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                      Start Building
-                    </span>
-                  </button>
-                </Link>
+                <div className="absolute right-20">
+                  <Link href="https://app.triggerx.network/" target="_blank">
+                    <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                      <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
+                      <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
+                      <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                        Start Building
+                      </span>
+                    </button>
+                  </Link>
+                </div>
               )}
             </div>
           </div>
@@ -719,7 +720,7 @@ const Header = () => {
           <div className="w-[100%] px-20 flex flex-col items-center my-[150px] md:my-[100px] relative">
             <div
               onClick={handleLogoClick}
-              className={`w-full ${animationCompleted ? "cursor-pointer" : ""}`}
+              className={`relative w-full ${animationCompleted ? "cursor-pointer" : ""}`}
             >
               <Link href="/">
                 <Image
@@ -735,7 +736,7 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="landing"
-              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-16 xl:top-24"
+              className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
             />
           </div>
 
@@ -767,7 +768,6 @@ const Header = () => {
           )}
         </div>
       </div>
-
       <div
         ref={containerMRef}
         className="relative  h-screen w-full  sm:block md:block lg:hidden xl:hidden block"
@@ -799,7 +799,7 @@ const Header = () => {
                     {menuOpen ? "✖" : "☰"}
                   </h4>
                   {menuOpen && (
-                    <div className="absolute top-full right-0 mt-3 bg-[#181818] p-4 rounded-md shadow-lg z-10 w-60 lg:hidden">
+                    <div className="absolute top-full right-0 mt-3 bg-[#181818] p-4 rounded-md shadow-lg z-10 md:w-[20rem] w-60 lg:hidden">
                       <nav ref={navRef} className="relative">
                         <div
                           className="absolute bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A] opacity-0"
@@ -882,6 +882,7 @@ const Header = () => {
                               ) : (
                                 <Link
                                   href={item.path}
+                                  target="_blank"
                                   onClick={() => {
                                     setMenuOpen(false);
                                   }}
@@ -927,7 +928,7 @@ const Header = () => {
                           <div className=" px-5 py-3">
                             <Link
                               href="https://app.triggerx.network/"
-                              target="blank"
+                              target="_blank"
                             >
                               <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform w-full">
                                 <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
