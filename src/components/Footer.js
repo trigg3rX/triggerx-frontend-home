@@ -5,6 +5,7 @@ import logo from "../app/assets/footerLogo.svg";
 import footer1 from "../app/assets/footer1.svg";
 import footer2 from "../app/assets/footer2.svg";
 import Image from "next/image";
+import { Tooltip } from 'antd';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -15,12 +16,15 @@ const Footer = () => {
         <div className="flex mt-20 flex-col-reverse sm:flex-row items-start sm:items-end justify-between gap-10 sm:gap-5 w-[70%] mx-auto">
           <div className="flex flex-col gap-4 sm:gap-4">
             <div className="flex space-x-4 items-center">
+            <Tooltip title="Github" overlayInnerStyle={{background:"#141414"}}>
+
               <a
                 href="https://github.com/trigg3rX"
                 className="hover:text-gray-300"
-                title="Github"
+            
                 target="blank"
               >
+             
                 <svg
                   width="40"
                   height="45"
@@ -34,11 +38,15 @@ const Footer = () => {
                     stroke="white"
                   />
                 </svg>
+          
               </a>
+              </Tooltip>
+              <Tooltip title="Twitter" overlayInnerStyle={{background:"#141414"}}>
+
               <a
                 href="https://x.com/TriggerXnetwork"
                 className="hover:text-gray-300"
-                title="Twitter"
+             
                 target="blank"
               >
                 <svg
@@ -55,10 +63,13 @@ const Footer = () => {
                   />
                 </svg>
               </a>
+              </Tooltip>
+              <Tooltip title="Telegram" overlayInnerStyle={{background:"#141414"}}>
+
               <a
                 href="https://t.me/triggerxnetwork"
                 className="hover:text-gray-300"
-                title="Telegram"
+             
                 target="blank"
               >
                 <svg
@@ -75,9 +86,13 @@ const Footer = () => {
                   />
                 </svg>
               </a>
+              </Tooltip>
+              <Tooltip title="Gitbook" overlayInnerStyle={{background:"#141414"}}>
+
               <a
                 href="https://triggerx.gitbook.io/triggerx-docs"
                 className="hover:text-gray-300"
+             
                 target="blank"
               >
                 <div className="border border-white rounded-full hover:bg-white ">
@@ -100,11 +115,13 @@ const Footer = () => {
                   </svg>
                 </div>
               </a>
+              </Tooltip>
+              <Tooltip title="Mirror" overlayInnerStyle={{background:"#141414"}}>
+
 
               <a
                 href="https://mirror.xyz/0x0255F7A175f73a05765719c165445F63155aF8E9"
                 className="hover:text-gray-300"
-                title="Telegram"
                 target="blank"
               >
                 <div className="border border-white rounded-full group hover:bg-white p-2">
@@ -125,11 +142,14 @@ const Footer = () => {
                   </svg>
                 </div>
               </a>
+              </Tooltip>
+              <Tooltip title="Medium" overlayInnerStyle={{background:"#141414"}}>
+
 
               <a
                 href="https://medium.com/@triggerx"
                 className="hover:text-gray-300"
-                title="Telegram"
+               
                 target="blank"
               >
                 <svg
@@ -147,6 +167,7 @@ const Footer = () => {
                   />
                 </svg>
               </a>
+              </Tooltip>
             </div>
             <h4 className="text-start text-[2.5vw] xs:text-xs lg:text-[1vw] 2xl:text-[15px] text-nowrap">
               © {currentYear} TriggerX. All rights reserved.

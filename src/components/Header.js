@@ -73,6 +73,27 @@ const Header = () => {
   const isActiveRoute = (path) => {
     return pathname === path;
   };
+  const isValidPath = () => {
+    const validPaths = ['/', '/blog'];
+    console.log("........................",validPaths);
+    return validPaths.includes(pathname);
+  
+    
+  }
+ 
+
+
+   // Modify the useEffect for landing image opacity
+   useEffect(() => {
+    
+    if (!isValidPath()) {
+      setImageOpacity(0);
+      setImageMOpacity(0);
+    } else {
+      setImageOpacity(1);
+      setImageMOpacity(1);
+    }
+  }, [pathname]);
   // Add this new effect near the top of your component where other useEffects are defined
   useEffect(() => {
     // Check if we're on a direct route that's not the home page
@@ -736,6 +757,8 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="landing"
+              style={{ opacity: imageMOpacity }}
+
               className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
             />
           </div>

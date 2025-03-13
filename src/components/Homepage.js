@@ -51,6 +51,7 @@ function Homepage() {
       ease: "power2.out",
     });
 
+    
     // Reset scroll position when component mounts
     if (section2Ref.current) {
       section2Ref.current.scrollLeft = 0;
@@ -430,8 +431,8 @@ function Homepage() {
 
               <div className="mt-10 md:mt-20 md:mx-5">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
-                  <div className="relative overflow-hidden bg-[#141414] group  rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
-                    <div className="block md:hidden absolute right-0">
+                <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
+                <div className="block md:hidden absolute right-0">
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
@@ -446,8 +447,8 @@ function Homepage() {
                     </div>
                   </div>
 
-                  <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
-                    <div className="block md:hidden absolute right-0">
+                  <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
+                  <div className="block md:hidden absolute right-0">
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
@@ -462,7 +463,7 @@ function Homepage() {
                     </div>
                   </div>
 
-                  <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square">
+                  <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
                     <div className="block md:hidden absolute right-0">
                       <Image src={follow} alt="side image"></Image>
                     </div>
