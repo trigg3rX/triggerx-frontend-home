@@ -74,18 +74,13 @@ const Header = () => {
     return pathname === path;
   };
   const isValidPath = () => {
-    const validPaths = ['/', '/blog'];
-    console.log("........................",validPaths);
+    const validPaths = ["/", "/blog"];
+    console.log("........................", validPaths);
     return validPaths.includes(pathname);
-  
-    
-  }
- 
+  };
 
-
-   // Modify the useEffect for landing image opacity
-   useEffect(() => {
-    
+  // Modify the useEffect for landing image opacity
+  useEffect(() => {
     if (!isValidPath()) {
       setImageOpacity(0);
       setImageMOpacity(0);
@@ -655,6 +650,7 @@ const Header = () => {
                         ) : item.external ? (
                           <Link
                             href={item.path}
+                            target="_blank"
                             rel="noopener noreferrer"
                             onMouseEnter={handleMouseEnter}
                             className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 `}
@@ -758,7 +754,6 @@ const Header = () => {
               src={landing}
               alt="landing"
               style={{ opacity: imageMOpacity }}
-
               className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
             />
           </div>
