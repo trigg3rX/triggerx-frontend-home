@@ -12,7 +12,7 @@ export default function HeaderFooterWrapper({ children }) {
     <>
       {!isStudioPage && (
         <div className="relative z-50">
-          <Header />
+          <Header  />
         </div>
       )}
       <main>{children}</main>

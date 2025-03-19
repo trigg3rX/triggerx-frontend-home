@@ -1,5 +1,5 @@
 "use client";
-import { useRef, React, useEffect } from "react";
+import { useRef, React, useEffect,useState } from "react";
 import Image from "next/image";
 import choose from "../app/assets/chooseTrigger.svg";
 import honesty from "../app/assets/honesty.svg";
@@ -24,6 +24,7 @@ function Homepage() {
   const nextGenRef = useRef();
   const componentRef = useRef(null);
   const sliderRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(window.scrollY === 0);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -131,10 +132,27 @@ function Homepage() {
     };
   }, []);
 
+ // Replace the first useEffect for initial animation
+ useEffect(() => {
+  const handleVisibility = () => {
+    setIsVisible(window.scrollY === 0);
+  };
+
+  // Set initial visibility
+  handleVisibility();
+
+  // Handle scroll events
+  window.addEventListener('scroll', handleVisibility);
+  return () => window.removeEventListener('scroll', handleVisibility);
+}, []);
+  
+
   return (
     <>
       <div className="relative z-0 mx-auto">
-        <div ref={nextGenRef} className="relative -z-10">
+      <div ref={nextGenRef} 
+       className="relative -z-10" 
+      >
           <section className="my-20 max-w-[1600px] mx-auto">
             <div
               className="font-sharpGrotesk w-[90%] mx-auto  lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px] "

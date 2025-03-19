@@ -16,6 +16,15 @@ body {
   height: 100%;
   -webkit-overflow-scrolling: touch;
 }
+.landingBg {
+  color: var(--foreground);
+  background: var(--background);
+  background-image: url("assets//grid.png");
+  font-family: "Actay", sans-serif;
+
+  -webkit-overflow-scrolling: touch;
+}
+
 
 .headerbg {
   background-image: url("assets//grid.png");
