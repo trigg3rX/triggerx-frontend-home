@@ -132,19 +132,21 @@ function Homepage() {
     };
   }, []);
 
- // Replace the first useEffect for initial animation
- useEffect(() => {
-  const handleVisibility = () => {
+ // Add this useEffect for initial client-side setup
+  useEffect(() => {
     setIsVisible(window.scrollY === 0);
-  };
+  }, []);
 
-  // Set initial visibility
-  handleVisibility();
+  // Update visibility effect
+  useEffect(() => {
+    const handleVisibility = () => {
+      setIsVisible(window.scrollY === 0);
+    };
 
-  // Handle scroll events
-  window.addEventListener('scroll', handleVisibility);
-  return () => window.removeEventListener('scroll', handleVisibility);
-}, []);
+    // Handle scroll events
+    window.addEventListener('scroll', handleVisibility);
+    return () => window.removeEventListener('scroll', handleVisibility);
+  }, []);
   
 
   return (
