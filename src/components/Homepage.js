@@ -24,7 +24,7 @@ function Homepage() {
   const nextGenRef = useRef();
   const componentRef = useRef(null);
   const sliderRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(window.scrollY === 0);
+  const [isVisible, setIsVisible] = useState(false);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -132,20 +132,30 @@ function Homepage() {
     };
   }, []);
 
- // Add this useEffect for initial client-side setup
-  useEffect(() => {
-    setIsVisible(window.scrollY === 0);
-  }, []);
-
-  // Update visibility effect
+  
   useEffect(() => {
     const handleVisibility = () => {
       setIsVisible(window.scrollY === 0);
     };
-
-    // Handle scroll events
+  
+    // Handle refresh when scrollY > 0
+    const handleRefresh = () => {
+      if (window.scrollY > 0) {
+        window.scrollTo(0, 0);
+      }
+    };
+  
+    // Set initial visibility
+    handleVisibility();
+  
+    // Handle scroll events and refresh
     window.addEventListener('scroll', handleVisibility);
-    return () => window.removeEventListener('scroll', handleVisibility);
+    window.addEventListener('beforeunload', handleRefresh);
+  
+    return () => {
+      window.removeEventListener('scroll', handleVisibility);
+      window.removeEventListener('beforeunload', handleRefresh);
+    };
   }, []);
   
 
