@@ -1,5 +1,5 @@
 "use client";
-import { useRef, React, useEffect,useState } from "react";
+import { useRef, React, useEffect, useState } from "react";
 import Image from "next/image";
 import choose from "../app/assets/chooseTrigger.svg";
 import honesty from "../app/assets/honesty.svg";
@@ -24,7 +24,7 @@ function Homepage() {
   const nextGenRef = useRef();
   const componentRef = useRef(null);
   const sliderRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(window.scrollY === 0);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -32,6 +32,57 @@ function Homepage() {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+  useEffect(() => {
+    // Scroll to top on refresh.  Important to do this *before* other animations start
+    window.scrollTo(0, 0);
+
+    // Initial animation
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.set(nextGenRef.current, { opacity: 1, yPercent: -0 });
+      },
+    });
+
+    tl.to(nextGenRef.current, {
+      opacity: 1,
+      duration: 1,
+      ease: "power2.out",
+    });
+
+    // Reset scroll position when component mounts
+    if (section2Ref.current) {
+      section2Ref.current.scrollLeft = 0;
+    }
+
+    // Handle page scroll completion
+    const handleScroll = () => {
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+
+      if (!isScrolling.current) {
+        isScrolling.current = true;
+      }
+
+      scrollTimeout.current = setTimeout(() => {
+        isScrolling.current = false;
+        // Reset horizontal scroll when page scroll stops
+        if (section2Ref.current) {
+          section2Ref.current.scrollTo({
+            left: 0,
+            behavior: "smooth",
+          });
+        }
+      }, 150); // Adjust timeout as needed
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll); // Ensure proper removal
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []);
 
   // const nextGenRef = useRef();
   const section2Ref = useRef();
@@ -52,7 +103,6 @@ function Homepage() {
       ease: "power2.out",
     });
 
-    
     // Reset scroll position when component mounts
     if (section2Ref.current) {
       section2Ref.current.scrollLeft = 0;
@@ -132,32 +182,23 @@ function Homepage() {
     };
   }, []);
 
-  
+  // Add this useEffect for initial client-side setup
+  useEffect(() => {
+    setIsVisible(window.scrollY === 0);
+  }, []);
+
+  // Update visibility effect
   useEffect(() => {
     const handleVisibility = () => {
       setIsVisible(window.scrollY === 0);
     };
-  
-    // Handle refresh when scrollY > 0
-    const handleRefresh = () => {
-      if (window.scrollY > 0) {
-        window.scrollTo(0, 0);
-      }
-    };
-  
-    // Set initial visibility
-    handleVisibility();
-  
-    // Handle scroll events and refresh
-    window.addEventListener('scroll', handleVisibility);
-    window.addEventListener('beforeunload', handleRefresh);
-  
-    return () => {
-      window.removeEventListener('scroll', handleVisibility);
-      window.removeEventListener('beforeunload', handleRefresh);
-    };
+
+    // Handle scroll events
+    window.addEventListener("scroll", handleVisibility);
+    return () => window.removeEventListener("scroll", handleVisibility);
   }, []);
-  
+ 
+
 
   return (
     <>
