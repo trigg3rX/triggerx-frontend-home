@@ -179,7 +179,37 @@ export default function ClientSlug({ blog }) {
                       </div>
                     ),
                   },
-                  marks: {},
+                  marks: {
+                    strong: ({ children }) => (
+                      <strong className="font-bold">{children}</strong>
+                    ),
+                    em: ({ children }) => (
+                      <em className="italic">{children}</em>
+                    ),
+                    code: ({ children }) => (
+                      <code className="bg-gray-200 px-1 py-0.5 rounded">
+                        {children}
+                      </code>
+                    ),
+                    link: ({ value, children }) => (
+                      <a
+                        href={value?.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 underline"
+                      >
+                        {children}
+                      </a>
+                    ),
+                  },
+                  list: {
+                    bullet: ({ children }) => (
+                      <ul className="list-disc pl-6 my-2">{children}</ul>
+                    ),
+                    number: ({ children }) => (
+                      <ol className="list-decimal pl-6 my-2">{children}</ol>
+                    ),
+                  },
                   block: {
                     h2: ({ children }) => {
                       const text = children?.[0]; // Extract text from children array
