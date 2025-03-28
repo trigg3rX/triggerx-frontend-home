@@ -41,9 +41,6 @@ export default function ClientSlug({ blog }) {
       <main className="w-[95%] max-w-[1600px] mx-auto my-4 lg:my-20 xl:my-40 relative z-40">
         <article>
           <header className="mb-3 lg:mb-12 sm:mt-20 lg:mt-32">
-            {/* <h1 className="font-sharpGrotesk text-2xl sm:text-4xl lg:text-5xl font-bold mb-5 lg:mb-10 text-center w-[97%] mx-auto transform scale-y-[.8] leading-snug">
-              {blog.title}
-            </h1> */}
             {blog.ogImage?.asset?.url ? (
               <div className="rounded-2xl border overflow-hidden">
                 <Image

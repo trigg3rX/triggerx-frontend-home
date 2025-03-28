@@ -257,8 +257,7 @@ function Homepage() {
               </button>
             </div>
           </section>
-          {/* Why */}
-          <section className="md:my-[10rem] xs:my-[6rem]">
+           <section className="md:my-[10rem] xs:my-[6rem]">
             <div className="w-full h-auto  mx-auto">
               <Why
                 baseWidth={300}
