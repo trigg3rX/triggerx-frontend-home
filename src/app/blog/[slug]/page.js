@@ -1,6 +1,5 @@
 import ClientSlug from "@/components/blogs page/ClientSlug";
 import { client } from "@/lib/sanity";
-import { Metadata } from "next";
 
 async function getBlog(slug) {
   const query = `*[_type == "post" && slug.current == "${slug}"][0] {

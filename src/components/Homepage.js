@@ -12,19 +12,30 @@ import dev from "@/app/assets/get started svgs/dev.svg";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Boxdata from "./Boxdata";
-import Header from "./Header";
-import Footer from "./Footer";
-import why from "../app/assets/why.svg";
 import Why from "./Why";
 import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 function Homepage() {
-  const contactSectionRef = useRef(null);
   const nextGenRef = useRef();
-  const componentRef = useRef(null);
-  const sliderRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(window.scrollY === 0);
+  const [isVisible, setIsVisible] = useState(true); // Initial state on the server
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // Set initial state after client-side mount
+      setIsVisible(window.scrollY === 0);
+
+      const handleScroll = () => {
+        setIsVisible(window.scrollY === 0);
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }
+  }, []);
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
