@@ -29,7 +29,6 @@ const Header = () => {
 
   const landingImageRef = useRef(null);
   const landingImageMRef = useRef(null);
-  const logoRef = useRef(null);
   const mainLogoRef = useRef(null);
   const containerRef = useRef(null);
   const headerMRef = useRef(null);
@@ -73,14 +72,15 @@ const Header = () => {
   const isActiveRoute = (path) => {
     return pathname === path;
   };
-  const isValidPath = () => {
-    const validPaths = ["/", "/blog"];
-    console.log("........................", validPaths);
-    return validPaths.includes(pathname);
-  };
 
   // Modify the useEffect for landing image opacity
   useEffect(() => {
+    const isValidPath = () => {
+      const validPaths = ["/", "/blog"];
+      // console.log("........................", validPaths);
+      return validPaths.includes(pathname);
+    };
+
     if (!isValidPath()) {
       setImageOpacity(0);
       setImageMOpacity(0);
@@ -89,7 +89,7 @@ const Header = () => {
       setImageMOpacity(1);
     }
   }, [pathname]);
-  // Add this new effect near the top of your component where other useEffects are defined
+
   useEffect(() => {
     // Check if we're on a direct route that's not the home page
     const isDirectRoute = pathname !== "/" && pathname !== "";
@@ -245,7 +245,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    // Event listeners for different triggers
     const handleScroll = () => {
       playAnimation();
     };
@@ -262,18 +261,15 @@ const Header = () => {
     };
 
     const handleKeyPress = (event) => {
-      // You can specify certain keys or remove this condition to trigger on any key
       if (event.key === "Enter") {
         playAnimation();
       }
     };
 
-    // Add event listeners
     window.addEventListener("scroll", handleScroll);
     document.addEventListener("click", handleGlobalClick);
     document.addEventListener("keydown", handleKeyPress);
 
-    // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("click", handleGlobalClick);
@@ -446,7 +442,6 @@ const Header = () => {
       if (animationPlayed.current && window.scrollY > 0) {
         gsap.to(landingImageRef.current, {
           top: -150,
-
           duration: 0,
           ease: "power1.inOut",
         });
@@ -744,6 +739,7 @@ const Header = () => {
                   ref={mainLogoRef}
                   src={logo}
                   alt="TriggerX Logo"
+                  priority
                   className="w-full absolute"
                 />
               </Link>
@@ -753,6 +749,7 @@ const Header = () => {
               ref={landingImageRef}
               src={landing}
               alt="landing"
+              priority
               style={{ opacity: imageMOpacity }}
               className="xl:w-[650px] lg:w=[500px] md:w-[400px] absolute sm:top-10 top-0 md:top-6 lg:top-6 xl:top-24"
             />
