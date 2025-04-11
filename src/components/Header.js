@@ -560,18 +560,21 @@ const Header = () => {
 
   useEffect(() => {
     if (scrollToSection && pathname === "/") {
-      const section = document.getElementById("contact-section");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+      setTimeout(() => {
+        const section = document.getElementById("contact-section");
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+        setScrollToSection(false);
+      }, 100)
       setScrollToSection(false);
     }
   }, [pathname, scrollToSection]);
 
   const handleClick = () => {
     if (pathname !== "/") {
-      setScrollToSection(true);
-      router.push("/");
+      setScrollToSection(true);  // Set this first
+      router.push("/");         // Then navigate
     } else {
       const section = document.getElementById("contact-section");
       if (section) {
@@ -579,6 +582,7 @@ const Header = () => {
       }
     }
   };
+
 
   return (
     <div>
