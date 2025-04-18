@@ -498,12 +498,7 @@ const Header = () => {
       ? navRef.current.getBoundingClientRect()
       : { x: 0, y: 0, width: 0, height: 0 };
 
-    const direction = prevRect
-      ? rect.x > prevRect.x
-        ? "right"
-        : "left"
-      : "none";
-
+    
     setHighlightStyle({
       opacity: 1,
       width: `${rect.width}px`,

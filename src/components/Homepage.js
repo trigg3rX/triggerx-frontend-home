@@ -21,7 +21,7 @@ function Homepage() {
   const [isVisible, setIsVisible] = useState(true); // Initial state on the server
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       // Set initial state after client-side mount
       setIsVisible(window.scrollY === 0);
 
@@ -29,10 +29,10 @@ function Homepage() {
         setIsVisible(window.scrollY === 0);
       };
 
-      window.addEventListener('scroll', handleScroll);
+      window.addEventListener("scroll", handleScroll);
 
       return () => {
-        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener("scroll", handleScroll);
       };
     }
   }, []);
@@ -208,15 +208,11 @@ function Homepage() {
     window.addEventListener("scroll", handleVisibility);
     return () => window.removeEventListener("scroll", handleVisibility);
   }, []);
- 
-
 
   return (
     <>
       <div className="relative z-0 mx-auto">
-      <div ref={nextGenRef} 
-       className="relative -z-10" 
-      >
+        <div ref={nextGenRef} className="relative -z-10">
           <section className="my-20 max-w-[1600px] mx-auto">
             <div
               className="font-sharpGrotesk w-[90%] mx-auto  lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px] "
@@ -235,13 +231,12 @@ function Homepage() {
             </div>
 
             <h4 className="sm:hidden hidden xl:block lg:block md:block relative text-[#A2A2A2] font-actayRegular text-center text-xs sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-6 lg:mx-auto xl:mx-auto md:mx-auto my-6 lg:my-10">
-              Powered by Eigenlayer. Built with ♥️ for the Superchain.
+              Powered by Eigenlayer.
               <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
             </h4>
             <h4 className="md:hidden xl:hidden lg:hidden relative text-[#A2A2A2] font-actayRegular text-center text-sm sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-auto lg:mx-auto xl:mx-auto my-6 lg:my-10">
               Powered by Eigenlayer.
-              <div>Built with ♥️ for the Superchain.</div>
               <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
             </h4>
@@ -268,7 +263,7 @@ function Homepage() {
               </button>
             </div>
           </section>
-           <section className="md:my-[10rem] xs:my-[6rem]">
+          <section className="md:my-[10rem] xs:my-[6rem]">
             <div className="w-full h-auto  mx-auto">
               <Why
                 baseWidth={300}
@@ -512,8 +507,8 @@ function Homepage() {
 
               <div className="mt-10 md:mt-20 md:mx-5">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
-                <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
-                <div className="block md:hidden absolute right-0">
+                  <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
+                    <div className="block md:hidden absolute right-0">
                       <Image src={speak} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
@@ -529,7 +524,7 @@ function Homepage() {
                   </div>
 
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
-                  <div className="block md:hidden absolute right-0">
+                    <div className="block md:hidden absolute right-0">
                       <Image src={dev} alt="side image"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">

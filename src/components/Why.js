@@ -52,11 +52,8 @@ export default function Why({
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
 
-  const trackWidth = (itemWidth + GAP) * wrappedItems.length;
-  const containerWidth =
-    screenWidth < 1024
-      ? screenWidth - 32
-      : (itemWidth + GAP) * visibleItems - GAP;
+ 
+ 
 
   useEffect(() => {
     if (!isMobile && autoplay && (!pauseOnHover || !isHovered) && !isDragging) {
@@ -101,7 +98,6 @@ export default function Why({
       setCurrentIndex((prev) => (prev % totalItems) + totalItems);
     }
   };
-  const actualIndex = currentIndex % totalItems;
 
   return (
     <div className="w-full overflow-hidden pl-4 md:pl-8 lg:pl-16  ">
@@ -155,10 +151,7 @@ export default function Why({
               <motion.div
                 className="flex"
                 drag="x"
-                // dragConstraints={{
-                //   left: -trackWidth + containerWidth,
-                //   right: 0,
-                // }}
+          
                 dragElastic={0.1}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}

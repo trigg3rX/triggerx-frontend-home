@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import React from "react";
 import logo from "../app/assets/footerLogo.svg";
 import footer1 from "../app/assets/footer1.svg";
 import footer2 from "../app/assets/footer2.svg";

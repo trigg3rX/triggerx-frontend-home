@@ -1,9 +1,7 @@
 "use client";
 import Image from "next/image";
 import { PortableText } from "@portabletext/react";
-import Header from "@/components/Header";
 import { useEffect, useState } from "react";
-import Footer from "../Footer";
 import { useRouter } from "next/navigation";
 import arrow from "@/app/assets/blogs page/arrow.svg";
 

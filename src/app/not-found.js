@@ -1,5 +1,4 @@
 import React from "react";
-import { ArrowLeft, Search, Home } from "lucide-react";
 import error from "./assets/error.gif";
 import Image from "next/image";
 import Link from "next/link";

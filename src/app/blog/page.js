@@ -1,6 +1,5 @@
 import BlogHeader from "@/components/blogs page/BlogHeader";
 import BlogList from "@/components/blogs page/BlogList";
-import Header from "@/components/Header";
 import { SearchProvider } from "@/app/context/SearchContext";
 
 export default function blogs() {
