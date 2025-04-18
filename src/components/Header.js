@@ -55,13 +55,27 @@ const Header = () => {
       external: true,
     },
     {
-      id: "Get Started",
-      label: "Get Started",
-      path: "",
-      dropdown: true,
+      id: "Leaderboard",
+      path: "https://app.triggerx.network/leaderboard",
+      label: "Leaderboard",
+      target: "_blank",
       external: true,
     },
+    // {
+    //   id: "Get Started",
+    //   label: "Get Started",
+    //   path: "",
+    //   dropdown: true,
+    //   external: true,
+    // },
     { id: "Blog", path: "/blog", label: "Blog" },
+    {
+      id: "Join as Keeper",
+      path: "https://triggerx.gitbook.io/triggerx-docs/join-as-keeper",
+      label: "Join as Keeper",
+      target: "_blank",
+      external: true,
+    },
     {
       id: "Contact Us",
       label: "Contact Us",
@@ -591,7 +605,7 @@ const Header = () => {
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="headerbg w-[100%] px-10 xl:px-20 flex items-center justify-between py-12 header">
+            <div className="headerbg w-[100%] flex items-center justify-between py-12 header">
               {/* Logo Container */}
               <div className="w-[120px] opacity-0"></div>
 
@@ -611,7 +625,7 @@ const Header = () => {
                     style={highlightStyle}
                   />
 
-                  <div className="relative flex gap-3 xl:gap-5">
+                  <div className="relative flex xl:gap-5">
                     {navItems.map((item) => (
                       <div key={item.id} className="relative">
                         {item.dropdown ? (
@@ -679,7 +693,7 @@ const Header = () => {
                           </Link>
                         )}
 
-                        {item.dropdown && dropdownOpen && (
+                        {/* {item.dropdown && dropdownOpen && (
                           <div
                             ref={dropdownRef}
                             className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]"
@@ -705,20 +719,20 @@ const Header = () => {
                               </Link>
                             </div>
                           </div>
-                        )}
+                        )} */}
                       </div>
                     ))}
                   </div>
                 </nav>
               </div>
               {animationCompleted && (
-                <div className="absolute right-20">
-                  <Link href="https://rewards.triggerx.network" target="_blank">
+                <div className="absolute right-10">
+                  <Link href="https://app.triggerx.network" target="_blank">
                     <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
                       <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                       <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
                       <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
-                        Start Earning
+                        Start Building
                       </span>
                     </button>
                   </Link>
