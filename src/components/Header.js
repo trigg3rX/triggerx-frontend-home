@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import logo from "../app/assets/logo.svg";
 import gsap from "gsap";
 import { usePathname } from "next/navigation";
-
 import ScrollTrigger from "gsap/ScrollTrigger";
 import landing from "../app/assets/landing.svg";
 import Image from "next/image";
@@ -79,7 +78,7 @@ const Header = () => {
     {
       id: "Contact Us",
       label: "Contact Us",
-      external: false, //  Important:  Set to false for same-page navigation
+      external: false, 
     },
   ];
 
