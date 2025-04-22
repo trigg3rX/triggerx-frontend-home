@@ -9,26 +9,21 @@ export default function ClientBlogList({ blogs }) {
   // Ensure blogs is an array
   const validBlogs = Array.isArray(blogs) ? blogs : [];
 
-  // Sort blogs by published date (newest first)
+
   const sortedBlogs = [...validBlogs].sort(
     (a, b) => new Date(b?.publishedAt || 0) - new Date(a?.publishedAt || 0)
   );
 
-  // Get the most recent blog
+ 
   const mostRecentBlog = sortedBlogs[0];
   const otherBlogs = sortedBlogs.slice(1);
 
-  // Filter blogs based on search with null checks
-  // Filter blogs based on search with null checks
   const filteredBlogs = search
     ? validBlogs.filter((blog) =>
         blog?.title?.toLowerCase().startsWith(search?.toLowerCase() || "")
       )
-    : otherBlogs; // Use otherBlogs when not searching
+    : otherBlogs; 
 
-  // Check if the most recent blog matches the search
-  // const isRecentBlogInSearch =
-  //   search && filteredBlogs.some((blog) => blog._id === mostRecentBlog._id);
 
   return (
     <>
