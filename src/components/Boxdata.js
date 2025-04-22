@@ -9,9 +9,9 @@ import visibility from "../app/assets/visibility.gif";
 const Boxdata = [
   {
     imageSrc: superchain,
-    title: "Automation Across the Superchain",
+    title: "Automation Across the L2s",
     description:
-      "Automate tasks effortlessly across the rapidly growing Superchain ecosystem, from core protocols to the newest innovations within the network.",
+      "Automate tasks effortlessly across the rapidly growing L2s ecosystem, from core protocols to the newest innovations within the network.",
   },
   {
     imageSrc: own,
