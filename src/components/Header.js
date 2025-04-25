@@ -48,7 +48,7 @@ const Header = () => {
   const navItems = [
     {
       id: "Dev Hub",
-      path: "https://t.me/triggerxnetwork",
+      path: "https://app.triggerx.network/devhub",
       label: "Dev Hub",
       target: "_blank",
       external: true,
@@ -78,7 +78,7 @@ const Header = () => {
     {
       id: "Contact Us",
       label: "Contact Us",
-      external: false, 
+      external: false,
     },
   ];
 
@@ -511,7 +511,7 @@ const Header = () => {
       ? navRef.current.getBoundingClientRect()
       : { x: 0, y: 0, width: 0, height: 0 };
 
-    
+
     setHighlightStyle({
       opacity: 1,
       width: `${rect.width}px`,
@@ -631,11 +631,10 @@ const Header = () => {
                           <button
                             onClick={() => toggleDropdown(item)}
                             onMouseEnter={handleMouseEnter}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                              item.path && isActiveRoute(item.path)
+                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${item.path && isActiveRoute(item.path)
                                 ? "bg-gradient-to-r from-[#D9D9D924] to-[#14131324] rounded-xl border border-[#4B4A4A]"
                                 : "transparent"
-                            }`}
+                              }`}
                           >
                             {item.label}
                             <svg
@@ -643,9 +642,8 @@ const Header = () => {
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
-                              className={`w-4 h-4 transition-transform duration-300 ${
-                                dropdownOpen ? "rotate-180" : "rotate-0"
-                              }`}
+                              className={`w-4 h-4 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : "rotate-0"
+                                }`}
                             >
                               <path
                                 strokeLinecap="round"
@@ -853,11 +851,10 @@ const Header = () => {
                                   className={` font-actayRegular text-sm sm:text-sm
                       px-7 py-3 rounded-xl
                           relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full
-                          ${
-                            item.path && isActiveRoute(item.path)
-                              ? "text-white"
-                              : "text-gray-400"
-                          }
+                          ${item.path && isActiveRoute(item.path)
+                                      ? "text-white"
+                                      : "text-gray-400"
+                                    }
                         `}
                                 >
                                   {item.label}
@@ -868,9 +865,8 @@ const Header = () => {
                                     viewBox="0 0 24 24"
                                     strokeWidth="1.5"
                                     stroke="currentColor"
-                                    className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 ${
-                                      dropdownOpen ? "rotate-180" : "rotate-0"
-                                    }`}
+                                    className={`w-3 h-3 sm:w-4 sm:h-4 transition-transform duration-300 ${dropdownOpen ? "rotate-180" : "rotate-0"
+                                      }`}
                                   >
                                     <path
                                       strokeLinecap="round"
@@ -898,11 +894,10 @@ const Header = () => {
                                     handleClick();
                                     setMenuOpen(false);
                                   }}
-                                  className={`text-nowrap font-actayRegular text-center text-sm xl:text-base   px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                                    item.path && isActiveRoute(item.path)
+                                  className={`text-nowrap font-actayRegular text-center text-sm xl:text-base   px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${item.path && isActiveRoute(item.path)
                                       ? "text-white"
                                       : "text-gray-400"
-                                  }`}
+                                    }`}
                                 >
                                   {item.label}
                                 </button>
@@ -913,11 +908,10 @@ const Header = () => {
                                   onClick={() => {
                                     setMenuOpen(false);
                                   }}
-                                  className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${
-                                    item.path && isActiveRoute(item.path)
+                                  className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-7 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 ${item.path && isActiveRoute(item.path)
                                       ? "text-white"
                                       : "text-gray-400"
-                                  }`}
+                                    }`}
                                 >
                                   {item.label}
                                 </Link>
