@@ -21,9 +21,9 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        sharpGrotesk: ['Sharp Grotesk', 'sans-serif'],
-        actayWide: ['Actay Wide', 'sans-serif'],
-        actay: ['Actay', 'sans-serif'],
+        sharpGrotesk: ["var(--font-sharp-grotesk)", "sans-serif"],
+        actayWide: ["var(--font-actay-wide-bold)", "sans-serif"],
+        actay: ["var(--font-actay-regular)", "sans-serif"],
       },
     },
   },

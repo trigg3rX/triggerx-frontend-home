@@ -14,6 +14,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Boxdata from "./Boxdata";
 import Why from "./Why";
 import Link from "next/link";
+import eigenlayer from "@/app/assets/HeaderHerosection svgs/Eigenlayer.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 function Homepage() {
@@ -230,13 +231,15 @@ function Homepage() {
               </h1>
             </div>
 
-            <h4 className="sm:hidden hidden xl:block lg:block md:block relative text-[#A2A2A2] font-actayRegular text-center text-xs sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-6 lg:mx-auto xl:mx-auto md:mx-auto my-6 lg:my-10">
-              Powered by Eigenlayer.
-              <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
-              <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
-            </h4>
-            <h4 className="md:hidden xl:hidden lg:hidden relative text-[#A2A2A2] font-actayRegular text-center text-sm sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-auto lg:mx-auto xl:mx-auto my-6 lg:my-10">
-              Powered by Eigenlayer.
+            <h4 className="flex items-center gap-4 relative text-[#A2A2A2] font-actayRegular text-center text-xs sm:text-base lg:text-lg py-3 sm:py-5 px-6 sm:px-16 lg:px-20 xl:px-36 tracking-wide leading-[2rem] font-normal w-fit mx-auto my-6 md:my-10">
+              Powered by{" "}
+              <Image
+                src={eigenlayer}
+                alt="Eigenlayer"
+                width={80}
+                height={80}
+                className="w-16 md:w-20 lg:w-22 h-auto"
+              ></Image>
               <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 border-t-2 border-l-2 sm:border-t-4 sm:border-l-4 border-[#5047FF] rounded-tl-md sm:rounded-tl-xl"></div>
               <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 border-b-2 border-r-2 sm:border-b-4 sm:border-r-4 border-[#5047FF] rounded-br-md sm:rounded-br-xl"></div>
             </h4>
@@ -469,7 +472,7 @@ function Homepage() {
                   <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[#303030] via-[#FFFFFF] to-[#303030]"></div>
                   <div className="flex items-center gap-4 sm:gap-8 lg:gap-14 w-full ">
                     <Image
-                      src={honesty}
+                      src={validation}
                       alt={"--"}
                       width={30}
                       className="w-6 sm:w-7 lg:w-8 xl:w-8"
