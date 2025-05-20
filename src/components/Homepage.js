@@ -1,14 +1,14 @@
 "use client";
 import { useRef, React, useEffect, useState } from "react";
 import Image from "next/image";
-import choose from "../app/assets/chooseTrigger.svg";
+import what from "../app/assets/what svgs/what.png";
 import honesty from "../app/assets/honesty.svg";
 import security from "../app/assets/security.svg";
 import validation from "../app/assets/validation.svg";
-import usecase from "../app/assets/usecase svg/usecase.svg";
-import speak from "@/app/assets/get started svgs/speak.svg";
-import follow from "@/app/assets/get started svgs/follow.svg";
-import dev from "@/app/assets/get started svgs/dev.svg";
+import usecase from "../app/assets/usecase svg/usecase.png";
+import speak from "@/app/assets/get started svgs/speak.png";
+import follow from "@/app/assets/get started svgs/follow.png";
+import dev from "@/app/assets/get started svgs/dev.png";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Boxdata from "./Boxdata";
@@ -281,8 +281,8 @@ function Homepage() {
           </section>
           <section className=" w-[90%] my-20 lg:mb-40 max-w-[1600px] mx-auto">
             <div className="bg-white rounded-3xl shadow-lg text-black flex flex-col items-start justify-center relative overflow-hidden px-3 xs:px-7 py-10 sm:py-16 md:p-16 2xl:p-24">
-              <div className="absolute right-0 top-[-20px] md:top-[-50px] lg:top-[-100px] w-[150px] md:w-[200px] lg:w-[300px] h-max">
-                <Image src={choose} alt="image" className="w-full h-auto" />
+              <div className="absolute right-0 top-[-20px] lg:top-[-50px] w-[150px] md:w-[200px] lg:w-[270px] h-max">
+                <Image src={what} alt="image" className="w-full h-auto" />
               </div>
 
               <h1 className="font-sharpGrotesk text-2xl xs:text-[30px] sm:text-2xl md:text-3xl lg:text-5xl 2xl:text-6xl w-[40%] sm:w-full text-start mb-10 sm:mb-16 lg:mb-24 2xl:mb-30 mt-0 lg:mt-8 ml-6 xs:ml-3 sm:ml-0 leading-[3rem]">
@@ -511,8 +511,8 @@ function Homepage() {
               <div className="mt-10 md:mt-20 md:mx-5">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
-                    <div className="block md:hidden absolute right-0">
-                      <Image src={speak} alt="side image"></Image>
+                    <div className="block md:hidden absolute right-[-23px] xs:right-0 h-full w-max">
+                      <Image src={speak} alt="side image" className="h-full w-auto"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
                       <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
@@ -527,8 +527,8 @@ function Homepage() {
                   </div>
 
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
-                    <div className="block md:hidden absolute right-0">
-                      <Image src={dev} alt="side image"></Image>
+                    <div className="block md:hidden absolute right-[-23px] xs:right-0 h-full w-max">
+                      <Image src={dev} alt="side image" className="h-full w-auto"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
                       <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
@@ -543,8 +543,8 @@ function Homepage() {
                   </div>
 
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
-                    <div className="block md:hidden absolute right-0">
-                      <Image src={follow} alt="side image"></Image>
+                    <div className="block md:hidden absolute right-[-23px] xs:right-0 h-full w-max">
+                      <Image src={follow} alt="side image" className="h-full w-auto"></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
                       <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">

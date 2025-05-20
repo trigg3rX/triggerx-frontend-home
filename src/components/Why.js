@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import why from "../app/assets/why.svg";
+import why from "../app/assets/why svg and gifs/why.png";
 
 const DRAG_BUFFER = 50;
 const VELOCITY_THRESHOLD = 500;

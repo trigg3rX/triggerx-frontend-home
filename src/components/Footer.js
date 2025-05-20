@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import logo from "@/app/assets/footer svgs/footerLogo.svg";
-import footer1 from "@/app/assets/footer svgs/footer1.svg";
-import footer2 from "@/app/assets/footer svgs/footer2.svg";
+import footer1 from "@/app/assets/footer svgs/footer1.png";
+import footer2 from "@/app/assets/footer svgs/footer2.png";
 import Image from "next/image";
 import { Tooltip } from "antd";
 import github from "@/app/assets/footer svgs/github.svg";
