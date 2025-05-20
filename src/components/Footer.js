@@ -92,13 +92,7 @@ const Footer = () => {
             <div className="flex space-x-2 xs:space-x-3 lg:space-x-4 items-center mr-auto">
               {socialLinks.map(
                 ({ title, href, icon, iconDark, border, alt }) => (
-                  <Tooltip
-                    key={title}
-                    title={title}
-                    styles={{
-                      body: { background: "#141414" },
-                    }}
-                  >
+                  <Tooltip key={title} title={title} color="#141414">
                     <a
                       href={href}
                       className={`hover:text-gray-300 flex items-center justify-center w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 overflow-hidden rounded-full ${
