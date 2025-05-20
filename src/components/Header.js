@@ -70,7 +70,7 @@ const Header = () => {
     { id: "Blog", path: "/blog", label: "Blog" },
     {
       id: "Join as Keeper",
-      path: "https://triggerx.gitbook.io/triggerx-docs/join-as-keeper",
+      path: "https://triggerx.gitbook.io/triggerx-docs/getting-started-as-keepers",
       label: "Join as Keeper",
       target: "_blank",
       external: true,
