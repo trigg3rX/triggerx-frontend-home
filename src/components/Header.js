@@ -67,7 +67,7 @@ const Header = () => {
     { id: "Blog", path: "/blog", label: "Blog" },
     {
       id: "Join as Keeper",
-      path: "https://triggerx.gitbook.io/triggerx-docs/join-as-keeper",
+      path: "https://triggerx.gitbook.io/triggerx-docs/getting-started-as-keepers",
       label: "Join as Keeper",
       target: "_blank",
       external: true,
@@ -453,16 +453,30 @@ const Header = () => {
           } else {
             playMobileAnimation(); // Play mobile animation
           }
-    }
-  };
+        }
+      };
+
+      // Handler for click anywhere on screen
+      const handleClick = (e) => {
+        if (!animationPlayed.current) {
+          if (window.innerWidth >= 1024) {
+            playAnimation();    // Play desktop animation
+          } else {
+            playMobileAnimation(); // Play mobile animation
+          }
+        }
+      };
 
       // Listen for wheel (mouse/touchpad) and touchmove (mobile) events
       window.addEventListener("wheel", handleScroll, { passive: false });
       window.addEventListener("touchmove", handleScroll, { passive: false });
+      // Add click event listener
+      window.addEventListener("click", handleClick);
 
       return () => {
         window.removeEventListener("wheel", handleScroll);
         window.removeEventListener("touchmove", handleScroll);
+        window.removeEventListener("click", handleClick);
       };
     }
   }, [animationPlayed.current]);
@@ -586,17 +600,16 @@ const Header = () => {
   useEffect(() => {
     if (!animationPlayed.current) {
       const handleKey = (e) => {
-        const keys = [
-          'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ',
-        ];
-        if (keys.includes(e.key)) {
-          e.preventDefault();
+        e.preventDefault();
+        if (window.innerWidth >= 1024) {
           playAnimation();
+        } else {
+          playMobileAnimation();
         }
       };
       window.addEventListener("keydown", handleKey, { passive: false });
       return () => window.removeEventListener("keydown", handleKey);
-      }
+    }
   }, [animationPlayed.current]);
 
   // Rename the function to handleScrollToSection
