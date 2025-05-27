@@ -13,19 +13,22 @@ import Link from "next/link";
 gsap.registerPlugin(ScrollTrigger);
 
 const Header = () => {
+  // State variables for UI and animation control
   const [menuOpen, setMenuOpen] = useState(false);
   const [highlightStyle, setHighlightStyle] = useState({});
   const [prevRect, setPrevRect] = useState();
-  const navRef = useRef();
-  const router = useRouter();
-  const pathname = usePathname();
   const [scrollToSection, setScrollToSection] = useState(false);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
+  const [MobileAnimationCompleted, setMobileAnimationCompleted] = useState(false);
+  const [imageOpacity, setImageOpacity] = useState(1);
+  const [imageMOpacity, setImageMOpacity] = useState(1);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+
+  // Refs for DOM elements used in animation and navigation
+  const navRef = useRef();
   const navMobileRef = useRef(null);
   const navMobileMRef = useRef(null);
-  const [animationCompleted, setAnimationCompleted] = useState(false);
-  const [MobileAnimationCompleted, setMobileAnimationCompleted] =
-    useState(false);
-
   const landingImageRef = useRef(null);
   const landingImageMRef = useRef(null);
   const mainLogoRef = useRef(null);
@@ -36,15 +39,16 @@ const Header = () => {
   const headerRef = useRef(null);
   const navigationMRef = useRef(null);
   const navigationRef = useRef(null);
-  const [imageOpacity, setImageOpacity] = useState(1); // State for image opacity
-  const [imageMOpacity, setImageMOpacity] = useState(1); // State for image opacity
-
   const animationPlayed = useRef(false);
   const circularTextRef = useRef(null);
   const arrowRef = useRef(null);
   const dropdownRef = useRef(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  // Next.js router and current path
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Navigation items for the menu
   const navItems = [
     {
       id: "Dev Hub",
@@ -60,17 +64,10 @@ const Header = () => {
       target: "_blank",
       external: true,
     },
-    // {
-    //   id: "Get Started",
-    //   label: "Get Started",
-    //   path: "",
-    //   dropdown: true,
-    //   external: true,
-    // },
     { id: "Blog", path: "/blog", label: "Blog" },
     {
       id: "Join as Keeper",
-      path: "https://triggerx.gitbook.io/triggerx-docs/getting-started-as-keepers",
+      path: "https://triggerx.gitbook.io/triggerx-docs/join-as-keeper",
       label: "Join as Keeper",
       target: "_blank",
       external: true,
@@ -82,60 +79,102 @@ const Header = () => {
     },
   ];
 
-  const isActiveRoute = (path) => {
-    return pathname === path;
+  // Checks if a route is active (for nav highlight)
+  const isActiveRoute = (path) => pathname === path;
+
+  // Handles clicking a nav menu item
+  const handleMenuItemClick = (path, hasDropdown = false) => {
+    if (path && !hasDropdown) {
+      router.push(path);
+    }
+    if (hasDropdown) {
+      setDropdownOpen(!dropdownOpen);
+    }
   };
 
-  // Modify the useEffect for landing image opacity
-  useEffect(() => {
-    const isValidPath = () => {
-      const validPaths = ["/", "/blog"];
-      // console.log("........................", validPaths);
-      return validPaths.includes(pathname);
-    };
-
-    if (!isValidPath()) {
-      setImageOpacity(0);
-      setImageMOpacity(0);
+  // Handles clicking the "Contact Us" button
+  const handleClick = () => {
+    if (pathname !== "/") {
+      setScrollToSection(true);
+      router.push("/");
     } else {
-      setImageOpacity(1);
-      setImageMOpacity(1);
+      const section = document.getElementById("contact-section");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
     }
-  }, [pathname]);
+  };
 
-  useEffect(() => {
-    // Check if we're on a direct route that's not the home page
-    const isDirectRoute = pathname !== "/" && pathname !== "";
+  // Handles mouse enter on nav item (for highlight animation)
+  const handleMouseEnter = (event) => {
+    const hoveredElement = event.currentTarget;
+    if (!hoveredElement) return;
+    const rect = hoveredElement.getBoundingClientRect();
+    const navRect = navRef.current
+      ? navRef.current.getBoundingClientRect()
+      : { x: 0, y: 0, width: 0, height: 0 };
 
-    // If we're on a direct route like /blog, automatically trigger the animation
-    if (isDirectRoute && !animationPlayed.current) {
-      // Small delay to ensure component is fully mounted
-      const timer = setTimeout(() => {
-        // For desktop
-        if (window.innerWidth >= 1024) {
-          playAnimation();
+    setHighlightStyle({
+      opacity: 1,
+      width: `${rect.width}px`,
+      height: `${rect.height}px`,
+      transform: `translateX(${rect.x - navRect.x}px)`,
+      transition: prevRect ? "all 0.3s ease" : "none",
+    });
+
+    setPrevRect(rect);
+  };
+
+  // Handles mouse leaving nav (hide highlight)
+  const handleMouseLeave = () => {
+    setHighlightStyle((prev) => ({
+      ...prev,
+      opacity: 0,
+      transition: "all 0.3s ease",
+    }));
+  };
+
+  // Toggles dropdown menu
+  const toggleDropdown = (item) => {
+    if (item.dropdown) {
+      setDropdownOpen(!dropdownOpen);
+    } else {
+      setDropdownOpen(false);
+    }
+  };
+
+  // Handles clicking the logo (go home if animation done)
+  const handleLogoClick = () => {
+    if (animationCompleted || MobileAnimationCompleted) {
+      router.push("/");
         }
-        // For mobile
-        else {
+  };
+
+  // Handles clicking the scroll arrow (mobile)
+  const handleArrowClick = () => {
           playMobileAnimation();
-        }
-      }, 0);
+  };
 
-      // Clean up timer
-      return () => clearTimeout(timer);
-    }
-  }, [pathname]); // Depend on pathname so it runs when route changes
+  // Handles clicking the scroll arrow (desktop)
+  const handleArrowDown = () => {
+    playAnimation();
+  };
 
+  // GSAP animation for desktop header
   const playAnimation = () => {
-    if (animationPlayed.current) return;
+    console.log('playAnimation called');
+    if (animationPlayed.current) {
+      console.log('Animation already played, returning');
+      return;
+    }
 
     const isDirectRoute = pathname !== "/" && pathname !== "";
     if (!isDirectRoute) {
       setTimeout(() => {
-        console.log("Animation completed");
-        window.scrollTo(0, 0); // Reset scroll position to top
+        window.scrollTo(0, 0);
       }, 0);
     }
+
     const calculatePositions = () => {
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
@@ -164,7 +203,6 @@ const Header = () => {
 
     const positions = calculatePositions();
 
-    // Initial setup
     gsap.set(
       [
         mainLogoRef.current,
@@ -182,16 +220,15 @@ const Header = () => {
       onComplete: () => {
         animationPlayed.current = true;
         setAnimationCompleted(true);
+        setShowContent(true);
         gsap.set(containerRef.current, { height: "100px" });
       },
     });
 
-    // Animation sequence
     tl.to(mainLogoRef.current, {
       width: positions.logo.width,
       x: positions.logo.x,
       y: positions.logo.y,
-
       ease: "power2.out",
       duration: 1,
     });
@@ -203,7 +240,6 @@ const Header = () => {
         y: positions.nav.y,
         left: "50%",
         opacity: 1,
-
         transform: "translateX(-50%)",
         ease: "power2.out",
         duration: 1,
@@ -248,7 +284,6 @@ const Header = () => {
       0
     );
 
-    // Continuous rotation animation
     gsap.to(circularTextRef.current, {
       rotation: 360,
       duration: 10,
@@ -257,48 +292,13 @@ const Header = () => {
     });
   };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      playAnimation();
-    };
-
-    const handleGlobalClick = (event) => {
-      const isNavClick =
-        event.target.closest("nav") ||
-        event.target.closest(".scroll-arrow") ||
-        event.target.closest("button");
-
-      if (!isNavClick) {
-        playAnimation();
-      }
-    };
-
-    const handleKeyPress = (event) => {
-      if (event.key === "Enter") {
-        playAnimation();
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    document.addEventListener("click", handleGlobalClick);
-    document.addEventListener("keydown", handleKeyPress);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("click", handleGlobalClick);
-      document.removeEventListener("keydown", handleKeyPress);
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
+  // GSAP animation for mobile header
   const playMobileAnimation = () => {
     if (animationPlayed.current) return;
 
     setTimeout(() => {
-      console.log("Animation completed");
-      window.scrollTo(0, 0); // Reset scroll position to top
-    }, 0); // Adjust duration to your animation's timing
-    // Calculate positions
+      window.scrollTo(0, 0);
+    }, 0);
 
     const calculatePositions = () => {
       const viewportWidth = window.innerWidth;
@@ -306,13 +306,13 @@ const Header = () => {
 
       return {
         logo: {
-          width: 130, // Setting a width to make x and y values easier to calculate
-          x: -58, // Centering and adding offset from center
-          y: -165, // 70% of the way down
+          width: 130,
+          x: -58,
+          y: -165,
         },
         nav: {
-          x: viewportWidth * -0, // Center
-          y: viewportHeight * -0, // 30% from top
+          x: viewportWidth * -0,
+          y: viewportHeight * -0,
         },
         landing: {
           width: 300,
@@ -325,7 +325,7 @@ const Header = () => {
 
     const positions = calculatePositions();
 
-    // Initial setup
+    // Set initial states
     gsap.set(
       [
         mainLogoMRef.current,
@@ -337,6 +337,7 @@ const Header = () => {
         x: 0,
         y: 0,
         scale: 1,
+        opacity: 0, // Start with opacity 0
       }
     );
 
@@ -348,18 +349,37 @@ const Header = () => {
       },
     });
 
-    // Animation sequence
-    // Animate to final positions
+    // First fade in the background
+    tl.to(containerMRef.current, {
+      backgroundColor: "#0a0a0a",
+      duration: 0.1,
+    });
+
+    // Then animate logo and landing image
     tl.to(mainLogoMRef.current, {
-      width: positions.logo.width, // Animate the width
+      width: positions.logo.width,
       x: positions.logo.x,
       y: positions.logo.y,
-
+      opacity: 1,
       ease: "power2.out",
       duration: 1,
       zIndex: 10,
       position: "relative",
     });
+
+    tl.to(
+      landingImageMRef.current,
+      {
+        width: positions.landing.width,
+        x: positions.landing.x,
+        y: positions.landing.y,
+        scale: positions.landing.scale,
+        opacity: 1,
+        ease: "power2.out",
+        duration: 1,
+      },
+      "<"
+    );
 
     tl.to(
       navigationMRef.current,
@@ -376,21 +396,6 @@ const Header = () => {
     );
 
     tl.to(
-      landingImageMRef.current,
-      {
-        width: positions.landing.width, // Animate the width
-
-        x: positions.landing.x,
-        y: positions.landing.y,
-        scale: positions.landing.scale,
-        // left: "0%",
-        ease: "power2.out",
-        duration: 1,
-      },
-      "<"
-    );
-
-    tl.to(
       containerMRef.current,
       {
         height: "100px",
@@ -401,214 +406,221 @@ const Header = () => {
     );
   };
 
+  // useEffect: Controls landing image opacity based on current route
   useEffect(() => {
-    // Event listeners for different triggers
-    const handleScroll = () => {
-      playMobileAnimation();
+    // Helper function to check if the current path is valid for showing the landing image
+    const isValidPath = () => {
+      const validPaths = ["/", "/blog"]; // Only show on home and blog
+      return validPaths.includes(pathname);
     };
 
-    // Add event listeners
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  const handleMenuItemClick = (path, hasDropdown = false) => {
-    if (path && !hasDropdown) {
-      router.push(path);
+    if (!isValidPath()) {
+      setImageOpacity(0); // Hide desktop landing image if not valid path
+      setImageMOpacity(0); // Hide mobile landing image if not valid path
+    } else {
+      setImageOpacity(1); // Show desktop landing image
+      setImageMOpacity(1); // Show mobile landing image
     }
-    if (hasDropdown) {
-      setDropdownOpen(!dropdownOpen);
+  }, [pathname]); // Runs whenever the route changes
+
+  // useEffect: Plays animation if not on home page (direct route)
+  useEffect(() => {
+    const isDirectRoute = pathname !== "/" && pathname !== ""; // Check if not home
+
+    if (isDirectRoute && !animationPlayed.current) {
+      // If animation hasn't played and not on home, play animation
+      const timer = setTimeout(() => {
+        if (window.innerWidth >= 1024) {
+          playAnimation(); // Play desktop animation
+        } else {
+          playMobileAnimation(); // Play mobile animation
+        }
+      }, 0); // Run after render
+
+      return () => clearTimeout(timer); // Cleanup timer
+    }
+  }, [pathname]); // Runs when route changes
+
+  // useEffect: Adds global event listeners for scroll, click, and keydown to trigger animation
+  useEffect(() => {
+    if (!animationPlayed.current) {
+      // Handler to trigger animation and prevent scroll
+      const handleScroll = (e) => {
+        if (!animationPlayed.current) {
+          e.preventDefault(); // Prevent the page from scrolling
+          if (window.innerWidth >= 1024) {
+            playAnimation();    // Play desktop animation
+          } else {
+            playMobileAnimation(); // Play mobile animation
+          }
     }
   };
 
-  const handleArrowClick = (e) => {
-    playMobileAnimation();
-  };
+      // Listen for wheel (mouse/touchpad) and touchmove (mobile) events
+      window.addEventListener("wheel", handleScroll, { passive: false });
+      window.addEventListener("touchmove", handleScroll, { passive: false });
 
+      return () => {
+        window.removeEventListener("wheel", handleScroll);
+        window.removeEventListener("touchmove", handleScroll);
+      };
+    }
+  }, [animationPlayed.current]);
+
+  // useEffect: Animates dropdown menu when opened
   useEffect(() => {
     if (dropdownOpen && dropdownRef.current) {
+      // Animate dropdown menu in with GSAP
       gsap.fromTo(
         dropdownRef.current,
         {
-          opacity: 0,
-          y: -10,
+          opacity: 0, // Start transparent
+          y: -10, // Start slightly above
         },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.2,
-          ease: "power2.out",
+          opacity: 1, // Fade in
+          y: 0, // Move to position
+          duration: 0.2, // Animation duration
+          ease: "power2.out", // Easing
         }
       );
     }
-  }, [dropdownOpen]);
+  }, [dropdownOpen]); // Runs when dropdownOpen changes
 
+  // useEffect: Animates landing image position on scroll (desktop)
   useEffect(() => {
     // Function to handle scroll event
     const handleScroll = () => {
       if (animationPlayed.current && window.scrollY > 0) {
+        // If animation played and user scrolled down
         gsap.to(landingImageRef.current, {
-          top: -150,
-          duration: 0,
+          top: -150, // Move image up
+          duration: 0.1, // Instantly
           ease: "power1.inOut",
         });
       } else {
+        // If at top, animate image to normal position
         gsap.to(landingImageRef.current, {
-          top: 100,
-          duration: 0.7, // Short duration for fade in
+          top: 100, // Move image down
+          duration: 0.3, // Animate smoothly
           ease: "power1.inOut",
         });
       }
     };
 
+    // Add event listener
     window.addEventListener("scroll", handleScroll);
 
+    // Cleanup: Remove event listener
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [animationPlayed]);
+  }, [animationPlayed]); // Runs when animationPlayed changes
 
+ 
+
+  // useEffect: Closes dropdown menu when clicking outside
   useEffect(() => {
-    // Function to handle scroll event
-    const handleScroll = () => {
-      if (animationPlayed.current && window.scrollY > 0) {
-        gsap.to(landingImageMRef.current, {
-          top: -150,
-          duration: 0,
-          ease: "power1.inOut",
-        });
-      } else {
-        gsap.to(landingImageMRef.current, {
-          top: 0,
-          duration: 0.7,
-          ease: "power1.inOut",
-        });
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [animationPlayed]);
-
-  const handleArrowDown = () => {
-    playAnimation();
-  };
-
-  const handleMouseEnter = (event) => {
-    const hoveredElement = event.currentTarget;
-    if (!hoveredElement) return;
-    const rect = hoveredElement.getBoundingClientRect();
-    const navRect = navRef.current
-      ? navRef.current.getBoundingClientRect()
-      : { x: 0, y: 0, width: 0, height: 0 };
-
-
-    setHighlightStyle({
-      opacity: 1,
-      width: `${rect.width}px`,
-      height: `${rect.height}px`,
-      transform: `translateX(${rect.x - navRect.x}px)`,
-      transition: prevRect ? "all 0.3s ease" : "none",
-    });
-
-    setPrevRect(rect);
-  };
-
-  const handleMouseLeave = () => {
-    setHighlightStyle((prev) => ({
-      ...prev,
-      opacity: 0,
-      transition: "all 0.3s ease",
-    }));
-  };
-
-  const toggleDropdown = (item) => {
-    if (item.dropdown) {
-      setDropdownOpen(!dropdownOpen);
-    } else {
-      setDropdownOpen(false);
-    }
-  };
-
-  // Add a function to handle logo click - will navigate to homepage
-  const handleLogoClick = () => {
-    if (animationCompleted || MobileAnimationCompleted) {
-      router.push("/");
-    }
-  };
-
-  useEffect(() => {
+    // Function to handle click outside dropdown
     const handleClickOutside = (event) => {
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
-        !event.target.closest("button") // Exclude the button that opens the dropdown
+        !event.target.closest("button")
       ) {
-        setDropdownOpen(false);
+        setDropdownOpen(false); // Close dropdown
       }
     };
 
     if (dropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside); // Listen for outside clicks
     }
 
+    // Cleanup: Remove event listener
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownOpen]);
+  }, [dropdownOpen]); // Runs when dropdownOpen changes
 
+  // useEffect: Scrolls to contact section after navigation
   useEffect(() => {
     if (scrollToSection && pathname === "/") {
       setTimeout(() => {
-        const section = document.getElementById("contact-section");
+        const section = document.getElementById("contact-section"); // Find contact section
         if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
+          section.scrollIntoView({ behavior: "smooth" }); // Scroll to it
         }
-        setScrollToSection(false);
-      }, 100)
-      setScrollToSection(false);
+        setScrollToSection(false); // Reset flag
+      }, 100); // Wait 100ms for DOM update
+      setScrollToSection(false); // Reset flag
     }
-  }, [pathname, scrollToSection]);
+  }, [pathname, scrollToSection]); // Runs when path or scrollToSection changes
 
-  const handleClick = () => {
-    if (pathname !== "/") {
-      setScrollToSection(true);  // Set this first
-      router.push("/");         // Then navigate
-    } else {
-      const section = document.getElementById("contact-section");
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+  // useEffect: Shows content immediately if animation already played
+  useEffect(() => {
+    if (animationPlayed.current) setShowContent(true); // Show content if animation done
+  }, []); // Runs once on mount
+
+  // useEffect: Always scroll to top on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0); // Scroll to top
+    }
+  }, []); // Runs once on mount
+
+  // useEffect: Limit scroll before animation
+  useEffect(() => {
+    if (!animationPlayed.current) {
+      const handleScroll = () => {
+        // If user scrolls more than 100px, reset to 100px
+        if (window.scrollY > 100) {
+          window.scrollTo({ top: 100, behavior: "smooth" });
+        }
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [animationPlayed.current]);
+
+  // useEffect: Trigger animation on key press
+  useEffect(() => {
+    if (!animationPlayed.current) {
+      const handleKey = (e) => {
+        const keys = [
+          'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ',
+        ];
+        if (keys.includes(e.key)) {
+          e.preventDefault();
+          playAnimation();
+        }
+      };
+      window.addEventListener("keydown", handleKey, { passive: false });
+      return () => window.removeEventListener("keydown", handleKey);
       }
+  }, [animationPlayed.current]);
+
+  // Rename the function to handleScrollToSection
+  const handleScrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-
   return (
-    <div>
+    <>
       <div
         ref={containerRef}
-        className="relative h-screen w-full max-w-[1600px] hidden lg:block overflow-hidden "
+        className="fixed top-0 left-0 w-full h-screen z-[9999] bg-[#0a0a0a] headerbg hidden lg:block"
       >
-        {/* Fixed Header */}
         <div
           ref={headerRef}
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
             <div className="headerbg w-[100%] flex items-center justify-between py-12 header">
-              {/* Logo Container */}
               <div className="w-[120px] opacity-0"></div>
 
-              {/* Navigation Container - Now positioned absolutely for animation */}
               <div
                 ref={navigationRef}
                 className="absolute left-1/6 z-100"
@@ -658,7 +670,7 @@ const Header = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             onMouseEnter={handleMouseEnter}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 `}
+                            className="text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1"
                           >
                             {item.label}
                           </Link>
@@ -666,8 +678,7 @@ const Header = () => {
                           <button
                             onClick={handleClick}
                             onMouseEnter={handleMouseEnter}
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 
-                            `}
+                            className="text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1"
                           >
                             {item.label}
                           </button>
@@ -684,39 +695,11 @@ const Header = () => {
                                 item.label === "Contact Us"
                               )
                             }
-                            className={`text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1 }`}
+                            className="text-nowrap font-actayRegular text-center text-sm xl:text-base px-4 xl:px-6 py-3 rounded-xl text-white relative z-10 cursor-pointer flex items-center gap-1"
                           >
                             {item.label}
                           </Link>
                         )}
-
-                        {/* {item.dropdown && dropdownOpen && (
-                          <div
-                            ref={dropdownRef}
-                            className="absolute top-[4rem] bg-[#202020] w-60 rounded-md shadow-lg border border-[#4b4a4a]"
-                          >
-                            <div className="py-2 px-4 flex flex-col font-actayRegular">
-                              <Link
-                                href="https://app.triggerx.network/"
-                                target="_blank"
-                                onClick={(e) => e.stopPropagation()}
-                                rel="noopener noreferrer"
-                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
-                              >
-                                Build
-                              </Link>
-                              <Link
-                                href="https://triggerx.gitbook.io/triggerx-docs/join-as-keeper"
-                                target="_blank"
-                                onClick={(e) => e.stopPropagation()}
-                                rel="noopener noreferrer"
-                                className="font-actayRegular block px-4 py-2 text-white hover:bg-[#282828] rounded-[8px]"
-                              >
-                                Join As Keeper
-                              </Link>
-                            </div>
-                          </div>
-                        )} */}
                       </div>
                     ))}
                   </div>
@@ -738,11 +721,11 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Hero Section with Animated Elements */}
           <div className="w-[100%] px-20 flex flex-col items-center my-[150px] md:my-[100px] relative">
             <div
               onClick={handleLogoClick}
-              className={`relative w-full ${animationCompleted ? "cursor-pointer" : ""}`}
+              className={`relative w-full ${animationCompleted ? "cursor-pointer" : ""
+                }`}
             >
               <Link href="/">
                 <Image
@@ -795,19 +778,14 @@ const Header = () => {
       </div>
       <div
         ref={containerMRef}
-        className="relative  h-screen w-full  sm:block md:block lg:hidden xl:hidden block"
+        className={`relative h-screen w-full block lg:hidden ${!MobileAnimationCompleted ? 'bg-[#0a0a0a] headerbg' : ''}`}
       >
-        {/* Fixed Header */}
         <div
           ref={headerMRef}
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="w-[100%] px-10 flex justify-end gap-3 items-center py-10 header sm:flex lg:hidden md:flex">
-              {/* <div className="absolute top-3 left-1/2 transform -translate-x-1/2 -translate-y-10 z-0">
-              <img src={nav} alt="Nav Background" className="w-64 h-auto z-0" />
-            </div> */}
-
+            <div className="w-[100%] px-10 flex justify-end gap-3 items-center py-10 header lg:hidden">
               <div className="relative  items-center gap-5 ">
                 <div className="flex-shrink-0 relative z-10 text-sm sm:hidden hidden md:flex"></div>
               </div>
@@ -848,14 +826,10 @@ const Header = () => {
                                       item.external
                                     );
                                   }}
-                                  className={` font-actayRegular text-sm sm:text-sm
-                      px-7 py-3 rounded-xl
-                          relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full
-                          ${item.path && isActiveRoute(item.path)
+                                  className={`font-actayRegular text-sm sm:text-sm px-7 py-3 rounded-xl relative z-10 cursor-pointer flex items-center gap-1 hover:bg-[#282828] w-full ${item.path && isActiveRoute(item.path)
                                       ? "text-white"
                                       : "text-gray-400"
-                                    }
-                        `}
+                                    }`}
                                 >
                                   {item.label}
 
@@ -969,7 +943,6 @@ const Header = () => {
             </div>
           </div>
 
-          {/* Hero Section with Animated Elements */}
           <div className="w-[100%] px-20 flex sm:my-[100px]  md:my-[100px] lg:my-[100px] my-[100px]  items-center flex-col relative">
             <div className="w-full relative">
               <Image
@@ -984,7 +957,7 @@ const Header = () => {
               ref={landingImageMRef}
               src={landing}
               alt="Landing illustration"
-              className="md:w-[450px] sm:w-[250px] w-[200px] absolute sm:top-10 top-5 md:top-6 lg:top-10 xl:top-0"
+              className="md:w-[450px] xs:w-[200px] w-[140px] absolute top-5 md:top-6"
             />
           </div>
           {!MobileAnimationCompleted && (
@@ -1014,7 +987,7 @@ const Header = () => {
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

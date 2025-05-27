@@ -19,24 +19,81 @@ import eigenlayer from "@/app/assets/HeaderHerosection svgs/Eigenlayer.svg";
 gsap.registerPlugin(ScrollTrigger);
 function Homepage() {
   const nextGenRef = useRef();
-  const [isVisible, setIsVisible] = useState(true); // Initial state on the server
+  const [isVisible, setIsVisible] = useState(true);
+  const section2Ref = useRef();
+  const isScrolling = useRef(false);
+  const scrollTimeout = useRef(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // Set initial state after client-side mount
+    // Always scroll to the top of the page on component mount/refresh
+    window.scrollTo(0, 0);
+
+    // Set initial position below viewport
+    gsap.set(nextGenRef.current, {
+      position: "relative",
+      top: "200vh",
+      opacity: 0,
+    });
+
+    // Create a GSAP timeline for the initial animation
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.set(nextGenRef.current, {
+          opacity: 1,
+          yPercent: 0,
+          position: "relative",
+          top: 0,
+        });
+      },
+    });
+
+    // Animate the content up with the header
+    tl.to(nextGenRef.current, {
+      top: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power2.out",
+    });
+
+    // Reset horizontal scroll position if the section exists
+    if (section2Ref.current) {
+      section2Ref.current.scrollLeft = 0;
+    }
+
+    // Define a scroll event handler for the page
+    const handleScroll = () => {
+      // Update visibility state
       setIsVisible(window.scrollY === 0);
 
-      const handleScroll = () => {
-        setIsVisible(window.scrollY === 0);
-      };
+      // Handle horizontal scroll reset
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
 
-      window.addEventListener("scroll", handleScroll);
+      if (!isScrolling.current) {
+        isScrolling.current = true;
+      }
 
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }
-  }, []);
+      scrollTimeout.current = setTimeout(() => {
+        isScrolling.current = false;
+        if (section2Ref.current) {
+          section2Ref.current.scrollTo({
+            left: 0,
+            behavior: "smooth",
+          });
+        }
+      }, 150);
+    };
+
+    // Add the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup: remove scroll event listener and kill all GSAP ScrollTriggers
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+    };
+  }, []); // Empty dependency array since we only want this to run once on mount
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
@@ -44,133 +101,29 @@ function Homepage() {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
-  useEffect(() => {
-    // Scroll to top on refresh.  Important to do this *before* other animations start
-    window.scrollTo(0, 0);
-
-    // Initial animation
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.set(nextGenRef.current, { opacity: 1, yPercent: -0 });
-      },
-    });
-
-    tl.to(nextGenRef.current, {
-      opacity: 1,
-      duration: 1,
-      ease: "power2.out",
-    });
-
-    // Reset scroll position when component mounts
-    if (section2Ref.current) {
-      section2Ref.current.scrollLeft = 0;
-    }
-
-    // Handle page scroll completion
-    const handleScroll = () => {
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-
-      if (!isScrolling.current) {
-        isScrolling.current = true;
-      }
-
-      scrollTimeout.current = setTimeout(() => {
-        isScrolling.current = false;
-        // Reset horizontal scroll when page scroll stops
-        if (section2Ref.current) {
-          section2Ref.current.scrollTo({
-            left: 0,
-            behavior: "smooth",
-          });
-        }
-      }, 150); // Adjust timeout as needed
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    // Cleanup
-    return () => {
-      window.removeEventListener("scroll", handleScroll); // Ensure proper removal
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  // const nextGenRef = useRef();
-  const section2Ref = useRef();
-  const isScrolling = useRef(false);
-  const scrollTimeout = useRef(null);
 
   useEffect(() => {
-    // Initial animation
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.set(nextGenRef.current, { opacity: 1, yPercent: -0 });
-      },
-    });
-
-    tl.to(nextGenRef.current, {
-      opacity: 1,
-      duration: 1,
-      ease: "power2.out",
-    });
-
-    // Reset scroll position when component mounts
-    if (section2Ref.current) {
-      section2Ref.current.scrollLeft = 0;
-    }
-
-    // Handle page scroll completion
-    const handleScroll = () => {
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
-
-      if (!isScrolling.current) {
-        isScrolling.current = true;
-      }
-
-      scrollTimeout.current = setTimeout(() => {
-        isScrolling.current = false;
-        // Reset horizontal scroll when page scroll stops
-        if (section2Ref.current) {
-          section2Ref.current.scrollTo({
-            left: 0,
-            behavior: "smooth",
-          });
-        }
-      }, 150); // Adjust timeout as needed
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    // Cleanup
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
-  }, []);
-
-  useEffect(() => {
+    // Get the container element for horizontal scroll
     const container = section2Ref.current;
     let isInScrollZone = false;
 
+    // Function to check if the section is in the active scroll zone
     const checkScrollZone = () => {
       if (!container) return false;
       const rect = container.getBoundingClientRect();
-      // Section is in the active scrolling zone when its top is 120px or less from viewport top
       return rect.top <= 120 && rect.bottom > 0;
     };
 
+    // Handle wheel events to hijack vertical scroll and turn it into horizontal scroll
     const handleWheel = (event) => {
       if (!container || !isInScrollZone) return;
 
       const maxScrollLeft = container.scrollWidth - container.clientWidth;
 
-      // Only hijack vertical scrolling when we can scroll more horizontally
       if (container.scrollLeft < maxScrollLeft && event.deltaY > 0) {
         event.preventDefault();
         container.scrollLeft += event.deltaY;
       } else if (container.scrollLeft > 0 && event.deltaY < 0) {
-        // Allow scrolling left when deltaY is negative
         event.preventDefault();
         container.scrollLeft += event.deltaY;
       }
@@ -181,18 +134,19 @@ function Homepage() {
       isInScrollZone = checkScrollZone();
     };
 
-    // Initial check
+    // Initial check to set isInScrollZone
     handleGlobalScroll();
 
-    // Add event listeners to the window (global)
+    // Add event listeners
     window.addEventListener("scroll", handleGlobalScroll);
     window.addEventListener("wheel", handleWheel, { passive: false });
 
+    // Cleanup: remove event listeners
     return () => {
       window.removeEventListener("scroll", handleGlobalScroll);
       window.removeEventListener("wheel", handleWheel);
     };
-  }, []);
+  }, []); // Empty dependency array since we only want this to run once on mount
 
   // Add this useEffect for initial client-side setup
   useEffect(() => {
@@ -201,20 +155,25 @@ function Homepage() {
 
   // Update visibility effect
   useEffect(() => {
+    // Define a handler to update visibility state on scroll
     const handleVisibility = () => {
       setIsVisible(window.scrollY === 0);
     };
 
-    // Handle scroll events
+    // Add scroll event listener
     window.addEventListener("scroll", handleVisibility);
+    // Cleanup: remove scroll event listener
     return () => window.removeEventListener("scroll", handleVisibility);
   }, []);
 
   return (
     <>
       <div className="relative z-0 mx-auto">
-        <div ref={nextGenRef} className="relative -z-10">
-          <section className="my-20 max-w-[1600px] mx-auto">
+        <div
+          ref={nextGenRef}
+          className="relative -z-10 mt-[10px] md:mt-[100px] lg:mt-[270px]"
+        >
+          <section className="mt-10 mb-20 sm:my-20 max-w-[1600px] mx-auto">
             <div
               className="font-sharpGrotesk w-[90%] mx-auto  lg:mt-[11rem] text-center text-4xl sm:text-5xl md:text-5xl lg:text-[70px] leading-[80px] "
               id="target-section"
@@ -512,7 +471,11 @@ function Homepage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full h-auto">
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
                     <div className="block md:hidden absolute right-[-23px] xs:right-0 h-full w-max">
-                      <Image src={speak} alt="side image" className="h-full w-auto"></Image>
+                      <Image
+                        src={speak}
+                        alt="side image"
+                        className="h-full w-auto"
+                      ></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
                       <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
@@ -528,7 +491,11 @@ function Homepage() {
 
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
                     <div className="block md:hidden absolute right-[-23px] xs:right-0 h-full w-max">
-                      <Image src={dev} alt="side image" className="h-full w-auto"></Image>
+                      <Image
+                        src={dev}
+                        alt="side image"
+                        className="h-full w-auto"
+                      ></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
                       <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
@@ -544,7 +511,11 @@ function Homepage() {
 
                   <div className="relative overflow-hidden bg-[#141414] group rounded-3xl border border-white/10 flex items-center aspect-auto md:aspect-square shadow-none transition-[box-shadow] duration-300 ease-in-out hover:shadow-[inset_0_0_20px_0_rgba(255,255,255,0.8)]">
                     <div className="block md:hidden absolute right-[-23px] xs:right-0 h-full w-max">
-                      <Image src={follow} alt="side image" className="h-full w-auto"></Image>
+                      <Image
+                        src={follow}
+                        alt="side image"
+                        className="h-full w-auto"
+                      ></Image>
                     </div>
                     <div className="p-6 lg:p-10 w-full">
                       <h3 className="text-[20px] md:text-[30px] lg:text-[40px] leading-tight mb-4 md:mb-6 text-start font-actayWide w-full lg:w-[90%] 2xl:w-[80%] h-auto md:h-[50px] text-wrap md:w-[90%] lg:h-[90px]">
