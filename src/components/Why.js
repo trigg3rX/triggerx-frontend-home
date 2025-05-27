@@ -11,7 +11,6 @@ const SPRING_OPTIONS = { type: "spring", stiffness: 300, damping: 30 };
 
 export default function Why({
   Boxdata,
-  visibleItems = 3,
   autoplay = true,
   autoplayDelay = 2000,
   pauseOnHover = true,
@@ -26,6 +25,7 @@ export default function Why({
   const [isMobile, setIsMobile] = useState(false);
   const x = useMotionValue(0);
   const containerRef = useRef(null);
+  const [videoError, setVideoError] = useState(false);
 
   // Create wrapped items array for infinite loop
   const wrappedItems = [...Boxdata, ...Boxdata, ...Boxdata];
@@ -51,9 +51,6 @@ export default function Why({
     window.addEventListener("resize", updateDimensions);
     return () => window.removeEventListener("resize", updateDimensions);
   }, []);
-
- 
- 
 
   useEffect(() => {
     if (!isMobile && autoplay && (!pauseOnHover || !isHovered) && !isDragging) {
@@ -99,6 +96,76 @@ export default function Why({
     }
   };
 
+  const renderMediaItem = (box, mapIndex) => {
+    if (!box || !box.imageSrc) {
+      return (
+        <div className="w-full h-full bg-gray-800 flex items-center justify-center text-xs text-gray-400">
+          No media
+        </div>
+      );
+    }
+
+    // Determine if the current item in the map is the one centrally displayed in the carousel
+    // For mobile list, this logic isn't directly applicable for priority in the same way.
+    const effectiveCurrentOriginalIndex = loop
+      ? currentIndex % totalItems
+      : currentIndex;
+    const itemOriginalIndex = mapIndex % totalItems;
+    const isCurrentlyVisibleInCarousel =
+      !isMobile && itemOriginalIndex === effectiveCurrentOriginalIndex;
+
+    if (box.mediaType === "video") {
+      const baseName = box.imageSrc.split('/').pop().replace('.webm', '');
+      const svgPath = `/assets/why svg and gifs/${baseName}.svg`;
+
+      return (
+        <div className="relative w-full h-full">
+          {!videoError ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls={false}
+              preload="metadata"
+              className="object-cover w-full h-full"
+              poster={svgPath}
+              onError={() => setVideoError(true)}
+            >
+              <source src={box.imageSrc} type="video/webm" />
+              {/* Optionally add more <source> tags for other formats */}
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <Image
+              src={svgPath}
+              alt={box.title}
+              fill
+              className="object-cover"
+              priority={false}
+              loading="lazy"
+              quality={75}
+            />
+          )}
+        </div>
+      );
+    }
+
+    return (
+      <div className="w-full h-full bg-gray-800 flex items-center justify-center text-xs text-gray-400">
+        Unsupported type: {box.mediaType}
+      </div>
+    );
+  };
+
+  if (!Boxdata || Boxdata.length === 0) {
+    return (
+      <div className="w-full text-center py-10 text-gray-500">
+        No data to display.
+      </div>
+    );
+  }
+
   return (
     <div className="w-full overflow-hidden pl-4 md:pl-8 lg:pl-16  ">
       <div className="flex flex-col lg:flex-row gap-8 items-center">
@@ -120,12 +187,13 @@ export default function Why({
                   <div className="rounded-[20px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-4">
                     <div className="flex gap-3 items-center justify-center">
                       <div className="relative w-24 h-24 overflow-hidden rounded-[10px] flex-shrink-0">
-                        <Image
+                        {/* <Image
                           src={box.imageSrc}
                           alt={box.title}
                           className="object-cover"
                           fill
-                        />
+                        /> */}
+                        {renderMediaItem(box, index)}
                       </div>
                       <div className="flex-1">
                         <h3 className="font-actayWide text-[15px] text-white font-bold mb-2">
@@ -151,7 +219,6 @@ export default function Why({
               <motion.div
                 className="flex"
                 drag="x"
-          
                 dragElastic={0.1}
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
@@ -168,12 +235,13 @@ export default function Why({
                     >
                       <div className="h-full rounded-[20px] overflow-hidden bg-[#0F0F0F] border border-[#5F5F5F] p-4">
                         <div className="relative h-32 md:h-40 lg:h-48 overflow-hidden rounded-[14px]">
-                          <Image
+                          {/* <Image
                             src={box.imageSrc}
                             alt={box.title}
                             className="object-cover w-full h-full"
                             fill
-                          />
+                          /> */}
+                          {renderMediaItem(box, index)}
                         </div>
                         <div className="space-y-4 p-4">
                           <h3 className="font-actayWide text-lg md:text-xl text-white font-bold">
