@@ -7,15 +7,21 @@
   --foreground: #ededed;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
   background-image: url("assets//grid.png");
   font-family: var(--font-actay-regular), sans-serif; 
-  overflow-y: scroll;
-  height: 100%;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
 }
+
 .landingBg {
   color: var(--foreground);
   background: var(--background);

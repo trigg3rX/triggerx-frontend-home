@@ -23,8 +23,8 @@ const Header = () => {
   const [imageOpacity, setImageOpacity] = useState(1);
   const [imageMOpacity, setImageMOpacity] = useState(1);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-
+  const [isMobile, setIsMobile] = useState(false);
+  
   // Refs for DOM elements used in animation and navigation
   const navRef = useRef();
   const navMobileRef = useRef(null);
@@ -220,7 +220,6 @@ const Header = () => {
       onComplete: () => {
         animationPlayed.current = true;
         setAnimationCompleted(true);
-        setShowContent(true);
         gsap.set(containerRef.current, { height: "100px" });
       },
     });
@@ -303,21 +302,22 @@ const Header = () => {
     const calculatePositions = () => {
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
+      const isSmallScreen = viewportWidth < 640; // sm breakpoint is 640px
 
       return {
         logo: {
-          width: 130,
-          x: -58,
-          y: -165,
+          width: isSmallScreen ? 100 : 130, // Smaller width for small screens
+          x: isSmallScreen ? -60 : -58,
+          y: isSmallScreen ? -170 : -165,
         },
         nav: {
           x: viewportWidth * -0,
           y: viewportHeight * -0,
         },
         landing: {
-          width: 300,
-          x: viewportWidth * -0,
-          y: -355,
+          width: isSmallScreen ? 230 : 300, // Smaller width for small screens
+          x: isSmallScreen ? 20 : 30, // Added positive x value to move right
+          y: isSmallScreen ? -330 : -355,
           scale: 0.8,
         },
       };
@@ -570,11 +570,6 @@ const Header = () => {
     }
   }, [pathname, scrollToSection]); // Runs when path or scrollToSection changes
 
-  // useEffect: Shows content immediately if animation already played
-  useEffect(() => {
-    if (animationPlayed.current) setShowContent(true); // Show content if animation done
-  }, []); // Runs once on mount
-
   // useEffect: Always scroll to top on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -587,8 +582,8 @@ const Header = () => {
     if (!animationPlayed.current) {
       const handleScroll = () => {
         // If user scrolls more than 100px, reset to 100px
-        if (window.scrollY > 100) {
-          window.scrollTo({ top: 100, behavior: "smooth" });
+        if (window.scrollY > 50) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }
       };
       window.addEventListener("scroll", handleScroll);
@@ -620,11 +615,44 @@ const Header = () => {
     }
   };
 
+  // Add new useEffect for handling window resize
+  useEffect(() => {
+    const handleResize = () => {
+      const isMobileView = window.innerWidth < 1024;
+      setIsMobile(isMobileView);
+      
+      // Reset animation states when switching between mobile and desktop
+      if (isMobileView !== isMobile) {
+        setAnimationCompleted(false);
+        setMobileAnimationCompleted(false);
+        animationPlayed.current = false;
+        
+        // Play appropriate animation based on new view
+        if (isMobileView) {
+          playMobileAnimation();
+        } else {
+          playAnimation();
+        }
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    // Add event listener
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isMobile]);
+
   return (
     <>
       <div
         ref={containerRef}
-        className="fixed top-0 left-0 w-full h-screen z-[9999] bg-[#0a0a0a] headerbg hidden lg:block"
+        className={`fixed top-0 left-0 w-full h-screen z-[9999] bg-[#0a0a0a] headerbg ${isMobile ? 'hidden' : 'block'}`}
       >
         <div
           ref={headerRef}
@@ -721,10 +749,10 @@ const Header = () => {
               {animationCompleted && (
                 <div className="absolute right-10">
                   <Link href="https://app.triggerx.network" target="_blank">
-                    <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
+                    <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3  lg:px-6 xl:px-8 rounded-full group transition-transform">
                       <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50 rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                       <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
-                      <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-2 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
+                      <span className="font-actayRegular relative z-10 px-0 py-3 sm:px-3 md:px-6 lg:px-0 rounded-full translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out text-xs sm:text-base">
                         Start Building
                       </span>
                     </button>
@@ -791,14 +819,14 @@ const Header = () => {
       </div>
       <div
         ref={containerMRef}
-        className={`relative h-screen w-full block lg:hidden ${!MobileAnimationCompleted ? 'bg-[#0a0a0a] headerbg' : ''}`}
+        className={`relative h-screen w-full ${isMobile ? 'block' : 'hidden'} ${!MobileAnimationCompleted ? 'bg-[#0a0a0a] headerbg' : ''}`}
       >
         <div
           ref={headerMRef}
           className="fixed top-0 left-0 right-0 w-full h-[100px]"
         >
           <div className="w-full bg-[#0a0a0a] headerbg">
-            <div className="w-[100%] px-10 flex justify-end gap-3 items-center py-10 header lg:hidden">
+            <div className="w-[100%] sm:px-10 px-5 flex justify-end gap-3 items-center py-10 header lg:hidden">
               <div className="relative  items-center gap-5 ">
                 <div className="flex-shrink-0 relative z-10 text-sm sm:hidden hidden md:flex"></div>
               </div>
