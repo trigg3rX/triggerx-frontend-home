@@ -307,8 +307,8 @@ const Header = () => {
       return {
         logo: {
           width: isSmallScreen ? 100 : 130, // Smaller width for small screens
-          x: isSmallScreen ? -60 : -58,
-          y: isSmallScreen ? -170 : -165,
+          x: isSmallScreen ? -52 : -30,
+          y: isSmallScreen ? -164 : -170,
         },
         nav: {
           x: viewportWidth * -0,
@@ -316,8 +316,8 @@ const Header = () => {
         },
         landing: {
           width: isSmallScreen ? 230 : 300, // Smaller width for small screens
-          x: isSmallScreen ? 20 : 30, // Added positive x value to move right
-          y: isSmallScreen ? -330 : -355,
+          x: isSmallScreen ? 0 : 0, // Added positive x value to move right
+          y: isSmallScreen ? -325 : -375,
           scale: 0.8,
         },
       };
@@ -838,7 +838,7 @@ const Header = () => {
                 <div className="lg:hidden">
                   <h4
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="text-white text-2xl cursor-pointer"
+                    className="text-white text-xl lg:text-2xl cursor-pointer"
                   >
                     {menuOpen ? "✖" : "☰"}
                   </h4>

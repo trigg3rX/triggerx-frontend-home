@@ -333,7 +333,7 @@ function Homepage() {
                 </div>
 
                 <div className="flex gap-4 justify-center">
-                  <Link href="https://t.me/triggerxnetwork" target="blank">
+                  <Link href="https://app.triggerx.network/devhub" target="blank">
                     <button className="relative bg-[#222222] text-[#000000] border border-[#222222] px-6 py-2 sm:px-8 sm:py-3 rounded-full group transition-transform">
                       <span className="absolute inset-0 bg-[#222222] border border-[#FFFFFF80]/50  rounded-full scale-100 translate-y-0 transition-all duration-300 ease-out group-hover:translate-y-2"></span>
                       <span className="absolute inset-0 bg-[#F8FF7C] rounded-full scale-100 translate-y-0 group-hover:translate-y-0"></span>
@@ -502,7 +502,7 @@ function Homepage() {
                         <b>Dev Hub</b>
                       </h3>
                       <h4 className="text-xs lg:text-base 2xl:text-[1.5vw] text-start tracking-wider text-[#82FBD0] group-hover:underline py-2 md:py-5 font-actayRegular">
-                        <a href="https://t.me/triggerxnetwork" target="_blank">
+                        <a href="https://app.triggerx.network/devhub" target="_blank">
                           Connect
                         </a>
                       </h4>
