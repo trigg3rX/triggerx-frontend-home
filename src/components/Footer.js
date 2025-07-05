@@ -21,174 +21,296 @@ import mediumdark from "@/app/assets/footer svgs/mediumdark.svg";
 import youtube from "@/app/assets/footer svgs/youtube.svg";
 import youtubedark from "@/app/assets/footer svgs/youtubedark.svg";
 
-const socialLinks = [
+const footerSocialLinks = [
   {
+    id: "github",
     title: "Github",
     href: "https://github.com/trigg3rX",
-    icon: github,
+    iconLight: github,
     iconDark: githubdark,
-    border: true,
-    alt: "GitHub",
+    applyBorderEffect: true,
+    alt: "TriggerX on GitHub",
   },
   {
+    id: "twitter",
     title: "Twitter",
     href: "https://x.com/TriggerXnetwork",
-    icon: twitter,
+    iconLight: twitter,
     iconDark: twitterdark,
-    border: true,
-    alt: "Twitter",
+    applyBorderEffect: true,
+    alt: "TriggerX on Twitter",
   },
   {
+    id: "telegram",
     title: "Telegram",
     href: "https://t.me/triggerxnetwork",
-    icon: telegram,
+    iconLight: telegram,
     iconDark: telegramdark,
-    border: true,
-    alt: "Telegram",
+    applyBorderEffect: true,
+    alt: "TriggerX on Telegram",
   },
   {
+    id: "gitbook",
     title: "Gitbook",
     href: "https://triggerx.gitbook.io/triggerx-docs",
-    icon: gitbook,
+    iconLight: gitbook,
     iconDark: gitbookdark,
-    border: true,
-    alt: "GitBook",
+    applyBorderEffect: true,
+    alt: "TriggerX on GitBook",
   },
   {
+    id: "mirror",
     title: "Mirror",
     href: "https://mirror.xyz/0x0255F7A175f73a05765719c165445F63155aF8E9",
-    icon: mirror,
+    iconLight: mirror,
     iconDark: mirrordark,
-    border: true,
-    alt: "Mirror",
+    applyBorderEffect: true,
+    alt: "TriggerX on Mirror",
   },
   {
+    id: "medium",
     title: "Medium",
     href: "https://medium.com/@triggerx",
-    icon: medium,
+    iconLight: medium,
     iconDark: mediumdark,
-    border: true,
-    alt: "Medium",
+    applyBorderEffect: true,
+    alt: "TriggerX on Medium",
   },
   {
+    id: "youtube",
     title: "Youtube",
     href: "https://www.youtube.com/@triggerxnetwork",
-    icon: youtube,
+    iconLight: youtube,
     iconDark: youtubedark,
-    border: true,
-    alt: "YouTube",
+    applyBorderEffect: true,
+    alt: "TriggerX on YouTube",
   },
 ];
 
-const Footer = () => {
+const footerNavLinksTop = [
+  {
+    id: "status",
+    label: "Status",
+    href: "https://status.triggerx.network/",
+    isLink: true,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "hover:text-gray-400 transition-colors",
+  },
+  {
+    id: "build",
+    label: "Build",
+    href: "/",
+    isLink: true,
+    className: "hover:text-gray-400 transition-colors",
+  },
+  {
+    id: "docs",
+    label: "Docs",
+    href: "https://triggerx.gitbook.io/triggerx-docs",
+    isLink: true,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "hover:text-gray-400 transition-colors",
+  },
+  {
+    id: "devhub",
+    label: "Dev Hub",
+    href: "/devhub",
+    isLink: true,
+    className: "hover:text-gray-400 transition-colors",
+  },
+];
+
+const footerNavLinksBottom = [
+  {
+    id: "joinAsKeeper",
+    label: "Join As Keeper",
+    href: "https://triggerx.gitbook.io/triggerx-docs/getting-started-as-keepers",
+    isLink: true,
+    target: "_blank",
+    rel: "noopener noreferrer",
+    className: "hover:text-gray-400 transition-colors",
+  },
+  {
+    id: "termsOfUse",
+    label: "Term of Use",
+    isLink: false,
+    title: "Available Soon",
+    className: "hover:text-gray-400 transition-colors cursor-default",
+  },
+  {
+    id: "privacyPolicy",
+    label: "Privacy Policy",
+    isLink: false,
+    title: "Available Soon",
+    className: "hover:text-gray-400 transition-colors cursor-default",
+  },
+];
+
+function Footer() {
   const currentYear = new Date().getFullYear();
-  const [hovered, setHovered] = useState(null);
+  const [hoveredIcon, setHoveredIcon] = useState(null);
 
   return (
-    <>
-      <div className="relative flex flex-col items-center justify-center gap-[5px] md:gap-[90px] lg:gap-[120px] 2xl:gap-[120px]">
-        <div className="flex mt-20 flex-col-reverse md:flex-row items-start md:items-end justify-between gap-5 w-[88%] md:w-[80%] xl:w-[70%] mx-auto">
-          <div className="flex flex-col gap-4 w-[100%] md:w-auto mx-auto">
-            <div className="flex space-x-2 xs:space-x-3 lg:space-x-4 items-center mr-auto">
-              {socialLinks.map(
-                ({ title, href, icon, iconDark, border, alt }) => (
-                  <Tooltip key={title} title={title} color="#141414">
+    <footer className="relative z-10 flex flex-col items-center justify-center gap-[5px] md:gap-[40px] lg:gap-[80px] 2xl:gap-[120px] mt-[80px] lg:mt-0">
+      {/* Main Content Area */}
+      <div className="z-40 flex mt-10 md:mt-20 flex-col-reverse sm:flex-row items-start sm:items-end justify-between gap-10 w-[88%] sm:w-[95%] md:w-[85%] xl:w-[70%] mx-auto">
+        {/* Left Section: Social Links & Copyright */}
+        <div className="flex flex-col gap-4 w-full sm:w-auto mx-auto md:mx-0">
+          <div className="flex space-x-2 xs:space-x-3 lg:space-x-4 items-center mr-auto">
+            {footerSocialLinks.map((link) => (
+              <Tooltip
+                key={link.id}
+                title={link.title}
+                color="#141414"
+                placement="top"
+              >
+                <a
+                  href={link.href}
+                  className={`flex items-center justify-center w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 overflow-hidden rounded-full transition-colors duration-200 ${link.applyBorderEffect ? "border border-white hover:bg-white hover:border-white" : ""}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.alt}
+                  onMouseEnter={() => setHoveredIcon(link.id)}
+                  onMouseLeave={() => setHoveredIcon(null)}
+                >
+                  <Image
+                    src={hoveredIcon === link.id ? link.iconDark : link.iconLight}
+                    alt={link.alt}
+                    width={24}
+                    height={24}
+                    className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 object-contain transition-transform duration-200 group-hover:scale-110"
+                  />
+                </a>
+              </Tooltip>
+            ))}
+          </div>
+          <p className="text-start text-[10px] xs:text-[12px] lg:text-[13px] 2xl:text-[15px] text-gray-400 whitespace-nowrap">
+            © {currentYear} TriggerX. All rights reserved.
+          </p>
+        </div>
+
+        {/* Right Section: Navigation Links */}
+        <div className="text-white w-full xs:w-[88%] sm:w-auto mx-auto md:mx-0 flex flex-col justify-center gap-4 md:gap-6 items-start md:items-end">
+          <div className="w-full md:w-auto flex justify-between sm:justify-end gap-x-6 gap-y-2 md:gap-x-7 lg:gap-x-12 text-[10px] xs:text-[12px] lg:text-[14px] 2xl:text-[15px] text-gray-300 whitespace-nowrap tracking-wide flex-wrap">
+            {footerNavLinksTop.map((item) => {
+              if (item.isLink) {
+                if (item.href && item.href.startsWith("http")) {
+                  // External link
+                  return (
                     <a
-                      href={href}
-                      className={`hover:text-gray-300 flex items-center justify-center w-7 h-7 md:w-8 md:h-8 lg:w-10 lg:h-10 overflow-hidden rounded-full ${
-                        border ? "border hover:bg-white" : ""
-                      }`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`TriggerX on ${title}`}
-                      onMouseEnter={() => setHovered(title)}
-                      onMouseLeave={() => setHovered(null)}
+                      key={item.id}
+                      href={item.href}
+                      className={item.className}
+                      target={item.target || "_blank"}
+                      rel={item.rel || "noopener noreferrer"}
                     >
-                      <Image
-                        src={hovered === title && iconDark ? iconDark : icon}
-                        alt={alt}
-                        width={24}
-                        height={24}
-                        className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6"
-                      />
+                      {item.label}
                     </a>
-                  </Tooltip>
-                )
-              )}
-            </div>
-            <h4 className="text-start text-[10px] xs:text-[12px] lg:text-[13px] 2xl:text-[15px] text-nowrap">
-              © {currentYear} TriggerX. All rights reserved.
-            </h4>
+                  );
+                } else {
+                  // Internal link
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      className={item.className}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                }
+              } else {
+                // Not a link, just a span
+                return (
+                  <span key={item.id} className={item.className} title={item.title}>
+                    {item.label}
+                  </span>
+                );
+              }
+            })}
           </div>
-
-          <div className="w-[100%] md:w-auto mx-auto flex flex-col justify-center gap-4 md:gap-8 items-end">
-            <div className="w-[100%] md:w-auto flex justify-between md:justify-end gap-0 md:gap-7 lg:gap-12 text-[10px] xs:text-[12px] lg:text-[14px] 2xl:text-[15px] text-nowrap tracking-wide">
-              <a
-                href="https://app.triggerx.network/"
-                className="hover:text-gray-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Build
-              </a>
-              <a
-                href="https://triggerx.gitbook.io/triggerx-docs"
-                className="hover:text-gray-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Docs
-              </a>
-              <a
-                href="https://app.triggerx.network/devhub"
-                className="hover:text-gray-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Dev Hub
-              </a>
-            </div>
-            <div className="w-[100%] md:w-auto flex justify-between md:justify-end gap-3 md:gap-5 lg:gap-8 text-[10px] xs:text-[12px] lg:text-[14px] 2xl:text-[15px] text-nowrap tracking-wide">
-              <a
-                href="https://triggerx.gitbook.io/triggerx-docs/getting-started-as-keepers"
-                className="hover:text-gray-400"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Join As Keeper
-              </a>
-              <div className="hover:text-gray-400" title="Available Soon">
-                Term of Use
-              </div>
-              <div className="hover:text-gray-400" title="Available Soon">
-                Privacy Policy
-              </div>
-            </div>
+          <div className="w-full md:w-auto flex justify-between sm:justify-end gap-x-3 gap-y-2 md:gap-x-5 lg:gap-x-8 text-[10px] xs:text-[12px] lg:text-[14px] 2xl:text-[15px] text-gray-300 whitespace-nowrap tracking-wide flex-wrap">
+            {footerNavLinksBottom.map((item) => {
+              if (item.isLink) {
+                if (item.href && item.href.startsWith("http")) {
+                  // External link
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      className={item.className}
+                      target={item.target || "_blank"}
+                      rel={item.rel || "noopener noreferrer"}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                } else {
+                  // Internal link
+                  return (
+                    <a
+                      key={item.id}
+                      href={item.href}
+                      className={item.className}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                }
+              } else {
+                // Not a link, just a span
+                return (
+                  <span key={item.id} className={item.className} title={item.title}>
+                    {item.label}
+                  </span>
+                );
+              }
+            })}
           </div>
-        </div>
-
-        <div className="w-[95%] mx-auto h-max p-5">
-          <Image src={logo} alt="footer" className="w-full h-auto" />
-        </div>
-
-        <div className="absolute left-0 -z-10 bottom-[68%] md:bottom-[26%] lg:bottom-[40%] w-[80px] sm:w-[130px] lg:w-[150px] 2xl:w-[200px] h-max overflow-hidden">
-          <Image
-            src={footer1}
-            alt=""
-            className="w-full h-auto relative -left-5 md:left-0"
-          />
-        </div>
-
-        <div className="absolute right-0 -z-10 bottom-[53%] md:bottom-[50%] lg:bottom-[30%] w-[80px] sm:w-[130px] 2xl:w-[220px] h-max overflow-hidden">
-          <Image
-            src={footer2}
-            alt=""
-            className="w-full h-auto relative left-5 md:left-0"
-          />
         </div>
       </div>
-    </>
+
+      {/* Footer Logo Banner */}
+      <div className="z-20 w-[95%] mx-auto h-max pt-5 pb-3 mt-0 sm:mt-8 md:mt-12">
+        <Image
+          src={logo}
+          alt="TriggerX Footer Banner"
+          className="w-full h-auto"
+          priority={false}
+        />
+
+        <p className=" text-[10px] xs:text-[12px] lg:text-[14px] 2xl:text-[15px] mt-2 mx-auto flex items-center justify-center">
+          Build with ❤️ by{" "}
+          <a
+            href="https://lampros.tech/?utm_source=triggerx&utm_medium=footer"
+            target="_blank"
+            className="hover:underline"
+          >
+            Lampros Tech
+          </a>
+        </p>
+      </div>
+
+      {/* Decorative Background Images */}
+      <div className="z-10 absolute left-0 bottom-[80%] md:bottom-[26%] lg:bottom-[40%] w-[80px] sm:w-[130px] lg:w-[150px] 2xl:w-[200px] h-max overflow-hidden">
+        <Image
+          src={footer1}
+          alt=""
+          className="w-full h-auto relative -left-5 md:left-0"
+        />
+      </div>
+
+      <div className="z-10 absolute right-0 bottom-[60%] md:bottom-[50%] lg:bottom-[30%] w-[80px] sm:w-[130px] 2xl:w-[220px] h-max overflow-hidden">
+        <Image
+          src={footer2}
+          alt=""
+          className="w-full h-auto relative left-5 md:left-0"
+        />
+      </div>
+    </footer>
   );
-};
+}
 
 export default Footer;
