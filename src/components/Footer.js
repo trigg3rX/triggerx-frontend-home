@@ -286,7 +286,7 @@ function Footer() {
           <a
             href="https://lampros.tech/?utm_source=triggerx&utm_medium=footer"
             target="_blank"
-            className="hover:underline"
+            className="hover:underline ml-1.5 sm:ml-2"
           >
             Lampros Tech
           </a>
